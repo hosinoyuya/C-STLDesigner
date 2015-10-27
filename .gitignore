@@ -1,0 +1,6 @@
+config/
+Debug/
+include/
+Release/
+src/
+*.vcxproj*
