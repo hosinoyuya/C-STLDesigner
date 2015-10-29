@@ -20,7 +20,6 @@ void stl_main::run()
 	cout << endl;
 
 	for (size_t i = 0; i < config.seeds_.size(); i++) {
-		bool is_complete = true;
 		stl_config config_seed(config);
 		config_seed.chane_outdirectory_seed(config.seeds_[i]);
 		
