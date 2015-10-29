@@ -1,9 +1,11 @@
 #pragma once
 #include "stl_config.h"
+#include "file_utils.h"
 #include <string>
 #include <vector>
 
 using namespace std;
+using namespace boost;
 
 class stl_main
 {
@@ -15,4 +17,6 @@ private:
 	vector<int> seeds;
 public:
 	void run();
+private:
+	void directory_init(stl_config config);
 };

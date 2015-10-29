@@ -2,6 +2,7 @@
 
 stl_config::stl_config()
 {
+	setDefault();
 }
 
 
@@ -14,9 +15,9 @@ void stl_config::setDefault()
 {
 	out_directory_ = "./output";
 	log_directory_ = out_directory_ + "/stl/log";
-	population_directory_ = out_directory_ + "stl/population";
-	best_directory_ = out_directory_ + "stl/best";
-	image_directory_ = out_directory_ + "stl/image";
+	population_directory_ = out_directory_ + "/stl/population";
+	best_directory_ = out_directory_ + "/stl/best";
+	image_directory_ = out_directory_ + "/stl/images";
 	template_file_ = "./template/default.sp";
 	population_size_ = 2;
 	generation_num_ = 2;
@@ -221,6 +222,27 @@ void stl_config::setParameters(YAML::Node config) {
 
 void stl_config::chane_outdirectory_seed(int seed)
 {
-	cout << seed << endl;
-	
+	ostringstream oss;
+	oss << "seed_" << seed;
+	string seed_string = oss.str();
+	string find_string;
+	find_string = "/log";
+	log_directory_.replace(log_directory_.find(find_string),
+		find_string.size(), "/" + seed_string + find_string);
+	find_string = "/population";
+	population_directory_.replace(population_directory_.find(find_string),
+		find_string.size(), "/" + seed_string + find_string);
+	find_string = "/best";
+	best_directory_.replace(best_directory_.find(find_string),
+		find_string.size(), "/" + seed_string + find_string);
+	find_string = "/images";
+	image_directory_.replace(image_directory_.find(find_string),
+		find_string.size(), "/" + seed_string + find_string);
+
+	/*
+	cout << log_directory_ << endl;
+	cout << population_directory_ << endl;
+	cout << best_directory_ << endl;
+	cout << image_directory_ << endl;
+	*/
 }
