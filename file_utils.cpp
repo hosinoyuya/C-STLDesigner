@@ -14,7 +14,6 @@ file_utils::~file_utils()
 
 bool file_utils::rm_r(string path)
 {
-	cout << path << endl;
 	boost::filesystem::path directory(path);
 	boost::filesystem::directory_iterator end;
 	if (boost::filesystem::exists(directory)) {
@@ -28,11 +27,9 @@ bool file_utils::rm_r(string path)
 				}
 				else {
 					boost::filesystem::remove(fullpath);
-					cout << "removed:" << fullpath << endl;
 				}
 			}
 			boost::filesystem::remove(path);
-			cout << "removed:" << path << endl;
 		}
 		catch (const boost::filesystem::filesystem_error& e) {
 			cerr << e.what() << endl;

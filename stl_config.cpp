@@ -78,10 +78,10 @@ void stl_config::load(string file_path)
 	else {
 		file_name_ = file_path;
 	}
+
 	file_path_ = file_path;
 	YAML::Node config = YAML::LoadFile(file_path);
 	stl_config::setParameters(config);
-	// stl_config::setDefault();
 }
 
 
