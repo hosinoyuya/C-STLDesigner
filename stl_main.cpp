@@ -2,8 +2,8 @@
 
 stl_main::stl_main(string file_name)
 {
-	config.load(file_name);
-	seeds = config.seeds_;
+	config_.load(file_name);
+	seeds_ = config_.seeds_;
 }
 
 
@@ -20,14 +20,14 @@ void stl_main::run()
 	cout << endl;
 
 	bool result, is_complete;
-	for (size_t i = 0; i < config.seeds_.size(); i++) {
-		stl_config config_seed(config);
-		config_seed.chane_outdirectory_seed(config.seeds_[i]);
+	for (size_t i = 0; i < config_.seeds_.size(); i++) {
+		stl_config config_seed(config_);
+		config_seed.chane_outdirectory_seed(config_.seeds_[i]);
 
 		directory_init(config_seed);
 		log_init(config_seed);
 
-		result = run_optrunner(config_seed, config.seeds_[i]);
+		result = run_optrunner(config_seed, config_.seeds_[i]);
 		is_complete &= result;
 	}
 

@@ -11,7 +11,7 @@ public:
 	~debug_log();
 	static void init(string file_name, bool debug_flag);
 private:
-	static string log_file_name;
-	static bool debug_flag;
+	static string log_file_name_;
+	static bool debug_flag_;
 };
 

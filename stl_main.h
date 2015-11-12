@@ -18,8 +18,8 @@ public:
 	stl_main(string file_name);
 	~stl_main();
 private:
-	stl_config config;
-	vector<int> seeds;
+	stl_config config_;
+	vector<int> seeds_;
 public:
 	void run();
 private:

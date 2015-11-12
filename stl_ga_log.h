@@ -11,6 +11,6 @@ public:
 	~stl_ga_log();
 	void static init(string file_name);
 protected:
-	static string log_file_name;
+	static string log_file_name_;
 };
 
