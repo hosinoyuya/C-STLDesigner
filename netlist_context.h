@@ -9,8 +9,9 @@ class netlist_context
 public:
 	netlist_context(string header = "");
 	~netlist_context();
+	void operator <<(string line);
 protected:
 	string header_;
-	vector<string> contexts_;
+	vector<string> contents_;
 };
 

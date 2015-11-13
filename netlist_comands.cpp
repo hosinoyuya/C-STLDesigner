@@ -1,14 +1,14 @@
-#include "netlist_comands.h"
+#include "netlist_commands.h"
 
 
 
-netlist_comands::netlist_comands()
+netlist_commands::netlist_commands()
 {
 	header_ = "*** Netlist Commands *** -------------------------------------------------------------*\n";
 }
 
 
-netlist_comands::~netlist_comands()
+netlist_commands::~netlist_commands()
 {
 }
 

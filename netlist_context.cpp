@@ -16,3 +16,9 @@ netlist_context::netlist_context(string header)
 netlist_context::~netlist_context()
 {
 }
+
+
+void netlist_context::operator<<(string line)
+{
+	contents_.push_back(line);
+}

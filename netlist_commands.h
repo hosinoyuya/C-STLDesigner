@@ -4,15 +4,13 @@
 #include <vector>
 #include <iostream>
 
-class netlist_comands :
+class netlist_commands :
 	public netlist_context
 {
 public:
-	netlist_comands();
-	~netlist_comands();
+	netlist_commands();
+	~netlist_commands();
 private:
-	const string REG_CONTEXT_MARKER = "\*\*\*(.*)\*\*\* -+\*";
-	const string REG_CONTEXT_END = "\*-+\*";
 	vector<string> dummy_;
 	vector<string> models_;
 	vector<string> node_params_;

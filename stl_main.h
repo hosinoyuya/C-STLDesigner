@@ -10,7 +10,6 @@
 #include <vector>
 
 using namespace std;
-using namespace boost;
 
 class stl_main
 {
