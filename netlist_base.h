@@ -36,5 +36,6 @@ private:
 	string file_path_;
 	vector<string> concat_continue_line(vector<string> lines);
 	shared_ptr<netlist_context> set_context(string line);
+	void parce_contexts();
 };
 

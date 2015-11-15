@@ -48,7 +48,7 @@ void netlist_base::load(string file_path) {
 		}
 	}
 
-
+	parce_contexts();
 }
 
 vector<string> netlist_base::concat_continue_line(vector<string> lines)
@@ -95,4 +95,24 @@ shared_ptr<netlist_context> netlist_base::set_context(string line)
 		return scores_;
 	}
 	return NULL;
+}
+
+
+void netlist_base::parce_contexts()
+{
+	if (stl_circuit_ != NULL) {
+		stl_circuit_->parce();
+	}
+	if (versus_circuit_ != NULL) {
+		versus_circuit_->parce();
+	}
+	if (trigger_circuit_ != NULL) {
+		trigger_circuit_->parce();
+	}
+	if (commands_ != NULL) {
+		commands_->parce();
+	}
+	if (scores_ != NULL) {
+		scores_->parce();
+	}
 }

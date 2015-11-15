@@ -10,8 +10,9 @@ public:
 	netlist_context(string header = "");
 	~netlist_context();
 	void operator <<(string line);
+	virtual void parce();
 protected:
 	string header_;
+	vector<string> context_;
 	vector<string> contents_;
 };
-
