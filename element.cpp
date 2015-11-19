@@ -6,10 +6,12 @@
 #include "xelement.h"
 #include "nelement.h"
 
+const regex REG_NODE(R"(\w*pt\d*|\d+)");
+
 element::element(string name)
 {
 	name_ = name;
-	reg_node_ = R"(\w*pt\d*|\d+)";
+	
 }
 
 
@@ -37,7 +39,7 @@ shared_ptr<element> element::parce(string line)
 	}
 
 	element->set_node(items);
-	element->set_parameters(items);
+	element->separate_parameters(items);
 
 	return element;
 }
@@ -65,23 +67,54 @@ shared_ptr<element> element::generate(string name)
 }
 
 
-void element::set_node(vector<string> items)
+void element::set_node(vector<string> &items)
 {
+	string point;
+	int test = node_num();
 	for (int i = 0; i < node_num(); i++) {
-		string point = items[i];
+		if (items.size() > 0) {
+			point = items[0];
+			items.erase(items.begin());
+		}
+		else {
+			cerr << "invalid node num!" << endl;
+			exit(0);
+		}
 		if (is_node(point)) {
 			nodes_.push_back(make_shared<node_point>("", point));
 		}
 		else {
 			cerr << "invalid set_node, pt = " << point << endl;
+			exit(0);
 		}
 	}
 }
 
 
-void element::set_parameters(vector<string> items)
+void element::separate_parameters(vector<string> items)
 {
-	// 次回
+	for (size_t i = 0; i < items.size(); i++) {
+		vector<string> separeted_item;
+		
+		boost::algorithm::split(separeted_item, items[i], boost::is_any_of("="), boost::algorithm::token_compress_on);
+		string key;
+		string val;
+		if (separeted_item.size() >= 2) {
+			key = separeted_item[0];
+			val = separeted_item[1];
+		}
+		else {
+			key = "";
+			val = separeted_item[0];
+		}
+		set_parameters(key, val);
+	}
+}
+
+
+void element::set_parameters(string key, string val)
+{
+	// 小クラスでオーバーライド
 }
 
 
@@ -93,5 +126,5 @@ int element::node_num()
 
 bool element::is_node(string node)
 {
-	return (regex_match(node, reg_node_));
+	return (regex_match(node, REG_NODE));
 }

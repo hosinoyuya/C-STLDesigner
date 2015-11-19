@@ -13,6 +13,7 @@ opt_runner::opt_runner(stl_config config, int seed)
 	else {
 		cerr << "undefined optimization type: " << config.optimization_ << "," << endl;
 		cerr << "please correct the algorithm setting in your config file." << endl;
+		exit(0);
 	}
 }
 
@@ -47,6 +48,7 @@ void opt_runner::set_simulator()
 		conventional::set_simulator(simulator);
 	} else {
 		cerr << "simulator <" << spice << "> not implemented." << endl;
+		exit(0);
 	}
 }
 
@@ -71,6 +73,7 @@ shared_ptr<netlist_base> opt_runner::netlist_generate(string spice, string exten
 	}
 	else {
 		cerr << "simulator <" << spice << "> not implemented." << endl;
+		exit(0);
 	}
 	shared_ptr<netlist_base> template_conv;
 	return template_conv;

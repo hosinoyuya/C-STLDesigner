@@ -16,7 +16,11 @@ void netlist_circuit::parce()
 {
 	for (size_t i = 0; i < context_.size(); i++) {
 		if (context_[i][0] != '*') {
-			contents_.push_back(element::parce(context_[i]));
+			elements_.push_back(element::parce(context_[i]));
+			comments_.push_back("");
+		}
+		else {
+			comments_.push_back(context_[i]);
 		}
 	}
 }

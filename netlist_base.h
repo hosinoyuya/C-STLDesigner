@@ -31,8 +31,6 @@ protected:
 	shared_ptr<netlist_commands> commands_;
 	shared_ptr<netlist_scores> scores_;
 private:
-	regex reg_context_marker_;
-	regex reg_context_end_;
 	string file_path_;
 	vector<string> concat_continue_line(vector<string> lines);
 	shared_ptr<netlist_context> set_context(string line);

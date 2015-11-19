@@ -14,6 +14,7 @@ public:
 	~netlist_circuit();
 	virtual void parce();
 protected:
-	vector<shared_ptr<element>> contents_;
+	vector<shared_ptr<element>> elements_;
+	vector<string> comments_;
 };
 

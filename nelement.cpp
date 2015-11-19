@@ -2,7 +2,7 @@
 
 
 
-nelement::nelement(string name) : element(name)
+nelement::nelement(string name) : line_element_base(name)
 {
 }
 

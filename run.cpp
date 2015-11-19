@@ -5,7 +5,7 @@
 
 int main()
 {
-	stl_main main("config/default.yml");
+	stl_main main("config/basic/config_template_W.yml");
 	main.run();
 
 	//clock_t start = clock();

@@ -1,6 +1,8 @@
 #include "netlist_base.h"
 #include <iostream>
 
+const regex REG_CONTEXT_MARKER(R"(\*\*\*(.*)\*\*\* -+\*)");
+const regex REG_CONTEXT_END(R"(\*-+\*)");
 
 netlist_base::netlist_base(string extention, vector<string> spice_extentions, vector<string> spice_extensions_nouse)
 {
@@ -8,8 +10,6 @@ netlist_base::netlist_base(string extention, vector<string> spice_extentions, ve
 	spice_extentions_ = spice_extentions;
 	spice_extensions_nouse_ = spice_extensions_nouse;
 	title_ = "";
-	reg_context_marker_ = R"(\*\*\*(.*)\*\*\* -+\*)";
-	reg_context_end_ = R"(\*-+\*)";
 }
 
 
@@ -33,13 +33,13 @@ void netlist_base::load(string file_path) {
 	regex  reg_exp;
 	shared_ptr<netlist_context> context = NULL;
 	for (size_t i = 0; i < content.size(); i++) {
-		if (regex_match(content[i], reg_context_end_)) {
+		if (regex_match(content[i], REG_CONTEXT_END)) {
 			if (context != NULL) {
 				contexts_.push_back(context);
 			}
 			context = NULL;
 		}
-		if (regex_match(content[i], reg_context_marker_)) {
+		if (regex_match(content[i], REG_CONTEXT_MARKER)) {
 			context = set_context(content[i]);
 		}
 
@@ -57,7 +57,7 @@ vector<string> netlist_base::concat_continue_line(vector<string> lines)
 
 	for (size_t i = 0; i < lines.size(); i++) {
 		if (lines[i][0] == '+') {
-			content.push_back(content[content.size()] + lines[i]);
+			content[content.size() - 1] = content[content.size() - 1] + lines[i];
 		}
 		else {
 			content.push_back(lines[i]);

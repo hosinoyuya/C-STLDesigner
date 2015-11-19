@@ -18,6 +18,7 @@ void list_file::load_tran_core()
 	if (ifs.fail())
 	{
 		cerr << "lisƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ‚É¸”s" << std::endl;
+		exit(0);
 	}
 
 	map <string, vector<string>> list_data;

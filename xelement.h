@@ -1,10 +1,10 @@
 #pragma once
-#include "element.h"
+#include "line_element_base.h"
 #include <string>
 
 using namespace std;
 
-class xelement : public element
+class xelement : public line_element_base
 {
 public:
 	xelement(string name);

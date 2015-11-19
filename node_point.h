@@ -14,6 +14,5 @@ public:
 	string prefix_;
 private:
 	void set_print_name(string point);
-	regex reg_printname_;
 };
 
