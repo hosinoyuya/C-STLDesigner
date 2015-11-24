@@ -24,6 +24,6 @@ private:
 	virtual int node_num();
 	bool is_node(string node);
 	vector<shared_ptr<node_point>> nodes_;
-	virtual void set_parameters(string key, string val);
+	virtual void set_parameters(string key, string val) = 0;
 };
 

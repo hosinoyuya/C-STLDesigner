@@ -5,10 +5,14 @@ const regex REG_PRINTNAME(R"((\w+)\((\w+)\))");
 
 node_point::node_point(string point, string node)
 {
-	if (point == "") {
+	prefix_ = "";
+	node_ = "";
+	if (point != "") {
 		set_print_name(point);
 	}
-	node_ = node;
+	else {
+		print_name_ = node;
+	}
 }
 
 

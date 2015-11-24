@@ -112,12 +112,6 @@ void element::separate_parameters(vector<string> items)
 }
 
 
-void element::set_parameters(string key, string val)
-{
-	// 小クラスでオーバーライド
-}
-
-
 int element::node_num()
 {
 	return 2;

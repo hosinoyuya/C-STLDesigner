@@ -15,6 +15,6 @@ public:
 private:
 	virtual int node_num();
 	virtual void set_parameters(string key, string val);
-	virtual void set_spetialized_parameters(string key, string val);
+	virtual void set_spetialized_parameters(string key, string val) = 0;
 	shared_ptr<line_length> length_;
 };

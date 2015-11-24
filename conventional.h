@@ -1,19 +1,28 @@
 #pragma once
 #include "simulator.h"
 #include "netlist_base.h"
+#include "stl_config.h"
+#include "single_score.h"
 #include <memory>
+#include <string>
+#include <boost/filesystem/path.hpp>
 
 using namespace std;
 
 class conventional
 {
 public:
-	conventional();
+	conventional(stl_config config, shared_ptr<single_score> score);
 	~conventional();
-	static void set_simulator(std::shared_ptr<simulator> simulator);
-	static void set_template(std::shared_ptr<netlist_base> netlist);
-private:
-	static std::shared_ptr<simulator> simulator_;
-	static std::shared_ptr<netlist_base> netlist_;
+	static void set_simulator(shared_ptr<simulator> simulator);
+	static void set_template(shared_ptr<netlist_base> netlist);
+	void simulate();
+protected:
+	static shared_ptr<simulator> simulator_;
+	static shared_ptr<netlist_base> template_;
+	string name_;
+	stl_config config_;
+	string file_path_;
+	shared_ptr<netlist_base> netlist_;
+	shared_ptr<single_score> score_;
 };
-

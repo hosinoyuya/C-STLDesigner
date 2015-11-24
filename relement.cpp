@@ -19,5 +19,4 @@ void relement::set_parameters(string key, string val)
 		exit(0);
 	}
 	value_ = unit_change::unit_decode(val);
-	cout << val << endl;
 }

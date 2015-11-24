@@ -9,5 +9,7 @@ class nelement : public line_element_base
 public:
 	nelement(string name);
 	~nelement();
+private:
+	virtual void set_spetialized_parameters(string key, string val);
 };
 

@@ -24,7 +24,7 @@ void netlist_context::operator<<(string line)
 }
 
 
-void netlist_context::parce() // TODO ¬ƒNƒ‰ƒX‚ÉˆÚ‚µ‚Äcontents_‚Ì•û‚ðvector<comand>‚Ævector<element>‚É
+void netlist_context::parce()
 {
 	for (size_t i = 0; i < context_.size(); i++) {
 		contents_.push_back(context_[i]);

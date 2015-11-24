@@ -1,8 +1,8 @@
 #include "netlist_base.h"
-#include <iostream>
 
 const regex REG_CONTEXT_MARKER(R"(\*\*\*(.*)\*\*\* -+\*)");
 const regex REG_CONTEXT_END(R"(\*-+\*)");
+
 
 netlist_base::netlist_base(string extention, vector<string> spice_extentions, vector<string> spice_extensions_nouse)
 {
@@ -21,7 +21,6 @@ void netlist_base::load(string file_path) {
 	file_path_ = file_path;
 	ifstream ifs(file_path);
 	ifs >> title_;
-	//cout << file_path << endl;
 
 	string line;
 	vector<string> lines;

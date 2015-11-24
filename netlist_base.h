@@ -36,4 +36,3 @@ private:
 	shared_ptr<netlist_context> set_context(string line);
 	void parce_contexts();
 };
-

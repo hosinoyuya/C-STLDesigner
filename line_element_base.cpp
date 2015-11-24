@@ -26,7 +26,3 @@ void line_element_base::set_parameters(string key, string val)
 		length_ = make_shared<line_length>(key, val);
 	}
 }
-
-void line_element_base::set_spetialized_parameters(string key, string val)
-{
-}

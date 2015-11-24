@@ -36,7 +36,9 @@ void opt_runner::stl_initialize()
 	set_simulator();
 	set_template();
 
-
+	conventional_ = get_conventional();
+	
+	conventional_->simulate();
 }
 
 
@@ -44,8 +46,10 @@ void opt_runner::set_simulator()
 {
 	string spice = config_.spice_name_;
 	if (spice == "hspice") {
-		std::shared_ptr<hspice> simulator(new hspice());
-		conventional::set_simulator(simulator);
+		shared_ptr<hspice> simulator_conv(new hspice(config_));
+		conventional::set_simulator(simulator_conv);
+		shared_ptr<hspice> simulator_stl(new hspice(config_));
+		stl::set_simulator(simulator_stl);
 	} else {
 		cerr << "simulator <" << spice << "> not implemented." << endl;
 		exit(0);
@@ -56,11 +60,14 @@ void opt_runner::set_simulator()
 void opt_runner::set_template()
 {
 	string spice = config_.spice_name_;
-	std::shared_ptr<netlist_base> template_conv = netlist_generate(spice, config_.netlist_extension_, config_.spice_extensions_, config_.spice_extensions_nouse_);
+	shared_ptr<netlist_base> template_conv = netlist_generate(spice, config_.netlist_extension_, config_.spice_extensions_, config_.spice_extensions_nouse_);
 	template_conv->load(config_.template_file_);
+	conventional::set_template(template_conv);
 
+	shared_ptr<netlist_base> template_stl = netlist_generate(spice, config_.netlist_extension_, config_.spice_extensions_, config_.spice_extensions_nouse_);
+	template_stl->load(config_.template_file_);
+	stl::set_template(template_stl);
 }
-
 
 
 shared_ptr<netlist_base> opt_runner::netlist_generate(string spice, string extention, vector<string> spice_extentions, vector<string> spice_extensions_nouse)
@@ -77,4 +84,10 @@ shared_ptr<netlist_base> opt_runner::netlist_generate(string spice, string exten
 	}
 	shared_ptr<netlist_base> template_conv;
 	return template_conv;
+}
+
+
+shared_ptr<conventional> opt_runner::get_conventional()
+{
+	return make_shared<conventional>(config_, make_shared<single_score>());
 }
