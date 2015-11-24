@@ -1,6 +1,8 @@
 #pragma once
 #include "stl_config.h"
 #include <string>
+#include <iostream>
+#include <stdlib.h>
 
 using namespace std;
 

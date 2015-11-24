@@ -39,6 +39,7 @@ void opt_runner::stl_initialize()
 	conventional_ = get_conventional();
 	
 	conventional_->simulate();
+	conventional_->set_waves();
 }
 
 

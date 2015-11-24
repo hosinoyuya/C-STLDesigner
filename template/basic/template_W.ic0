@@ -1,0 +1,23 @@
+* "simulator" "HSPICE" 
+* "version" "J-2014.09-SP1-2 64-BIT"
+* "format" "HSP"
+* "rundate" "22:10:26 11/24/2015 "
+* "netlist" ".\template\basic\template_W.sp "
+* "runtitle" "******************** stl ver 2.3 t element basic model ***************"
+* time =    0.            
+* temperature =   25.0000        
+*** BEGIN: Saved Operating Point ***                     
+.option 
++ gmindc=   1.0000p       
+.nodeset
++ 101 =   0.            
++ 102 =   0.            
++ 1001 =   0.            
++ 1002 =   0.            
++ optpt1 =   0.            
++ optpt2 =   0.            
++ optpt3 =   0.            
++ vspt1 =   0.            
++ vspt2 =   0.            
++ vspt3 =   0.            
+***   END: Saved Operating Point ***                     

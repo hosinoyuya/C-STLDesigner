@@ -11,6 +11,12 @@ const regex REG_DUMMY(R"(\.\w+.*)", regex_constants::icase);
 netlist_commands::netlist_commands()
 {
 	header_ = "*** Netlist Commands *** -------------------------------------------------------------*\n";
+	tran_ = NULL;
+	ac_ = NULL;
+	print_ = NULL;
+	model_ = NULL;
+	node_param_ = NULL;
+	dummy_ = NULL;
 }
 
 

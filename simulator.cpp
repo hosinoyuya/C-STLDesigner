@@ -1,8 +1,6 @@
 #include "simulator.h"
 
-#include <iostream>
 
-using namespace std;
 
 simulator::simulator(stl_config config)
 {
@@ -17,6 +15,8 @@ simulator::~simulator()
 
 void simulator::run(string filepath, string command)
 {
-	cout << filepath << endl;
-	cout << command << endl;
+	int ret = system(command.c_str());
+	if (ret != 0) {
+		cerr << "simulator exception occured." << endl;
+	}
 }

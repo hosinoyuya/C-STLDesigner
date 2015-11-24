@@ -17,6 +17,7 @@ public:
 	static void set_simulator(shared_ptr<simulator> simulator);
 	static void set_template(shared_ptr<netlist_base> netlist);
 	void simulate();
+	void set_waves();
 protected:
 	static shared_ptr<simulator> simulator_;
 	static shared_ptr<netlist_base> template_;
@@ -25,4 +26,7 @@ protected:
 	string file_path_;
 	shared_ptr<netlist_base> netlist_;
 	shared_ptr<single_score> score_;
+	void set_translate_waves();
+	void set_emit_waves();
+	void set_ac_waves();
 };

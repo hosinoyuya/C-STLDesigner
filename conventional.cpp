@@ -35,3 +35,36 @@ void conventional::simulate()
 {
 	simulator_->simulate(file_path_);
 }
+
+
+void conventional::set_waves()
+{
+	if (netlist_->commands_->tran_ != NULL) {
+		set_translate_waves();
+	}
+	set_emit_waves();
+	if (netlist_->commands_->ac_ != NULL) {
+		set_ac_waves();
+	}
+
+	// TODO ”gŒ`‚ğæ“¾‚Å‚«‚Ä‚¢‚È‚¢‚Æ‚«‚Ìˆ—
+	
+}
+
+
+void conventional::set_translate_waves()
+{
+
+}
+
+
+void conventional::set_emit_waves()
+{
+
+}
+
+
+void conventional::set_ac_waves()
+{
+
+}
