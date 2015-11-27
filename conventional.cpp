@@ -54,7 +54,11 @@ void conventional::set_waves()
 
 void conventional::set_translate_waves()
 {
+	shared_ptr<tran_command> tran = get_translate_time();
+	wave_list_ = get_wave_list();
+	wave_list_->load_tran(tran);
 
+	// now writing
 }
 
 
@@ -67,4 +71,31 @@ void conventional::set_emit_waves()
 void conventional::set_ac_waves()
 {
 
+}
+
+
+shared_ptr<tran_command> conventional::get_translate_time()
+{
+	if (simulator_->name_ == "hspice") {
+		return template_->commands_->tran_;
+	}
+	else {
+		cerr << "simulator = " << simulator_->name_ << " not implemented." << endl;
+		exit(0);
+	}
+	return NULL;
+}
+
+
+shared_ptr<wave_list_base> conventional::get_wave_list()
+{
+	string wave_list_path = boost::algorithm::replace_all_copy(file_path_, config_.netlist_extension_, config_.wave_extension_);
+	if (simulator_->name_ == "hspice") {
+		return make_shared<lis_file>(wave_list_path);
+	}
+	else {
+		cerr << "simulator = " << simulator_->name_ << " not implemented." << endl;
+		exit(0);
+	}
+	return NULL;
 }

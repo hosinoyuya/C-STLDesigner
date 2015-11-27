@@ -3,6 +3,8 @@
 #include "netlist_base.h"
 #include "stl_config.h"
 #include "single_score.h"
+#include "wave_list_base.h"
+#include "lis_file.h"
 #include <memory>
 #include <string>
 #include <boost/filesystem/path.hpp>
@@ -29,4 +31,7 @@ protected:
 	void set_translate_waves();
 	void set_emit_waves();
 	void set_ac_waves();
+	shared_ptr<tran_command> get_translate_time();
+	shared_ptr<wave_list_base> get_wave_list();
+	shared_ptr<wave_list_base> wave_list_;
 };

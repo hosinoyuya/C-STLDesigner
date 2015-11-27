@@ -16,9 +16,9 @@ public:
 	~tran_command();
 	virtual void set_parameters(string line);
 	virtual string to_str();
-private:
-	string key_;
 	string resolution_;
 	string end_time_;
 	string start_time_;
+private:
+	string key_;
 };

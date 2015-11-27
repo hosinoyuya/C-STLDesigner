@@ -5,6 +5,7 @@
 simulator::simulator(stl_config config)
 {
 	config_ = config;
+	name_ = config.spice_name_;
 }
 
 
