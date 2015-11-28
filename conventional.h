@@ -5,6 +5,8 @@
 #include "single_score.h"
 #include "wave_list_base.h"
 #include "lis_file.h"
+#include "transient_wave.h"
+#include "point_score.h"
 #include <memory>
 #include <string>
 #include <boost/filesystem/path.hpp>
@@ -20,6 +22,7 @@ public:
 	static void set_template(shared_ptr<netlist_base> netlist);
 	void simulate();
 	void set_waves();
+	void set_scores();
 protected:
 	static shared_ptr<simulator> simulator_;
 	static shared_ptr<netlist_base> template_;
@@ -29,9 +32,11 @@ protected:
 	shared_ptr<netlist_base> netlist_;
 	shared_ptr<single_score> score_;
 	void set_translate_waves();
-	void set_emit_waves();
 	void set_ac_waves();
 	shared_ptr<tran_command> get_translate_time();
 	shared_ptr<wave_list_base> get_wave_list();
 	shared_ptr<wave_list_base> wave_list_;
+	vector<shared_ptr<point_score>> evaluate_waves();
+	shared_ptr<point_score> evaluate_point_score(string point, double weight, string method,
+		shared_ptr<transient_wave> wave_ideal, shared_ptr<transient_wave> wave_opt);
 };

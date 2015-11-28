@@ -42,13 +42,9 @@ void conventional::set_waves()
 	if (netlist_->commands_->tran_ != NULL) {
 		set_translate_waves();
 	}
-	set_emit_waves();
 	if (netlist_->commands_->ac_ != NULL) {
 		set_ac_waves();
 	}
-
-	// TODO ”gŒ`‚ğæ“¾‚Å‚«‚Ä‚¢‚È‚¢‚Æ‚«‚Ìˆ—
-	
 }
 
 
@@ -56,21 +52,13 @@ void conventional::set_translate_waves()
 {
 	shared_ptr<tran_command> tran = get_translate_time();
 	wave_list_ = get_wave_list();
-	wave_list_->load_tran(tran);
-
-	// now writing
-}
-
-
-void conventional::set_emit_waves()
-{
-
+	wave_list_->load_tran(tran, config_);
 }
 
 
 void conventional::set_ac_waves()
 {
-
+	// –¢À‘•
 }
 
 
@@ -98,4 +86,44 @@ shared_ptr<wave_list_base> conventional::get_wave_list()
 		exit(0);
 	}
 	return NULL;
+}
+
+void conventional::set_scores()
+{
+	vector<shared_ptr<point_score>> point_scores = evaluate_waves();
+
+}
+
+
+vector<shared_ptr<point_score>> conventional::evaluate_waves()
+{
+	vector<shared_ptr<point_score>> point_scores;
+	map<string, string> methods = config_.score_calc_methods_;
+	for (map<string, string>::iterator itr = methods.begin(); itr != methods.end(); ++itr) {
+		string point = itr->first;
+		string method = itr->second;
+		shared_ptr<transient_wave> wave_opt = wave_list_->waves_[point];
+		shared_ptr<transient_wave> wave_ideal = wave_list_->waves_[config_.ideal_point_[point]];
+		double weight = config_.score_weight_[point];
+		shared_ptr<point_score> score;
+
+		if (method == "multi") {
+			// –¢À‘•
+		} 
+		else if (method == "eye") {
+			//@–¢À‘•
+		}
+		else {
+			score = evaluate_point_score(point, weight, method, wave_ideal, wave_opt);
+		}
+		point_scores.push_back(score);
+	}
+	return point_scores;
+}
+
+
+shared_ptr<point_score>  conventional::evaluate_point_score(string point, double weight, string method,
+	shared_ptr<transient_wave> wave_ideal, shared_ptr<transient_wave> wave_opt)
+{
+	return make_shared<point_score>();
 }

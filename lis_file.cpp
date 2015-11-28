@@ -16,7 +16,7 @@ lis_file::~lis_file()
 }
 
 
-void lis_file::load_tran(shared_ptr<tran_command> tran)
+void lis_file::load_tran(shared_ptr<tran_command> tran, stl_config config)
 {
 	vector<string> lis_data;
 	string line;
@@ -53,8 +53,17 @@ void lis_file::load_tran(shared_ptr<tran_command> tran)
 
 	// time‚ğíœ
 	labels.erase(labels.begin());
+	if (wave_point_check(labels, config) == false) {
+		cerr << "Wave List File is not correct (node point mismatch with config)" << endl;
+	}
 
-
+	for (size_t i = 0; i < labels.size(); i++) {
+		shared_ptr<node_point> point = make_shared<node_point>("", labels[i]);
+		shared_ptr<transient_wave> wave = make_shared<transient_wave>(point);
+		wave->time_division = data_map["time"];
+		wave->time_division = data_map[labels[i]];
+		waves_[labels[i]] = wave;
+	}
 
 }
 
@@ -118,4 +127,19 @@ void lis_file::set_data_map(vector<string> &lis_data, int data_num, map<string, 
 		}
 		lis_data.erase(lis_data.begin());
 	}
+}
+
+
+bool lis_file::wave_point_check(vector<string> labels, stl_config config)
+{
+	map<string, string> method = config.score_calc_methods_;
+	for (size_t i = 0; i < labels.size(); i++) {
+		if (method.find(labels[i]) != method.end()) {
+			method.erase(labels[i]);
+		}
+	}
+	if (method.size() == 0) {
+		return true;
+	}
+	false;
 }

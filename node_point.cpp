@@ -7,11 +7,11 @@ node_point::node_point(string point, string node)
 {
 	prefix_ = "";
 	node_ = "";
-	if (point != "") {
+	if (point != "" && node == "") {
 		set_print_name(point);
 	}
 	else {
-		print_name_ = node;
+		node_ = node;
 	}
 }
 

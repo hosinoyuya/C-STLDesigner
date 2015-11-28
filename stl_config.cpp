@@ -64,8 +64,8 @@ void stl_config::setDefault()
 	spice_extensions_ = { ".sp", ".lis", ".st0", ".tr0", ".ic0" };
 	spice_extensions_nouse_ = { ".st0", ".tr0", ".ic0" };
 	score_normalize_ = true;
-	// score_calc_methods_["optpt1"] = "integral";
-	// score_calc_methods_["optpt2"] = "integral";
+	score_calc_methods_["optpt1"] = "integral";
+	score_calc_methods_["optpt2"] = "integral";
 }
 
 
@@ -213,6 +213,11 @@ void stl_config::setParameters(YAML::Node config) {
 			}
 			else {
 				score_normalize_ = false;
+			}
+		}
+		else if (key == "score_calc_methods") {
+			for (YAML::const_iterator it2 = it->second.begin(); it2 != it->second.end(); it2++) {
+				score_calc_methods_.insert(pair<string, string>(it2->begin()->as<string>(), (++(it2->begin()))->as<string>()));
 			}
 		}
 	}

@@ -40,6 +40,7 @@ void opt_runner::stl_initialize()
 	
 	conventional_->simulate();
 	conventional_->set_waves();
+	set_conventional_score(conventional_);
 }
 
 
@@ -91,4 +92,10 @@ shared_ptr<netlist_base> opt_runner::netlist_generate(string spice, string exten
 shared_ptr<conventional> opt_runner::get_conventional()
 {
 	return make_shared<conventional>(config_, make_shared<single_score>());
+}
+
+
+void opt_runner::set_conventional_score(shared_ptr<conventional> conventional)
+{
+	conventional->set_scores();
 }

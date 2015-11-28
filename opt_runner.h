@@ -27,5 +27,6 @@ private:
 	void set_simulator();
 	void set_template();
 	std::shared_ptr<conventional> conventional_;
+	void set_conventional_score(shared_ptr<conventional> conventional);
 };
 

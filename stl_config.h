@@ -51,7 +51,7 @@ public:
 	vector<string> spice_extensions_;
 	vector<string> spice_extensions_nouse_;
 	bool score_normalize_;
-	// map<string, string> score_calc_methods_;
+	map<string, string> score_calc_methods_;
 	string file_name_;
 	string file_path_;
 	void chane_outdirectory_seed(int seed);
