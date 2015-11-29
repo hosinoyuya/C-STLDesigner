@@ -119,6 +119,7 @@ void stl_config::setParameters(YAML::Node config) {
 			blx_alpha_ = it->second.as<double>();
 		}
 		else if (key == "crossover") {
+			crossover_.clear();
 			for (YAML::const_iterator it2 = it->second.begin(); it2 != it->second.end(); it2++) {
 				crossover_.insert(pair<string, string>(it2->first.as<string>(), it2->second.as<string>()));
 			}
@@ -139,11 +140,13 @@ void stl_config::setParameters(YAML::Node config) {
 			length_step_ = it->second.as<string>();
 		}
 		else if (key == "imptype") {
+			impedance_type_.clear();
 			for (YAML::const_iterator it2 = it->second.begin(); it2 != it->second.end(); it2++) {
 				impedance_type_.insert(pair<double, string>(it2->first.as<double>(), it2->second.as<string>()));
 			}
 		}
 		else if (key == "seeds") {
+			seeds_.clear();
 			for (YAML::const_iterator it2 = it->second.begin(); it2 != it->second.end(); it2++) {
 				seeds_.push_back(it2->as<int>());
 			}
@@ -155,16 +158,19 @@ void stl_config::setParameters(YAML::Node config) {
 			spice_name_ = it->second.as<string>();
 		}
 		else if (key == "optpts") {
+			optimize_point_.clear();
 			for (YAML::const_iterator it2 = it->second.begin(); it2 != it->second.end(); it2++) {
 				optimize_point_.push_back(it2->as<string>());
 			}
 		}
 		else if (key == "weight") {
+			score_weight_.clear();
 			for (YAML::const_iterator it2 = it->second.begin(); it2 != it->second.end(); it2++) {
 				score_weight_.insert(pair<string, double>(it2->first.as<string>(), it2->second.as<double>()));
 			}
 		}
 		else if (key == "versus") {
+			ideal_point_.clear();
 			for (YAML::const_iterator it2 = it->second.begin(); it2 != it->second.end(); it2++) {
 				ideal_point_.insert(pair<string, string>(it2->first.as<string>(), it2->second.as<string>()));
 			}
@@ -197,11 +203,13 @@ void stl_config::setParameters(YAML::Node config) {
 			wave_extension_ = it->second.as<string>();
 		}
 		else if (key == "spice_exts") {
+			spice_extensions_.clear();
 			for (YAML::const_iterator it2 = it->second.begin(); it2 != it->second.end(); it2++) {
 				spice_extensions_.push_back(it2->as<string>());
 			}
 		}
 		else if (key == "spice_exts_nouse") {
+			spice_extensions_nouse_.clear();
 			for (YAML::const_iterator it2 = it->second.begin(); it2 != it->second.end(); it2++) {
 				spice_extensions_nouse_.push_back(it2->as<string>());
 			}
@@ -216,6 +224,7 @@ void stl_config::setParameters(YAML::Node config) {
 			}
 		}
 		else if (key == "score_calc_methods") {
+			score_calc_methods_.clear();
 			for (YAML::const_iterator it2 = it->second.begin(); it2 != it->second.end(); it2++) {
 				score_calc_methods_.insert(pair<string, string>(it2->begin()->as<string>(), (++(it2->begin()))->as<string>()));
 			}
@@ -243,11 +252,4 @@ void stl_config::chane_outdirectory_seed(int seed)
 	find_string = "/images";
 	image_directory_.replace(image_directory_.find(find_string),
 		find_string.size(), "/" + seed_string + find_string);
-
-	/*
-	cout << log_directory_ << endl;
-	cout << population_directory_ << endl;
-	cout << best_directory_ << endl;
-	cout << image_directory_ << endl;
-	*/
 }
