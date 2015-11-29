@@ -7,6 +7,7 @@
 #include "lis_file.h"
 #include "transient_wave.h"
 #include "point_score.h"
+#include "evaluate_functions.h"
 #include <memory>
 #include <string>
 #include <boost/filesystem/path.hpp>

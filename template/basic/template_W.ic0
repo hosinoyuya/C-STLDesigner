@@ -1,7 +1,7 @@
 * "simulator" "HSPICE" 
 * "version" "J-2014.09-SP1-2 64-BIT"
 * "format" "HSP"
-* "rundate" "01:06:06 11/29/2015 "
+* "rundate" "20:46:51 11/29/2015 "
 * "netlist" ".\template\basic\template_W.sp "
 * "runtitle" "******************** stl ver 2.3 t element basic model ***************"
 * time =    0.            

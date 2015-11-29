@@ -125,5 +125,14 @@ vector<shared_ptr<point_score>> conventional::evaluate_waves()
 shared_ptr<point_score>  conventional::evaluate_point_score(string point, double weight, string method,
 	shared_ptr<transient_wave> wave_ideal, shared_ptr<transient_wave> wave_opt)
 {
+	if (wave_ideal->size() != wave_opt->size()) {
+		cerr << "Wave Size not equal.  wave_ideal = " << wave_ideal->size()
+			<< ", wave_opt = " << wave_opt->size() << endl;
+	}
+
+	if (method == "integral") {
+		//evaluate_functions::calc_integral(wave_ideal-)
+	}
+
 	return make_shared<point_score>();
 }

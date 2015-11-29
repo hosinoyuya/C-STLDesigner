@@ -12,6 +12,6 @@ public:
 	~relement();
 private:
 	virtual void set_parameters(string key, string val);
-	string value_;
+	double value_;
 };
 

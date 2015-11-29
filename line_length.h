@@ -14,7 +14,7 @@ public:
 	static bool is_key(string key);
 private:
 	string key_;
-	string val_;
+	double val_;
 	void set_parameters(string key, string val);
 };
 

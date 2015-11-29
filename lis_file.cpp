@@ -30,14 +30,14 @@ void lis_file::load_tran(shared_ptr<tran_command> tran, stl_config config)
 	int data_num = get_data_num(tran);
 	remove_intoro(lis_data);
 
-	map<string, vector<string>> data_map;
+	map<string, vector<double>> data_map;
 	vector<string> labels;
 
 	while (lis_data[0] == "x") {
-		map<string, vector<string>> data_map_loop;
+		map<string, vector<double>> data_map_loop;
 		vector<string> labels_loop;
 
-		data_map_loop["time"] = vector<string>(data_num);
+		data_map_loop["time"] = vector<double>(data_num);
 		labels_loop.push_back("time");
 
 		set_data_map(lis_data, data_num, data_map_loop, labels_loop);
@@ -60,8 +60,8 @@ void lis_file::load_tran(shared_ptr<tran_command> tran, stl_config config)
 	for (size_t i = 0; i < labels.size(); i++) {
 		shared_ptr<node_point> point = make_shared<node_point>("", labels[i]);
 		shared_ptr<transient_wave> wave = make_shared<transient_wave>(point);
-		wave->time_division = data_map["time"];
-		wave->time_division = data_map[labels[i]];
+		wave->generate_time_division(data_map["time"]);
+		wave->voltage_ = data_map[labels[i]];
 		waves_[labels[i]] = wave;
 	}
 
@@ -86,9 +86,9 @@ bool lis_file::is_error(vector<string> &lis_data)
 
 int lis_file::get_data_num(shared_ptr<tran_command> tran)
 {
-	double resolution = stod(tran->resolution_);
-	double start_time = stod(tran->start_time_);
-	double end_time = stod(tran->end_time_);
+	double resolution = tran->resolution_;
+	double start_time = tran->start_time_;
+	double end_time = tran->end_time_;
 
 	return (int)(fabs(end_time - start_time) / resolution + 1);
 }
@@ -103,7 +103,7 @@ void lis_file::remove_intoro(vector<string> &lis_data)
 }
 
 
-void lis_file::set_data_map(vector<string> &lis_data, int data_num, map<string, vector<string>> &data_map_loop, vector<string> &labels_loop)
+void lis_file::set_data_map(vector<string> &lis_data, int data_num, map<string, vector<double>> &data_map_loop, vector<string> &labels_loop)
 {
 	vector<string> items;
 
@@ -115,15 +115,19 @@ void lis_file::set_data_map(vector<string> &lis_data, int data_num, map<string, 
 	for (size_t i = 0; i < items.size(); i++) {
 		if (items[i] == "") continue;
 		labels_loop.push_back(items[i]);
-		data_map_loop[items[i]] = vector<string>(data_num);
+		data_map_loop[items[i]] = vector<double>(data_num);
 	}
 
 	lis_data.erase(lis_data.begin());
 
 	for (int i = 0; i < data_num; i++) {
 		boost::algorithm::split(items, lis_data[0], boost::algorithm::is_space(), boost::algorithm::token_compress_on);
-		for (size_t j = 0; j < labels_loop.size(); j++) {
-			data_map_loop[labels_loop[j]][i] = items[j];
+		size_t label_num = 0;
+		for (size_t j = 0; j < items.size(); j++) {
+			if (items[j] == "") continue;
+			data_map_loop[labels_loop[label_num]][i] = unit_change::unit_decode(items[j]);
+			label_num++;
+			if (label_num >= labels_loop.size()) break;
 		}
 		lis_data.erase(lis_data.begin());
 	}
@@ -141,5 +145,5 @@ bool lis_file::wave_point_check(vector<string> labels, stl_config config)
 	if (method.size() == 0) {
 		return true;
 	}
-	false;
+	return false;
 }

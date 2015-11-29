@@ -10,6 +10,6 @@ class unit_change
 public:
 	unit_change();
 	~unit_change();
-	static string unit_decode(string str);
+	static double unit_decode(string str);
 };
 

@@ -3,6 +3,7 @@
 #include "node_point.h"
 #include "transient_wave.h"
 #include "stl_config.h"
+#include "unit_change.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -26,7 +27,7 @@ private:
 	bool is_error(vector<string> &lis_data);
 	int get_data_num(shared_ptr<tran_command> tran);
 	void remove_intoro(vector<string> &lis_data);
-	void set_data_map(vector<string> &lis_data, int data_num, map<string, vector<string>> &data_map_loop, vector<string> &labels_loop);
+	void set_data_map(vector<string> &lis_data, int data_num, map<string, vector<double>> &data_map_loop, vector<string> &labels_loop);
 	bool wave_point_check(vector<string> labels, stl_config config);
 };
 
