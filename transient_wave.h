@@ -19,6 +19,5 @@ public:
 	void generate_time_division(vector<double> time_dividion);
 private:
 	shared_ptr<node_point> point_;
-	double round(double num);
 };
 
