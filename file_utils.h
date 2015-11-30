@@ -13,5 +13,6 @@ public:
 	~file_utils();
 	static bool rm_r(string directory_name);
 	static bool mkdir(string directory);
+	static bool cp(string from_file, string to_directory);
 };
 

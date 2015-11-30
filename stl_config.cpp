@@ -2,7 +2,7 @@
 
 stl_config::stl_config()
 {
-	setDefault();
+	set_default();
 }
 
 
@@ -11,7 +11,7 @@ stl_config::~stl_config()
 }
 
 
-void stl_config::setDefault()
+void stl_config::set_default()
 {
 	out_directory_ = "./output";
 	log_directory_ = out_directory_ + "/stl/log";
@@ -61,7 +61,7 @@ void stl_config::setDefault()
 	lotation_step_ = 10;
 	netlist_extension_ = ".sp";
 	wave_extension_ = ".lis";
-	spice_extensions_ = { ".sp", ".lis", ".st0", ".tr0", ".ic0" };
+	spice_extensions_ = { ".sp", ".lis", ".st0", /*".tr0",*/ ".ic0" };
 	spice_extensions_nouse_ = { ".st0", ".tr0", ".ic0" };
 	score_normalize_ = true;
 	score_calc_methods_["optpt1"] = "integral";
@@ -81,11 +81,11 @@ void stl_config::load(string file_path)
 
 	file_path_ = file_path;
 	YAML::Node config = YAML::LoadFile(file_path);
-	stl_config::setParameters(config);
+	stl_config::set_parameters(config);
 }
 
 
-void stl_config::setParameters(YAML::Node config) {
+void stl_config::set_parameters(YAML::Node config) {
 	for (YAML::const_iterator it = config.begin(); it != config.end(); it++) {
 		string key = it->first.as<string>();
 		if (key == "outdir") {

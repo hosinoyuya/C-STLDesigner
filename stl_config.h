@@ -15,8 +15,8 @@ public:
 	~stl_config();
 	void load(string file_path);
 private:
-	void setDefault();
-	void setParameters(YAML::Node config);
+	void set_default();
+	void set_parameters(YAML::Node config);
 public:
 	string out_directory_;
 	string log_directory_;

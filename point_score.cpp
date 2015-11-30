@@ -2,8 +2,10 @@
 
 
 
-point_score::point_score()
+point_score::point_score(string point, string method)
 {
+	point_ = point;
+	method_ = method;
 }
 
 

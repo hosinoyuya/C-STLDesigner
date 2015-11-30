@@ -1,6 +1,6 @@
 #include "opt_runner.h"
 
-
+shared_ptr<single_score> stl::comparison_score_;
 
 opt_runner::opt_runner(stl_config config, int seed)
 {
@@ -41,6 +41,7 @@ void opt_runner::stl_initialize()
 	conventional_->simulate();
 	conventional_->set_waves();
 	set_conventional_score(conventional_);
+	conventional_->file_copy_to(config_.population_directory_ + "/../");
 }
 
 
@@ -98,4 +99,5 @@ shared_ptr<conventional> opt_runner::get_conventional()
 void opt_runner::set_conventional_score(shared_ptr<conventional> conventional)
 {
 	conventional->set_scores();
+	stl::comparison_score_ = conventional->get_score_object();
 }

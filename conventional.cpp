@@ -88,10 +88,11 @@ shared_ptr<wave_list_base> conventional::get_wave_list()
 	return NULL;
 }
 
+
 void conventional::set_scores()
 {
 	vector<shared_ptr<point_score>> point_scores = evaluate_waves();
-
+	score_->set(point_scores);
 }
 
 
@@ -111,7 +112,7 @@ vector<shared_ptr<point_score>> conventional::evaluate_waves()
 			// ñ¢é¿ëï
 		} 
 		else if (method == "eye") {
-			//Å@ñ¢é¿ëï
+			// ñ¢é¿ëï
 		}
 		else {
 			score = evaluate_point_score(point, weight, method, wave_ideal, wave_opt);
@@ -138,7 +139,27 @@ shared_ptr<point_score>  conventional::evaluate_point_score(string point, double
 		cerr << "Evaluate error. undefined method = " << method << endl;
 	}
 
-	cout << "score = " << score << endl;
+	shared_ptr<point_score> p_score = make_shared<point_score>(point, method);
+	p_score->set(score, weight);
 
-	return make_shared<point_score>();
+	return p_score;
+}
+
+
+shared_ptr<single_score> conventional::get_score_object()
+{
+	return score_;
+}
+
+
+void conventional::file_copy_to(string file_path)
+{
+	string from;
+	for (size_t i = 0; i < config_.spice_extensions_.size(); i++) {
+		string from_ext = config_.netlist_extension_;
+		string to_ext = config_.spice_extensions_[i];
+		from = file_path_;
+		from.replace(from.find(from_ext), from_ext.size(), to_ext);
+		file_utils::cp(from, file_path);
+	}
 }

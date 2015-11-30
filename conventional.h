@@ -8,6 +8,7 @@
 #include "transient_wave.h"
 #include "point_score.h"
 #include "evaluate_functions.h"
+#include "file_utils.h"
 #include <memory>
 #include <string>
 #include <boost/filesystem/path.hpp>
@@ -24,14 +25,16 @@ public:
 	void simulate();
 	void set_waves();
 	void set_scores();
+	shared_ptr<single_score> get_score_object();
+	void file_copy_to(string file_path);
 protected:
 	static shared_ptr<simulator> simulator_;
 	static shared_ptr<netlist_base> template_;
 	string name_;
 	stl_config config_;
 	string file_path_;
-	shared_ptr<netlist_base> netlist_;
 	shared_ptr<single_score> score_;
+	shared_ptr<netlist_base> netlist_;
 	void set_translate_waves();
 	void set_ac_waves();
 	shared_ptr<tran_command> get_translate_time();

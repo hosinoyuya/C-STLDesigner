@@ -6,5 +6,6 @@ class stl :
 public:
 	stl(stl_config config, shared_ptr<single_score> score);
 	~stl();
+	static shared_ptr<single_score> comparison_score_;
 };
 

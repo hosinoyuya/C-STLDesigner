@@ -42,6 +42,20 @@ bool file_utils::rm_r(string path)
 
 bool file_utils::mkdir(string directory)
 {
-	boost::filesystem::create_directories(directory);
+	return boost::filesystem::create_directories(directory);
+}
+
+
+bool file_utils::cp(string from_file, string to_directory)
+{
+	boost::filesystem::path from(from_file);
+	string file_name = from.filename().string();
+	try {
+		boost::filesystem::copy_file(from, to_directory + file_name);
+	}
+	catch (const boost::filesystem::filesystem_error& e) {
+		cerr << e.what() << endl;
+		return false;
+	}
 	return true;
 }
