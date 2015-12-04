@@ -11,7 +11,7 @@ const regex REG_NODE(R"(\w*pt\d*|\d+)");
 element::element(string name)
 {
 	name_ = name;
-	
+	length_ = NULL;
 }
 
 

@@ -28,25 +28,25 @@ void stl_config::set_default()
 	minimum_inpedance_ = 40;
 	maximum_inpedance_ = 120;
 	impedance_step_ = 5;
-	minimum_length_ = "0.001";
-	length_step_ = "0.0005";
-	impedance_type_[40] = "6407e-12";
-	impedance_type_[45] = "6355e-12";
-	impedance_type_[50] = "6308e-12";
-	impedance_type_[55] = "6266e-12";
-	impedance_type_[60] = "6226e-12";
-	impedance_type_[65] = "6188e-12";
-	impedance_type_[70] = "6156e-12";
-	impedance_type_[75] = "6125e-12";
-	impedance_type_[80] = "6099e-12";
-	impedance_type_[85] = "6075e-12";
-	impedance_type_[90] = "6055e-12";
-	impedance_type_[95] = "6034e-12";
-	impedance_type_[100] = "6015e-12";
-	impedance_type_[105] = "5999e-12";
-	impedance_type_[110] = "5980e-12";
-	impedance_type_[115] = "5965e-12";
-	impedance_type_[120] = "5954e-12";
+	minimum_length_ = 0.001;
+	length_step_ = 0.0005;
+	impedance_type_[40] = 6407e-12;
+	impedance_type_[45] = 6355e-12;
+	impedance_type_[50] = 6308e-12;
+	impedance_type_[55] = 6266e-12;
+	impedance_type_[60] = 6226e-12;
+	impedance_type_[65] = 6188e-12;
+	impedance_type_[70] = 6156e-12;
+	impedance_type_[75] = 6125e-12;
+	impedance_type_[80] = 6099e-12;
+	impedance_type_[85] = 6075e-12;
+	impedance_type_[90] = 6055e-12;
+	impedance_type_[95] = 6034e-12;
+	impedance_type_[100] = 6015e-12;
+	impedance_type_[105] = 5999e-12;
+	impedance_type_[110] = 5980e-12;
+	impedance_type_[115] = 5965e-12;
+	impedance_type_[120] = 5954e-12;
 	seeds_ = { 1, 2 };
 	optimization_ = "ga";
 	spice_name_ = "hspice";
@@ -116,7 +116,7 @@ void stl_config::set_parameters(YAML::Node config) {
 			brother_num_ = it->second.as<int>();
 		}
 		else if (key == "blx_alpha") {
-			blx_alpha_ = it->second.as<double>();
+			blx_alpha_ = unit_change::unit_decode(it->second.as<string>());
 		}
 		else if (key == "crossover") {
 			crossover_.clear();
@@ -125,24 +125,23 @@ void stl_config::set_parameters(YAML::Node config) {
 			}
 		}
 		else if (key == "minimum_impedance") {
-			minimum_inpedance_ = it->second.as<double>();
+			minimum_inpedance_ = it->second.as<int>();
 		}
 		else if (key == "maximum_impedance") {
-			maximum_inpedance_ = it->second.as<double>();
+			maximum_inpedance_ = it->second.as<int>();
 		}
 		else if (key == "impedance_step") {
-			impedance_step_ = it->second.as<double>();
 		}
 		else if (key == "minimum_length") {
-			minimum_length_ = it->second.as<string>();
+			minimum_length_ = unit_change::unit_decode(it->second.as<string>());
 		}
 		else if (key == "length_step") {
-			length_step_ = it->second.as<string>();
+			length_step_ = unit_change::unit_decode(it->second.as<string>());
 		}
 		else if (key == "imptype") {
 			impedance_type_.clear();
 			for (YAML::const_iterator it2 = it->second.begin(); it2 != it->second.end(); it2++) {
-				impedance_type_.insert(pair<double, string>(it2->first.as<double>(), it2->second.as<string>()));
+				impedance_type_.insert(pair<int, double>(it2->first.as<int>(), it2->second.as<double>()));
 			}
 		}
 		else if (key == "seeds") {

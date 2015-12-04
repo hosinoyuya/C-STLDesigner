@@ -11,14 +11,14 @@
 #include "file_utils.h"
 #include <memory>
 #include <string>
-#include <boost/filesystem/path.hpp>
+#include <boost/algorithm/string.hpp>
 
 using namespace std;
 
 class conventional
 {
 public:
-	conventional(stl_config config, shared_ptr<single_score> score);
+	conventional(string file_name, stl_config config, shared_ptr<single_score> score = make_shared<single_score>());
 	~conventional();
 	static void set_simulator(shared_ptr<simulator> simulator);
 	static void set_template(shared_ptr<netlist_base> netlist);

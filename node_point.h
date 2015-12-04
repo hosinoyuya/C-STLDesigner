@@ -9,6 +9,7 @@ class node_point
 public:
 	node_point(string point = "", string node = "");
 	~node_point();
+	string to_str();
 	string node_;
 	string print_name_;
 	string prefix_;

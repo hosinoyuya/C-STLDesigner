@@ -6,8 +6,10 @@
 #include "hspice.h"
 #include "netlist_base.h"
 #include "hspice_netlist.h"
+#include "stl_random.h"
 #include <iostream>
 #include <memory>
+#include <boost/filesystem/path.hpp>
 
 using namespace std;
 

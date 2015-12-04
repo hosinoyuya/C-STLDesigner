@@ -13,8 +13,8 @@ public:
 	netlist_circuit(string header = "");
 	~netlist_circuit();
 	virtual void parce();
-protected:
 	vector<shared_ptr<element>> elements_;
+protected:
 	vector<string> comments_;
 };
 

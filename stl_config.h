@@ -1,4 +1,5 @@
 #pragma once
+#include "unit_change.h"
 #include <string>
 #include <map>
 #include <vector>
@@ -29,12 +30,12 @@ public:
 	int brother_num_;
 	double blx_alpha_;
 	map<string, string> crossover_;
-	double minimum_inpedance_;
-	double maximum_inpedance_;
-	double impedance_step_;
-	map<double, string> impedance_type_;
-	string minimum_length_;
-	string length_step_;
+	int minimum_inpedance_;
+	int maximum_inpedance_;
+	int impedance_step_;
+	map<int, double> impedance_type_;
+	double minimum_length_;
+	double length_step_;
 	vector<int> seeds_;
 	// int optimizing_seed_;
 	string optimization_;

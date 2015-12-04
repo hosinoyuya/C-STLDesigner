@@ -29,3 +29,8 @@ void node_point::set_print_name(string point)
 	prefix_ = match[1].str();
 	node_ = match[2].str();
 }
+
+
+string node_point::to_str() {
+	return node_;
+}

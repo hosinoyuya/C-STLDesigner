@@ -4,8 +4,9 @@ const regex REG_LENGTH(R"(l|L|len|LEN|Length|length|LENGTH)");
 
 line_length::line_length(string key, string val)
 {
+	key_ = "";
 	if (val != "") {
-		
+		set_parameters(key, val);
 	}
 }
 
@@ -24,5 +25,5 @@ bool line_length::is_key(string key)
 void line_length::set_parameters(string key, string val)
 {
 	key_ = key;
-	val_ = unit_change::unit_decode(val);
+	value_ = unit_change::unit_decode(val);
 }

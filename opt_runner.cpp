@@ -25,7 +25,7 @@ opt_runner::~opt_runner()
 
 void opt_runner::run()
 {
-	srand(seed_);
+	stl_random::srand(seed_);
 	stl_initialize();
 	algorithm_->run();
 }
@@ -92,7 +92,8 @@ shared_ptr<netlist_base> opt_runner::netlist_generate(string spice, string exten
 
 shared_ptr<conventional> opt_runner::get_conventional()
 {
-	return make_shared<conventional>(config_, make_shared<single_score>());
+	boost::filesystem::path path(config_.template_file_);
+	return make_shared<conventional>(path.filename().string(), config_, make_shared<single_score>());
 }
 
 

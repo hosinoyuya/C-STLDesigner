@@ -24,6 +24,7 @@ public:
 	shared_ptr<netlist_circuit> trigger_circuit_;
 	shared_ptr<netlist_commands> commands_;
 	shared_ptr<netlist_scores> scores_;
+	string file_path_;
 protected:
 	string extention_;
 	vector<string> spice_extentions_;
@@ -31,7 +32,6 @@ protected:
 	string title_;
 	vector<shared_ptr<netlist_context>> contexts_;
 private:
-	string file_path_;
 	vector<string> concat_continue_line(vector<string> lines);
 	shared_ptr<netlist_context> set_context(string line);
 	void parce_contexts();
