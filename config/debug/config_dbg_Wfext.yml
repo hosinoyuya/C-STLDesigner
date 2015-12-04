@@ -1,0 +1,36 @@
+---
+
+#######################################################
+# Wエレメント結合伝送線動作確認デバッグ用設定ファイル #
+#######################################################
+
+template: ./template/debug/template_Wfext.sp
+
+pop_size: 2
+generation: 1
+brother_num: 1
+
+minimum_impedance: 60
+maximum_impedance: 160
+impedance_step: 5
+
+seeds:
+- 1
+
+optpts:
+- optpt1
+- optpt2
+
+weight:
+  optpt1: 1.0
+  optpt2: 1.0
+
+versus:                 
+  optpt1: vspt1
+  optpt2: vspt2
+
+score_calc_methods:
+- - optpt1
+  - integral
+- - optpt2
+  - integral

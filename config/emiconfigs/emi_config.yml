@@ -1,0 +1,56 @@
+---
+# EMI設計の設定ファイル
+
+# EMI設計を行うかどうか
+emi_enable: true
+
+# EMI評価関数 (max:最大EMI,standard:規格)
+emi_score_calc_method: standard
+
+# EMI評価スコアの重み
+emi_weight: 1
+
+### EMIプログラム設定 ###
+
+# 配線長 (mm)
+length: 600
+
+# 誘電体厚 (mm)
+height: 0.73
+
+# 計測距離 (m)
+emi_dist: 3
+
+# 補正係数
+emi_multiple: 2
+
+# 基本周波数 (Hz)
+emi_freq: 50e6
+
+# 終了周波数 (GHz)
+emi_maxfreq: 3
+
+### FFTプログラム設定 ###
+
+# 読み込みデータ数(乗数) 2^powerのpowerを指定
+fft_power: 7
+
+# 読み込み開始オフセットデータ数
+fft_offset: 3072
+
+# EMI規格(dBuV/m)
+# [higher edge frequency, value]
+# 例) [[230.0e+6, 40], [1.0e+9, 47]] => 230Mまで:40、1Gまで:47
+emi_standard:
+  -
+    - 230.0e+6
+    - 40
+  -
+    - 1.0e+9
+    - 47
+  -
+    - 3.0e+9
+    - 50
+  -
+    - 6.0e+9
+    - 54

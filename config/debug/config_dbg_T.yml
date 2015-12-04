@@ -1,0 +1,27 @@
+---
+
+#############################################
+# Tエレメント動作確認デバッグ用設定ファイル #
+#############################################
+
+template: ./template/debug/template_T.sp
+
+pop_size: 2
+generation: 1
+brother_num: 1
+
+seeds:
+- 1
+
+optpts:
+- optpt1
+
+weight:
+  optpt1: 1.0
+
+versus:                 
+  optpt1: vspt1
+
+score_calc_methods:
+- - optpt1
+  - integral

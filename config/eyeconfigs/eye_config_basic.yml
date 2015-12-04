@@ -1,0 +1,33 @@
+---
+
+########################
+### アイ設定ファイル ###
+########################
+
+###### 注意事項 ######
+# * この設定ファイルは"STL設定ファイル" ではなく，"アイ設定ファイル" です．
+# * 実行時に引数で指定するような使い方ではなく，"STL設定ファイル"の設定項目:eye_config_path でパスを指定して利用します．
+
+
+# アイパターン整形を行うかどうか
+eye_enable: true
+
+# デバッグ用のアイパターン画像を生成するかどうか
+eye_image_enable: true
+
+# アイパターンのトリガーとなる波形の観測点
+eye_trigger_pt: trgpt3
+
+# アイパターンのマスクの作成に使う波形の観測点
+eye_mask_pt: vspt3
+
+# "アイパターンパラメタ整形" の時に用いる重み
+# (0.0 はスコアとして利用しない)
+eye_parameter_weights:
+  overshoot: 0.0
+  undershoot: 0.0
+  eye_width_inv: 1.0
+  eye_height_inv: 1.0
+
+# アイマスク設定ファイルのパス
+eyemask_config_path: "./config/eyeconfigs/eyemask_config_basic.yml"

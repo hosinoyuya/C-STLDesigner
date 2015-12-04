@@ -1,0 +1,68 @@
+---
+
+#######################################################################
+# 250MHzクロック，伝送線長400mm，クロストーク系のSTL設計設定ファイル  #
+#######################################################################
+
+### 備考 ###
+# 卒論・EDAPS2012・FIIS で使った STL は差動インピーダンスを元に設計していたため，特性インピーダンスを元にした RLGC を使ったもの．
+# これは引継ぎ用に修論発表後に用意したもので，発表などには用いていません．
+
+### STL設計に用いるテンプレートファイルのパス ###
+template: ./template/crosstalk/template_250MHz_Fixed.sp
+
+### 母集合の個体数 ###
+# pop_size: 100
+
+### 遺伝的アルゴリズムの繰り返し世代数 ###
+# generation: 8000
+
+### 一回の交叉で生成する子供の数（兄弟の数） ###
+# brother_num: 10
+
+### 交叉メソッド ###
+crossover:
+  length: dependent_sum_blx
+  impedance: n_point_crossover
+
+### セグメントの特性インピーダンスの最小値 ###
+minimum_impedance: 40
+
+### セグメントの特性インピーダンスの最大値 ###
+maximum_impedance: 100
+
+### セグメントの特性インピーダンスの間隔 ###
+impedance_step: 5
+
+### セグメント長の最小値 ###
+minimum_length: 1m
+
+### セグメント長の間隔 ###
+length_step: 0.5m
+
+### 乱数シード ###
+seeds:
+- 3
+
+### 最適化する観測点 ###
+optpts:
+- optpt1
+- optpt2
+
+### 観測点毎の重み ###
+weight:
+  optpt1: 1.0
+  optpt2: 1.5
+
+### 観測波形に対応する理想波形の観測点 ###
+versus:
+  optpt1: vspt1
+  optpt2: vspt2
+
+
+### スコア計算関数 ###
+score_calc_methods:
+- - optpt1
+  - integral
+- - optpt2
+  - integral

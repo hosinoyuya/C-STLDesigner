@@ -1,0 +1,34 @@
+---
+
+#############################################
+# Nエレメント動作確認デバッグ用設定ファイル #
+#############################################
+
+template: ./template/debug/template_N.spc
+
+pop_size: 2
+generation: 1
+brother_num: 1
+
+seeds:
+- 1
+
+optpts:
+- optpt1
+
+weight:
+  optpt1: 1.0
+
+versus:                 
+  optpt1: vspt1
+
+spice_name: tlsim
+
+tlsim_tran:
+- 10p
+- 40n
+- 20n
+
+score_calc_methods:
+- - optpt1
+  - integral

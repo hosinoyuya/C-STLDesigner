@@ -1,0 +1,76 @@
+---
+
+############################################
+##  ML505 負荷 30pF EMI系用設定ファイル   ##
+############################################
+
+### 注意事項 ###
+# * 井上（2014年度修士卒）から引き継ぎ，関（2014年度修士卒）が ver 2.3 用に修正したものです．
+# * 安達さんが先行研究した ML505 BER の系の容量負荷を30pFとし，EMIと信号品質改善を目的としたSTL設計用です．
+
+template: ./template/ML505/template_EMI_30pF.spc
+
+
+### 母集合の個体数 ###
+# pop_size: 100
+
+### 遺伝的アルゴリズムの繰り返し世代数 ###
+# generation: 2000
+
+### 一回の交叉で生成する子供の数（兄弟の数） ###
+# brother_num: 8
+
+### 交叉メソッド ###
+crossover:
+  length: dependent_sum_blx_obsolete
+  impedance: independent_blx
+
+
+### セグメントの特性インピーダンスの最小値 ###
+minimum_impedance: 30
+
+### セグメントの特性インピーダンスの最大値 ###
+maximum_impedance: 120
+
+### セグメントの特性インピーダンスの間隔 ###
+impedance_step: 5
+
+### 乱数シード ###
+seeds:
+- 1
+
+### tlsim 過渡解析設定 ###
+# ※現在、開始時刻の設定方法が不明なため、設定しても機能しません。
+# [step, stop_time, start_time]
+tlsim_tran:
+- 0.15625n
+- 500n
+- 480n
+
+### 回路シミュレータ名 ###
+spice_name: tlsim
+
+### 最適化する観測点 ###
+optpts:
+- optpt0
+
+### 観測点毎の重み ###
+weight:
+  optpt0: 1.0
+
+
+### 観測波形に対応する理想波形の観測点 ###
+versus:
+  optpt0: vspt0
+
+
+### スコア計算関数 ###
+score_calc_methods:
+- - optpt0
+  - integral
+
+### 古いアルゴリズム利用モード ###
+use_obsolete: true
+
+### EMI設計の設定ファイルのパス ###
+emi_config_path: './config/emiconfigs/emi_config.yml'
