@@ -4,6 +4,7 @@
 #include "sub_space.h"
 #include "stl_line.h"
 #include <memory>
+#include <list>
 #include <vector>
 
 using namespace std;

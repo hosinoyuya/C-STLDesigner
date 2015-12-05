@@ -24,6 +24,7 @@ public:
 	void set_element(shared_ptr<element> elem);
 	void split();
 	vector<shared_ptr<element>> segments_;
+	string name_;
 private:
 	void set_config_parameters(stl_config config);
 	int sub_offset_;

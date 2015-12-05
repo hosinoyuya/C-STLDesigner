@@ -28,6 +28,7 @@ void sub_space::set_element(shared_ptr<element> elem)
 {
 	element_ = elem;
 	nodes_ = elem->nodes_;
+	name_ = element_->name_;
 
 	if (elem->length_ == NULL || elem->length_->key_ == "" || stl_line::length_zero(elem->length_->value_)) {
 		cerr << "set length from element failed." << endl;
@@ -162,42 +163,33 @@ shared_ptr<element> sub_space::get_segment_element(int index, vector<string> poi
 {
 	string segment_name;
 	segment_name = first_name_ + "_SEG_" + to_string(index);
+	shared_ptr<element> copy_element;
 	switch (element_->type_)
 	{
 	case T_ELEMENT: {
-		shared_ptr<telement> telem = make_shared<telement>(*dynamic_pointer_cast<telement>(element_));
-		telem->name_ = segment_name;
-		telem->set_impedance(segment_impedance);
-		telem->set_lenght(segment_length);
-		telem->set_nodes(point);
-		return telem;
+		copy_element = make_shared<telement>(*dynamic_pointer_cast<telement>(element_));
+		break;
 	}
 	case W_ELEMENT: {
-		shared_ptr<welement> welem = make_shared<welement>(*dynamic_pointer_cast<welement>(element_));
-		welem->name_ = segment_name;
-		welem->set_impedance(segment_impedance);
-		welem->set_lenght(segment_length);
-		welem->set_nodes(point);
-		return welem;
+		copy_element = make_shared<welement>(*dynamic_pointer_cast<welement>(element_));
+		break;
 	}
 	case X_ELEMENT: {
-		shared_ptr<xelement> xelem = make_shared<xelement>(*dynamic_pointer_cast<xelement>(element_));
-		xelem->name_ = segment_name;
-		xelem->set_impedance(segment_impedance);
-		xelem->set_lenght(segment_length);
-		xelem->set_nodes(point);
-		return xelem;
+		copy_element = make_shared<xelement>(*dynamic_pointer_cast<xelement>(element_));
+		break;
 	}
 	case N_ELEMENT: {
-		shared_ptr<nelement> nelem = make_shared<nelement>(*dynamic_pointer_cast<nelement>(element_));
-		nelem->name_ = segment_name;
-		nelem->set_impedance(segment_impedance);
-		nelem->set_lenght(segment_length);
-		nelem->set_nodes(point);
-		return nelem;
+		copy_element = make_shared<nelement>(*dynamic_pointer_cast<nelement>(element_));
+		break;
 	}
 	default:
 		cerr << "invarid element error. " << endl;
 		exit(0);
 	}
+
+	copy_element->name_ = segment_name;
+	copy_element->set_impedance(segment_impedance);
+	copy_element->set_lenght(segment_length);
+	copy_element->set_nodes(point);
+	return copy_element;
 }

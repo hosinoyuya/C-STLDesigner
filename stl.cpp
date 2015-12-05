@@ -21,14 +21,22 @@ stl::~stl()
 
 void stl::init_subspace()
 {
-	vector<shared_ptr<element>> elements = netlist_->stl_circuit_->elements_;
+	list<shared_ptr<element>> elements = netlist_->stl_circuit_->elements_;
 	shared_ptr<sub_space> sub;
-	for (size_t i = 0; i < elements.size(); i++) {
-		if (!elements[i]) continue;
-		if (!stl_line::is_stl_element(elements[i])) continue;
+	list<shared_ptr<element>>::iterator element_itr = elements.begin();
+	while (element_itr != elements.end()) {
+		if (!(*element_itr)) {
+			element_itr++;
+			continue;
+		}
+		if (!stl_line::is_stl_element((*element_itr))) {
+			element_itr++;
+			continue;
+		}
 		sub = make_shared<sub_space>(config_);
-		sub->set_element(elements[i]);
+		sub->set_element((*element_itr));
 		sub_spaces_.push_back(sub);
+		element_itr++;
 	}
 }
 
@@ -37,6 +45,6 @@ void stl::random_gene_assignment()
 {
 	for (size_t i = 0; i < sub_spaces_.size(); i++) {
 		sub_spaces_[i]->split();
-
+		netlist_->stl_circuit_->exchange_subspace(sub_spaces_[i]);
 	}
 }

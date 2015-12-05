@@ -1,7 +1,7 @@
 #pragma once
 #include "netlist_context.h"
 #include "element.h"
-#include <vector>
+#include <list>
 #include <memory>
 
 using namespace std;
@@ -13,8 +13,9 @@ public:
 	netlist_circuit(string header = "");
 	~netlist_circuit();
 	virtual void parce();
-	vector<shared_ptr<element>> elements_;
+	list<shared_ptr<element>> elements_;
 protected:
-	vector<string> comments_;
+	list<string> comments_;
+	
 };
 
