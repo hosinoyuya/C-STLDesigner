@@ -4,6 +4,7 @@
 
 nelement::nelement(string name) : line_element_base(name)
 {
+	type_ = N_ELEMENT;
 }
 
 

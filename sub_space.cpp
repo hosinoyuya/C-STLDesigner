@@ -42,7 +42,7 @@ void sub_space::parse_name()
 {
 	vector<string> items;
 	boost::algorithm::split(items, element_->name_, boost::is_any_of("_"), boost::algorithm::token_compress_on);
-	string ename = items[0];
+	first_name_ = items[0];
 	string stl = items[1];
 	segment_num_ = stoi(items[2]);
 	smatch match;
@@ -65,7 +65,8 @@ void sub_space::split()
 	int point_offset = index_ * sub_offset_;
 	for (int i = 0; i < segment_num_; i++) {
 		vector<string> points = get_segment_node(i, point_offset);
-		// now writing
+		shared_ptr<element> segment = get_segment_element(i + 1, points, segment_lengths[i], segment_impedances[i]);
+		segments_.push_back(segment);
 	}
 }
 
@@ -154,4 +155,49 @@ vector<string> sub_space::get_segment_node_core(vector<shared_ptr<node_point>> n
 	}
 	
 	return return_node;
+}
+
+
+shared_ptr<element> sub_space::get_segment_element(int index, vector<string> point, double segment_length, int segment_impedance)
+{
+	string segment_name;
+	segment_name = first_name_ + "_SEG_" + to_string(index);
+	switch (element_->type_)
+	{
+	case T_ELEMENT: {
+		shared_ptr<telement> telem = make_shared<telement>(*dynamic_pointer_cast<telement>(element_));
+		telem->name_ = segment_name;
+		telem->set_impedance(segment_impedance);
+		telem->set_lenght(segment_length);
+		telem->set_nodes(point);
+		return telem;
+	}
+	case W_ELEMENT: {
+		shared_ptr<welement> welem = make_shared<welement>(*dynamic_pointer_cast<welement>(element_));
+		welem->name_ = segment_name;
+		welem->set_impedance(segment_impedance);
+		welem->set_lenght(segment_length);
+		welem->set_nodes(point);
+		return welem;
+	}
+	case X_ELEMENT: {
+		shared_ptr<xelement> xelem = make_shared<xelement>(*dynamic_pointer_cast<xelement>(element_));
+		xelem->name_ = segment_name;
+		xelem->set_impedance(segment_impedance);
+		xelem->set_lenght(segment_length);
+		xelem->set_nodes(point);
+		return xelem;
+	}
+	case N_ELEMENT: {
+		shared_ptr<nelement> nelem = make_shared<nelement>(*dynamic_pointer_cast<nelement>(element_));
+		nelem->name_ = segment_name;
+		nelem->set_impedance(segment_impedance);
+		nelem->set_lenght(segment_length);
+		nelem->set_nodes(point);
+		return nelem;
+	}
+	default:
+		cerr << "invarid element error. " << endl;
+		exit(0);
+	}
 }

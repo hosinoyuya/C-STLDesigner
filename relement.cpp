@@ -4,6 +4,7 @@
 
 relement::relement(string name) : element(name)
 {
+	type_ = R_ELEMENT;
 }
 
 

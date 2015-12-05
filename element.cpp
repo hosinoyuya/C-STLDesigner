@@ -12,6 +12,7 @@ element::element(string name)
 {
 	name_ = name;
 	length_ = NULL;
+	type_ = DEFAULT_ELEMENT;
 }
 
 
@@ -121,4 +122,25 @@ int element::node_num()
 bool element::is_node(string node)
 {
 	return (regex_match(node, REG_NODE));
+}
+
+
+void element::set_nodes(vector<string> nodes)
+{
+	nodes_.clear();
+	for (size_t i = 0; i < nodes.size(); i++) {
+		nodes_.push_back(make_shared<node_point>("", nodes[i]));
+	}
+}
+
+
+void element::set_impedance(int impedance)
+{
+	impedance_->value_ = impedance;
+}
+
+
+void element::set_lenght(double length)
+{
+	length_->value_ = length;
 }

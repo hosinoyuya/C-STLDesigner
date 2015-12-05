@@ -14,6 +14,5 @@ public:
 	~welement();
 private:
 	virtual void set_spetialized_parameters(string key, string val);
-	shared_ptr<char_impedance> impedance;
 };
 

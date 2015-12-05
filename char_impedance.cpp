@@ -22,5 +22,5 @@ void char_impedance::set_parameters(string key, string val)
 	smatch match;
 	regex_search(val, match, REG_IMPEDANCE_VALUE);
 	value_prefix_ = match[1].str();
-	value_ = match[2].str();
+	value_ = stoi(match[2].str());
 }

@@ -4,6 +4,7 @@
 
 xelement::xelement(string name) : line_element_base(name)
 {
+	type_ = X_ELEMENT;
 }
 
 
