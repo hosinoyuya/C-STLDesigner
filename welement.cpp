@@ -22,5 +22,5 @@ void welement::set_spetialized_parameters(string key, string val)
 
 
 string welement::get_param_str() {
-	return impedance_->to_str() + "\t" + length_->to_str();
+	return impedance_->to_str() + "\tN=" + to_string(net_num_) + "\t" + length_->to_str();
 }
