@@ -1,5 +1,6 @@
 #pragma once
 #include "line_element_base.h"
+#include "unit_change.h"
 #include <string>
 
 using namespace std;

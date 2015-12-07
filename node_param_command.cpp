@@ -14,7 +14,7 @@ node_param_command::~node_param_command()
 
 void node_param_command::set_parameters(string line)
 {
-
+	line_ = line;
 }
 
 

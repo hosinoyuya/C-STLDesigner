@@ -30,5 +30,9 @@ void tran_command::set_parameters(string line)
 
 string tran_command::to_str()
 {
-	return "";
+	string resolution = unit_change::unit_encode(resolution_);
+	string end_time = unit_change::unit_encode(end_time_);
+	string start_time = unit_change::unit_encode(start_time_);
+	
+	return key_ + "\t" + resolution + "\t" + end_time + "\t" + start_time;
 }

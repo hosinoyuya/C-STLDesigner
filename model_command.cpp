@@ -22,26 +22,26 @@ void model_command::set_parameters(string line)
 	vector<string> items, sub_items;
 	boost::algorithm::split(items, copy_line, boost::algorithm::is_space(), boost::algorithm::token_compress_on);
 	key_ = items[0];
-	items.erase(items.begin());
-	name_ = items[0];
-	items.erase(items.begin());
-	element_ = items[0];
-	items.erase(items.begin());
-	boost::algorithm::split(sub_items, items[0], boost::is_any_of("="), boost::algorithm::token_compress_on);
+	name_ = items[1];
+	element_ = items[2];
+	boost::algorithm::split(sub_items, items[3], boost::is_any_of("="), boost::algorithm::token_compress_on);
 	type_ = sub_items[1];
-	items.erase(items.begin());
-	boost::algorithm::split(sub_items, items[0], boost::is_any_of("="), boost::algorithm::token_compress_on);
+	boost::algorithm::split(sub_items, items[4], boost::is_any_of("="), boost::algorithm::token_compress_on);
 	string net_num = sub_items[1];
 	net_num_ = stoi(net_num);
-	items.erase(items.begin());
 
+	items.erase(items.begin(), items.begin() + 5);
 	set_rlgc(items);
 }
 
 
 string model_command::to_str()
 {
-	return "";
+	string return_string = key_ + " " + name_ + " " + element_ + " ModelType=" + type_ + " N=" + to_string(net_num_) + "\n";
+	for (size_t i = 0; i < rlgc_models_.size(); i++) {
+		return_string += "+ " + rlgc_models_[i]->to_str();
+	}
+	return return_string;
 }
 
 
@@ -67,6 +67,6 @@ void model_command::set_rlgc(vector<string> items) {
 			rlgc_models_.push_back(c_);
 			continue;
 		}
-		rlgc_models_[rlgc_models_.size() - 1]->set_value(items[i]);
+		rlgc_models_[rlgc_models_.size() - 1]->set_value(unit_change::unit_decode(items[i]));
 	}
 }

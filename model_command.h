@@ -1,6 +1,7 @@
 #pragma once
 #include "command_base.h"
 #include "rlgc_model.h"
+#include "unit_change.h"
 #include <string>
 #include <iostream>
 #include <boost/algorithm/string.hpp>

@@ -14,6 +14,7 @@ ac_command::~ac_command()
 
 void ac_command::set_parameters(string line)
 {
+	line_ = line;
 }
 
 

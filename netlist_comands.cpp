@@ -77,5 +77,25 @@ shared_ptr<command_base> netlist_commands::parce_command(string line)
 
 
 string netlist_commands::to_str() {
-	return "";
+	string return_string = header_ + "\n";
+
+	int command_pos = 0;
+	for (size_t i = 0; i < comments_.size(); i++) {
+		if (comments_[i] == "") {
+			if (commands_[command_pos]) {
+				return_string += commands_[command_pos]->to_str() + "\n";
+			}
+			else {
+				return_string += "\n";
+			}
+			command_pos++;
+		}
+		else {
+			return_string += comments_[i] + "\n";
+		}
+	}
+
+	return_string += "\n";
+
+	return return_string;
 }

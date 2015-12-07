@@ -31,5 +31,10 @@ void print_command::set_parameters(string line)
 
 string print_command::to_str()
 {
-	return "";
+	string return_string = ".PRINT";
+	for (size_t i = 0; i < nodes_.size(); i++) {
+		return_string += "\t" + nodes_[i]->to_str();
+	}
+	return_string += "\t";
+	return return_string;
 }
