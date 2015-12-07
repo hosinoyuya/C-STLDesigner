@@ -29,10 +29,11 @@ void ga_opt::generate_random_stl()
 	string name;
 	shared_ptr<stl> stl_buf;
 	for (int i = 0; i < config_.population_size_; i++) {
-		name = "STL_init_candidate" + i + config_.netlist_extension_;
+		name = "STL_init_candidate" + to_string(i) + config_.netlist_extension_;
 		stl_buf = make_shared<stl>(name, config_);
 		stl_buf->init_subspace();
 		stl_buf->random_gene_assignment();
+		stl_buf->write_file();
 
 	}
 }

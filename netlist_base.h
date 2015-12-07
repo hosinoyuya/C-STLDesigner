@@ -9,6 +9,7 @@
 #include <fstream>
 #include <regex>
 #include <memory>
+#include <fstream>
 
 using namespace std;
 
@@ -25,6 +26,8 @@ public:
 	shared_ptr<netlist_commands> commands_;
 	shared_ptr<netlist_scores> scores_;
 	string file_path_;
+	void write(string file_path = "");
+	string to_str();
 protected:
 	string extention_;
 	vector<string> spice_extentions_;

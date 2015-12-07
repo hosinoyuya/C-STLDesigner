@@ -11,6 +11,7 @@ public:
 	~netlist_context();
 	void operator <<(string line);
 	virtual void parce();
+	virtual string to_str();
 protected:
 	string header_;
 	vector<string> context_;

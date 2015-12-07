@@ -11,6 +11,7 @@ public:
 	line_length(string key, string val);
 	~line_length();
 	static bool is_key(string key);
+	string to_str();
 	string key_;
 	double value_;
 private:

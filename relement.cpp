@@ -21,3 +21,9 @@ void relement::set_parameters(string key, string val)
 	}
 	value_ = unit_change::unit_decode(val);
 }
+
+
+string relement::get_param_str()
+{
+	return to_string(value_);
+}

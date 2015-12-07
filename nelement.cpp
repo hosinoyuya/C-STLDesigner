@@ -16,3 +16,8 @@ nelement::~nelement()
 void nelement::set_spetialized_parameters(string key, string val)
 {
 }
+
+
+string nelement::get_param_str() {
+	return "";
+}

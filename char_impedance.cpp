@@ -24,3 +24,13 @@ void char_impedance::set_parameters(string key, string val)
 	value_prefix_ = match[1].str();
 	value_ = stoi(match[2].str());
 }
+
+
+string char_impedance::to_str()
+{
+	string return_string = value_prefix_ + to_string(value_);;
+	if (key_ != "") {
+		return_string = key_ + "=" + return_string;
+	}
+	return return_string;
+}

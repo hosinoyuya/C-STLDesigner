@@ -28,6 +28,7 @@ public:
 	shared_ptr<model_command> model_;
 	shared_ptr<node_param_command> node_param_;
 	shared_ptr<dummy_command> dummy_;
+	virtual string to_str();
 private:
 	vector<shared_ptr<command_base>> commands_;
 	vector<string> comments_;

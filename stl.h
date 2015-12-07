@@ -18,6 +18,7 @@ public:
 	static shared_ptr<single_score> comparison_score_;
 	void init_subspace();
 	void random_gene_assignment();
+	void write_file();
 private:
 	int index_;
 	bool best_flag_;

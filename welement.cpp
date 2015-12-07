@@ -19,3 +19,8 @@ void welement::set_spetialized_parameters(string key, string val)
 		impedance_ = make_shared<char_impedance>(key, val);
 	}
 }
+
+
+string welement::get_param_str() {
+	return impedance_->to_str() + "\t" + length_->to_str();
+}

@@ -34,12 +34,15 @@ void netlist_base::load(string file_path) {
 	for (size_t i = 0; i < content.size(); i++) {
 		if (regex_match(content[i], REG_CONTEXT_END)) {
 			if (context != NULL) {
+				*context << content[i];
 				contexts_.push_back(context);
 			}
 			context = NULL;
+			continue;
 		}
 		if (regex_match(content[i], REG_CONTEXT_MARKER)) {
 			context = set_context(content[i]);
+			continue;
 		}
 
 		if (context != NULL) {
@@ -114,4 +117,27 @@ void netlist_base::parce_contexts()
 	if (scores_ != NULL) {
 		scores_->parce();
 	}
+}
+
+
+void netlist_base::write(string file_path)
+{
+	if (file_path == "") {
+		file_path = file_path_;
+	}
+
+	ofstream ofs(file_path);
+	ofs << to_str();
+}
+
+
+string netlist_base::to_str()
+{
+	string return_string = "";
+
+	for (size_t i = 0; i < contexts_.size(); i++) {
+		return_string += contexts_[i]->to_str();
+	}
+	
+	return return_string;
 }

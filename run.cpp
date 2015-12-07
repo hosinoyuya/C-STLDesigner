@@ -6,6 +6,7 @@
 int main()
 {
 	stl_main main("config/basic/config_template_W.yml");
+	// stl_main main("config/default.yml");
 	main.run();
 
 	//clock_t start = clock();

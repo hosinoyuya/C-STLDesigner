@@ -16,3 +16,8 @@ xelement::~xelement()
 void xelement::set_spetialized_parameters(string key, string val)
 {
 }
+
+
+string xelement::get_param_str() {
+	return "";
+}

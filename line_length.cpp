@@ -27,3 +27,9 @@ void line_length::set_parameters(string key, string val)
 	key_ = key;
 	value_ = unit_change::unit_decode(val);
 }
+
+
+string line_length::to_str()
+{
+	return key_ + "=" + unit_change::unit_encode(value_);
+}

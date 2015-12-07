@@ -136,11 +136,24 @@ void element::set_nodes(vector<string> nodes)
 
 void element::set_impedance(int impedance)
 {
+	impedance_ = make_shared<char_impedance>(*impedance_);
 	impedance_->value_ = impedance;
+
 }
 
 
 void element::set_lenght(double length)
 {
+	length_ = make_shared<line_length>(*length_);
 	length_->value_ = length;
+}
+
+string element::to_str()
+{
+	string return_string = name_ + "\t";
+	for (size_t i = 0; i < nodes_.size(); i++) {
+		return_string += nodes_[i]->to_str() + "\t";
+	}
+	return_string += get_param_str();
+	return return_string;
 }

@@ -9,6 +9,7 @@ class telement : public line_element_base
 public:
 	telement(string name);
 	~telement();
+	virtual string get_param_str();
 private:
 	double time_delay_;
 	virtual int node_num();

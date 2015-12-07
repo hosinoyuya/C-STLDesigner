@@ -9,6 +9,7 @@ class char_impedance
 public:
 	char_impedance(string key, string val);
 	~char_impedance();
+	string to_str();
 	string key_;
 	string value_prefix_;
 	int value_;

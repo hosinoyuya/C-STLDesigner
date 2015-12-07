@@ -12,6 +12,7 @@ public:
 	line_element_base(string name);
 	~line_element_base();
 	virtual int node_num();
+	virtual string get_param_str() = 0;
 private:
 	virtual void set_parameters(string key, string val);
 	virtual void set_spetialized_parameters(string key, string val) = 0;

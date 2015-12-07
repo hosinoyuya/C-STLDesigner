@@ -74,3 +74,8 @@ shared_ptr<command_base> netlist_commands::parce_command(string line)
 	dummy_->set_parameters(line);
 	return dummy_;
 }
+
+
+string netlist_commands::to_str() {
+	return "";
+}

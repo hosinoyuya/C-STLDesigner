@@ -11,6 +11,7 @@ node_point::node_point(string point, string node)
 		set_print_name(point);
 	}
 	else {
+		print_name_ = node;
 		node_ = node;
 	}
 }
@@ -32,5 +33,5 @@ void node_point::set_print_name(string point)
 
 
 string node_point::to_str() {
-	return node_;
+	return print_name_;
 }

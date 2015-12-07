@@ -30,3 +30,17 @@ void netlist_context::parce()
 		contents_.push_back(context_[i]);
 	}
 }
+
+
+string netlist_context::to_str()
+{
+	string return_string = header_ + "\n";
+
+	for (size_t i = 0; i < context_.size(); i++) {
+		return_string += context_[i] + "\n";
+	}
+
+	return_string += "\n";
+
+	return return_string;
+}

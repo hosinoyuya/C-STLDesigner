@@ -41,3 +41,31 @@ void stl_circuit::exchange_element(list<shared_ptr<element>>::iterator &element_
 	element_itr = elements_.erase(element_itr);
 	comment_itr = comments_.erase(comment_itr);
 }
+
+
+string stl_circuit::to_str()
+{
+	string return_string = header_ + "\n";
+
+	list<string>::iterator comment_itr = comments_.begin();
+	list<shared_ptr<element>>::iterator element_itr = elements_.begin();
+	while (comment_itr != comments_.end() && element_itr != elements_.end()) {
+		if (*comment_itr == "") {
+			if ((*element_itr)) {
+				return_string += (*element_itr)->to_str() + "\n";
+			}
+			else {
+				return_string += "\n";
+			}
+			element_itr++;
+		}
+		else {
+			return_string += *comment_itr + "\n";
+		}
+		comment_itr++;
+	}
+
+	return_string += "\n";
+
+	return return_string;
+}

@@ -48,3 +48,9 @@ void stl::random_gene_assignment()
 		netlist_->stl_circuit_->exchange_subspace(sub_spaces_[i]);
 	}
 }
+
+
+void stl::write_file()
+{
+	netlist_->write(file_path_);
+}

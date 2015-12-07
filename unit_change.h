@@ -11,5 +11,6 @@ public:
 	unit_change();
 	~unit_change();
 	static double unit_decode(string str);
+	static string unit_encode(double num);
 };
 

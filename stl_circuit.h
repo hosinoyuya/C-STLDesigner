@@ -15,6 +15,7 @@ public:
 	stl_circuit(string header = "");
 	~stl_circuit();
 	void exchange_subspace(shared_ptr<sub_space> &subspace);
+	virtual string to_str();
 private:
 	void exchange_element(list<shared_ptr<element>>::iterator &element_itr, list<string>::iterator &comment_itr,
 		shared_ptr<sub_space> &subspace);

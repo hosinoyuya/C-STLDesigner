@@ -2,15 +2,15 @@
 
 const regex NUM(R"(\d+)");
 
-const regex CENTI(R"(c)");
-const regex MILLI(R"(m)");
-const regex MICRO(R"(u)");
-const regex NANO(R"(n)");
-const regex PICO(R"(p)");
-const regex FEMTO(R"(f)");
-const regex ATTO(R"(a)");
-const regex ZEPTO(R"(z)");
-const regex YOCTO(R"(y)");
+const string CENTI = "c";
+const string MILLI = "m";
+const string MICRO = "u";
+const string NANO = "n";
+const string PICO = "p";
+const string FEMTO = "f";
+const string ATTO = "a";
+const string ZEPTO = "z";
+const string YOCTO = "y";
 
 unit_change::unit_change()
 {
@@ -28,46 +28,88 @@ double unit_change::unit_decode(string str)
 		return stod(str);
 	}
 
+	regex unit;
 	smatch m;
-	regex_search(str, m, CENTI);
+	unit = CENTI;
+	regex_search(str, m, unit);
 	if (m.size() > 0) {
-		return stod(regex_replace(str, CENTI, "e-2"));
+		return stod(regex_replace(str, unit, "e-2"));
 	}
-	regex_search(str, m, MILLI);
+	unit = MILLI;
+	regex_search(str, m, unit);
 	if (m.size() > 0) {
-		return stod(regex_replace(str, MILLI, "e-3"));
+		return stod(regex_replace(str, unit, "e-3"));
 	}
-	regex_search(str, m, MICRO);
+	unit = MICRO;
+	regex_search(str, m, unit);
 	if (m.size() > 0) {
-		return stod(regex_replace(str, MICRO, "e-6"));
+		return stod(regex_replace(str, unit, "e-6"));
 	}
-	regex_search(str, m, NANO);
+	unit = NANO;
+	regex_search(str, m, unit);
 	if (m.size() > 0) {
-		return stod(regex_replace(str, NANO, "e-9"));
+		return stod(regex_replace(str, unit, "e-9"));
 	}
-	regex_search(str, m, PICO);
+	unit = PICO;
+	regex_search(str, m, unit);
 	if (m.size() > 0) {
-		return stod(regex_replace(str, PICO, "e-12"));
+		return stod(regex_replace(str, unit, "e-12"));
 	}
-	regex_search(str, m, FEMTO);
+	unit = FEMTO;
+	regex_search(str, m, unit);
 	if (m.size() > 0) {
-		return stod(regex_replace(str, FEMTO, "e-15"));
+		return stod(regex_replace(str, unit, "e-15"));
 	}
-	regex_search(str, m, ATTO);
+	unit = ATTO;
+	regex_search(str, m, unit);
 	if (m.size() > 0) {
 		// regex_replace(str, ATTO, "e-18");
 		return 0.0;
 	}
-	regex_search(str, m, ZEPTO);
+	unit = ZEPTO;
+	regex_search(str, m, unit);
 	if (m.size() > 0) {
 		// regex_replace(str, ZEPTO, "e-21");
 		return 0.0;
 	}
-	regex_search(str, m, YOCTO);
+	unit = YOCTO;
+	regex_search(str, m, unit);
 	if (m.size() > 0) {
 		// regex_replace(str, ATTO, "e-24");
 		return 0.0;
 	}
 
 	return stod(str);
+}
+
+
+string unit_change::unit_encode(double num)
+{
+	string unit;
+	if (num >= 0.001) {
+		num *= 1000;
+		unit = MILLI;
+	}
+	else if (num >= 0.000001) {
+		num *= 1000000;
+		unit = MICRO;
+	}
+	else if (num >= 0.000000001) {
+		num *= 1000000000;
+		unit = NANO;
+	}
+	else if (num >= 0.000000000001) {
+		num *= 1000000000000;
+		unit = PICO;
+	}
+	else if (num >= 0.000000000000001) {
+		num *= 1000000000000000;
+		unit = ATTO;
+	}
+	else {
+		num = 0;
+		unit = "";
+	}
+
+	return to_string(num) + unit;
 }

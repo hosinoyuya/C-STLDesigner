@@ -12,6 +12,7 @@ class welement : public line_element_base
 public:
 	welement(string name);
 	~welement();
+	virtual string get_param_str();
 private:
 	virtual void set_spetialized_parameters(string key, string val);
 };
