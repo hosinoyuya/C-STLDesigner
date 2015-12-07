@@ -6,6 +6,8 @@
 #include <fstream>
 #include <iostream>
 #include <yaml-cpp/yaml.h>
+#include <boost/filesystem.hpp>
+#include <boost/algorithm/string.hpp>
 
 using namespace std;
 
@@ -18,6 +20,7 @@ public:
 private:
 	void set_default();
 	void set_parameters(YAML::Node config);
+	void config_control();
 public:
 	string out_directory_;
 	string log_directory_;

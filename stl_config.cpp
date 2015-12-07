@@ -81,7 +81,9 @@ void stl_config::load(string file_path)
 
 	file_path_ = file_path;
 	YAML::Node config = YAML::LoadFile(file_path);
-	stl_config::set_parameters(config);
+	set_parameters(config);
+
+	config_control();
 }
 
 
@@ -251,4 +253,26 @@ void stl_config::chane_outdirectory_seed(int seed)
 	find_string = "/images";
 	image_directory_.replace(image_directory_.find(find_string),
 		find_string.size(), "/" + seed_string + find_string);
+}
+
+
+void stl_config::config_control()
+{
+	boost::filesystem::path file_path(file_path_);
+	string directory_name = file_path.parent_path().string();
+	string file_name = file_path.filename().string();
+	boost::algorithm::replace_all(directory_name, "./", "");
+	boost::algorithm::replace_all(directory_name, "config/", "");
+	boost::algorithm::replace_all(directory_name, "/", "_");
+	boost::algorithm::replace_all(directory_name, "__", "_");
+	vector<string> items;
+	boost::algorithm::split(items, file_name, boost::algorithm::is_any_of("."), boost::algorithm::token_compress_on);
+	file_name = items[0];
+	boost::algorithm::replace_all(file_name, "config_", "");
+	string out_name = "STL_" + directory_name + "_" + file_name;
+
+	log_directory_ = out_directory_ + "/" + out_name + "/log";
+	population_directory_ = out_directory_ + "/" + out_name + "/population";
+	best_directory_ = out_directory_ + "/" + out_name + "/best";
+	image_directory_ = out_directory_ + "/" + out_name + "/images";
 }
