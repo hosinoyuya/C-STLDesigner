@@ -8,7 +8,7 @@ stl::stl(string file_name, stl_config config, shared_ptr<single_score> score) : 
 	file_path_ = config.population_directory_ + "/" + file_name;
 	index_ = num;
 	num++;
-	netlist_ = make_shared<netlist_base>(*template_);
+	netlist_ = template_;
 	netlist_->file_path_ = file_path_;
 	best_flag_ = false;
 }
@@ -43,6 +43,7 @@ void stl::init_subspace()
 
 void stl::random_gene_assignment()
 {
+	netlist_->stl_circuit_->copy_stl_circuit_contents();
 	for (size_t i = 0; i < sub_spaces_.size(); i++) {
 		sub_spaces_[i]->split();
 		netlist_->stl_circuit_->exchange_subspace(sub_spaces_[i]);
