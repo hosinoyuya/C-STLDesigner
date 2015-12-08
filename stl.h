@@ -19,6 +19,7 @@ public:
 	void init_subspace();
 	void random_gene_assignment();
 	void write_file();
+	void evaluate();
 private:
 	int index_;
 	bool best_flag_;

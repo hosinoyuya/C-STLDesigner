@@ -4,11 +4,13 @@
 #include "netlist_circuit.h"
 #include "netlist_commands.h"
 #include "netlist_scores.h"
+#include "single_score.h"
 #include <vector>
 #include <string>
 #include <fstream>
 #include <regex>
 #include <memory>
+#include <fstream>
 #include <fstream>
 
 using namespace std;
@@ -28,6 +30,7 @@ public:
 	string file_path_;
 	void write(string file_path = "");
 	string to_str();
+	void write_score(shared_ptr<single_score> score);
 protected:
 	string extention_;
 	vector<string> spice_extentions_;

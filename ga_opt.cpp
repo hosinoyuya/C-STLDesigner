@@ -34,6 +34,6 @@ void ga_opt::generate_random_stl()
 		stl_buf->init_subspace();
 		stl_buf->random_gene_assignment();
 		stl_buf->write_file();
-		
+		stl_buf->evaluate();
 	}
 }

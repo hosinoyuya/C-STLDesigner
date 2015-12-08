@@ -54,3 +54,12 @@ void stl::write_file()
 {
 	netlist_->write(file_path_);
 }
+
+
+void stl::evaluate()
+{
+	simulate();
+	set_waves();
+	set_scores(comparison_score_);
+	netlist_->write_score(score_);
+}

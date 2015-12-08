@@ -89,10 +89,14 @@ shared_ptr<wave_list_base> conventional::get_wave_list()
 }
 
 
-void conventional::set_scores()
+void conventional::set_scores(shared_ptr<single_score> score_conventional)
 {
 	vector<shared_ptr<point_score>> point_scores = evaluate_waves();
 	score_->set(point_scores);
+
+	if (score_conventional && config_.score_normalize_) {
+		score_->calc_ratio(score_conventional);
+	}
 }
 
 

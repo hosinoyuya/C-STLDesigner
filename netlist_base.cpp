@@ -141,3 +141,12 @@ string netlist_base::to_str()
 	
 	return return_string;
 }
+
+
+void netlist_base::write_score(shared_ptr<single_score> score)
+{
+	shared_ptr<netlist_scores> scores = make_shared<netlist_scores>();
+	scores->set_single_score(score);
+	ofstream ofs(file_path_, ios::app);
+	ofs << scores->to_str();
+}
