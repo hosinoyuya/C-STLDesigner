@@ -8,7 +8,7 @@ stl::stl(string file_name, stl_config config, shared_ptr<single_score> score) : 
 	file_path_ = config.population_directory_ + "/" + file_name;
 	index_ = num;
 	num++;
-	netlist_ = template_;
+	netlist_ = make_shared<netlist_base>(*template_);
 	netlist_->file_path_ = file_path_;
 	best_flag_ = false;
 }
