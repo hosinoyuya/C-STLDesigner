@@ -51,7 +51,7 @@ bool file_utils::cp(string from_file, string to_directory)
 	boost::filesystem::path from(from_file);
 	string file_name = from.filename().string();
 	try {
-		boost::filesystem::copy_file(from, to_directory + file_name, boost::filesystem::copy_option::overwrite_if_exists);
+		boost::filesystem::copy_file(from, to_directory + "/" + file_name, boost::filesystem::copy_option::overwrite_if_exists);
 	}
 	catch (const boost::filesystem::filesystem_error& e) {
 		cerr << e.what() << endl;

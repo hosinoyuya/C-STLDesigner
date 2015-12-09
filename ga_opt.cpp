@@ -27,13 +27,28 @@ void ga_opt::run()
 void ga_opt::generate_random_stl()
 {
 	string name;
-	shared_ptr<stl> stl_buf;
+	shared_ptr<stl> stl_random;
 	for (int i = 0; i < config_.population_size_; i++) {
 		name = "STL_init_candidate" + to_string(i) + config_.netlist_extension_;
-		stl_buf = make_shared<stl>(name, config_);
-		stl_buf->init_subspace();
-		stl_buf->random_gene_assignment();
-		stl_buf->write_file();
-		stl_buf->evaluate();
+		stl_random = make_shared<stl>(name, config_);
+		stl_random->init_subspace();
+		stl_random->random_gene_assignment();
+		stl_random->write_file();
+		stl_random->evaluate();
+		population_.push_back(stl_random);
 	}
+
+	shared_ptr<stl> best = select_best();
+	best->file_copy_to(config_.best_directory_);
+}
+
+
+shared_ptr<stl> ga_opt::select_best()
+{
+	sort(population_.begin(), population_.end(),
+		[](const shared_ptr<stl> &left, const shared_ptr<stl> &right) {
+		return left->score_->value_ < right->score_->value_;
+	});
+
+	return population_[0];
 }

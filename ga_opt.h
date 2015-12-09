@@ -3,6 +3,7 @@
 #include "stl.h"
 #include <iostream>
 #include <memory>
+#include <algorithm>
 
 using namespace std;
 
@@ -13,8 +14,10 @@ public:
 	~ga_opt();
 	void run();
 private:
+	void generate_random_stl();
+	shared_ptr<stl> select_best();
+	vector<shared_ptr<stl>> population_;
 	stl_config config_;
 	int seed_;
-	void generate_random_stl();
 };
 

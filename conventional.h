@@ -27,13 +27,13 @@ public:
 	void set_scores(shared_ptr<single_score> score_conventional = NULL);
 	shared_ptr<single_score> get_score_object();
 	void file_copy_to(string file_path);
+	shared_ptr<single_score> score_;
 protected:
 	static shared_ptr<simulator> simulator_;
 	static shared_ptr<netlist_base> template_;
 	string name_;
 	stl_config config_;
 	string file_path_;
-	shared_ptr<single_score> score_;
 	shared_ptr<netlist_base> netlist_;
 	void set_translate_waves();
 	void set_ac_waves();

@@ -84,16 +84,17 @@ vector<double> sub_space::get_random_segment_length(double min, double max, int 
 
 	sort(rand_array.begin(), rand_array.end());
 
-	rand_array = length_utils::shift_overlap(rand_array, min);
-	rand_array = length_utils::shift_overlap_reverse(rand_array, min, range_max);
+	length_utils::shift_overlap(rand_array, min);
+	length_utils::shift_overlap_reverse(rand_array, min, range_max);
 
 	segment_length_array = length_utils::get_segment_length_array(rand_array, max);
-
-	double test = fabs(accumulate(segment_length_array.begin(), segment_length_array.end(), 0.0) - max);
 
 	if (segment_length_array.size() != segment_num
 		|| *min_element(segment_length_array.begin(), segment_length_array.end()) < min
 		|| fabs(accumulate(segment_length_array.begin(), segment_length_array.end(), 0.0) - max) > stl_line::EPSILON) {
+		for (size_t i = 0; i < segment_length_array.size(); i++) {
+			cout << segment_length_array[i] << endl;
+		}
 		cerr << "random segment length initialization error.\n" << endl;
 		exit(0);
 	}

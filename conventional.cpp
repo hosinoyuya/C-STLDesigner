@@ -158,10 +158,10 @@ shared_ptr<single_score> conventional::get_score_object()
 
 void conventional::file_copy_to(string file_path)
 {
-	string from;
+	string from, from_ext, to_ext;
 	for (size_t i = 0; i < config_.spice_extensions_.size(); i++) {
-		string from_ext = config_.netlist_extension_;
-		string to_ext = config_.spice_extensions_[i];
+		from_ext = config_.netlist_extension_;
+		to_ext = config_.spice_extensions_[i];
 		from = file_path_;
 		from.replace(from.find(from_ext), from_ext.size(), to_ext);
 		file_utils::cp(from, file_path);
