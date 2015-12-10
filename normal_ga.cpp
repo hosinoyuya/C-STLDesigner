@@ -23,7 +23,7 @@ void normal_ga::change(int generation, vector<shared_ptr<stl>>& population)
 {
 	cout << "generation : " << generation << endl;
 
-	vector<shared_ptr<stl>> next_populatin;
+	vector<shared_ptr<stl>> next_population;
 	vector<shared_ptr<stl>> offsprings;
 	shared_ptr<stl> parent1, parent2;
 
@@ -34,8 +34,10 @@ void normal_ga::change(int generation, vector<shared_ptr<stl>>& population)
 
 		offsprings = crossover_->crossover(generation, i, parent1, parent2);
 
-
+		next_population.insert(next_population.end(), offsprings.begin(), offsprings.end());
 	}
+
+	population = next_population;
 }
 
 shared_ptr<stl> normal_ga::get_roulet_member(vector<shared_ptr<stl>> population, shared_ptr<stl> eliminate_member)

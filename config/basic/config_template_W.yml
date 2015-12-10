@@ -8,10 +8,10 @@
 template: ./template/basic/template_W.sp
 
 ### 母集合の個体数 ###
-# pop_size: 100
+pop_size: 30
 
 ### 遺伝的アルゴリズムの繰り返し世代数 ###
-# generation: 2000
+generation: 100
 
 ### 一回の交叉で生成する子供の数（兄弟の数） ###
 # brother_num: 8

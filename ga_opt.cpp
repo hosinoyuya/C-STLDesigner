@@ -54,15 +54,15 @@ void ga_opt::loop_ga()
 
 	normal_ga nga(config_);
 
-	int generation = 1;
-	//for (int generation = 1; generation < config_.generation_num_; generation++) {
-	
-	cout << "######### generation " << generation << " #########" << endl;
+	for (int generation = 1; generation < config_.generation_num_; generation++) {
+		cout << "######### generation " << generation << " #########" << endl;
 
-	nga.clear();
-	nga.change(generation, population_);
+		nga.clear();
+		nga.change(generation, population_);
 
-	//}
+		shared_ptr<stl> best = select_best();
+		best->file_copy_to(config_.best_directory_);
+	}
 }
 
 
