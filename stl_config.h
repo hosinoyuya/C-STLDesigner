@@ -30,7 +30,7 @@ public:
 	string template_file_;
 	int population_size_;
 	int generation_num_;
-	int brother_num_;
+	// int brother_num_;
 	double blx_alpha_;
 	map<string, string> crossover_;
 	int minimum_inpedance_;

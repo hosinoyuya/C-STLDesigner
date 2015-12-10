@@ -28,10 +28,10 @@ public:
 	shared_ptr<single_score> get_score_object();
 	void file_copy_to(string file_path);
 	shared_ptr<single_score> score_;
+	string name_;
 protected:
 	static shared_ptr<simulator> simulator_;
 	static shared_ptr<netlist_base> template_;
-	string name_;
 	stl_config config_;
 	string file_path_;
 	shared_ptr<netlist_base> netlist_;

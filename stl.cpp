@@ -43,12 +43,23 @@ void stl::init_subspace()
 
 void stl::random_gene_assignment()
 {
-	netlist_->stl_circuit_->copy_stl_circuit_contents();
+	netlist_->stl_circuit_->copy_default_contents();
 	for (size_t i = 0; i < sub_spaces_.size(); i++) {
-		sub_spaces_[i]->split();
+		sub_spaces_[i]->split_random();
 		netlist_->stl_circuit_->exchange_subspace(sub_spaces_[i]);
 	}
 }
+
+
+void stl::gene_assignment(vector<shared_ptr<sub_space>> gene)
+{
+	sub_spaces_ = gene;
+	netlist_->stl_circuit_->copy_default_contents();
+	for (size_t i = 0; i < sub_spaces_.size(); i++) {
+		netlist_->stl_circuit_->exchange_subspace(sub_spaces_[i]);
+	}
+}
+
 
 
 void stl::write_file()

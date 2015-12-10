@@ -18,16 +18,16 @@ void stl_random::srand(unsigned int seed)
 }
 
 
-int stl_random::random_int(int max, int min)
+int stl_random::random_int(int min, int max)
 {
-	std::uniform_int_distribution<int> rand(max, min);
+	uniform_int_distribution<int> rand(min, max);
 	return rand(mt);
 }
 
 
-double stl_random::random_double(double max, double min)
+double stl_random::random_double(double min, double max)
 {
-	std::uniform_real_distribution<double> rand(max, min);
+	uniform_real_distribution<double> rand(min, max);
 	return rand(mt);
 }
 

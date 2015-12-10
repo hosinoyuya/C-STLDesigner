@@ -21,6 +21,9 @@ void ga_opt::run()
 	generate_random_stl();
 
 	cout << "----------------------------- GA loop ----------------------------" << endl;
+
+	loop_ga();
+
 }
 
 
@@ -40,7 +43,28 @@ void ga_opt::generate_random_stl()
 
 	shared_ptr<stl> best = select_best();
 	best->file_copy_to(config_.best_directory_);
+
+	log_generation(best);
 }
+
+
+void ga_opt::loop_ga()
+{
+	size_t population_size = population_.size();
+
+	normal_ga nga(config_);
+
+	int generation = 1;
+	//for (int generation = 1; generation < config_.generation_num_; generation++) {
+	
+	cout << "######### generation " << generation << " #########" << endl;
+
+	nga.clear();
+	nga.change(generation, population_);
+
+	//}
+}
+
 
 
 shared_ptr<stl> ga_opt::select_best()
@@ -51,4 +75,11 @@ shared_ptr<stl> ga_opt::select_best()
 	});
 
 	return population_[0];
+}
+
+void ga_opt::log_generation(shared_ptr<stl> best)
+{
+	cout << endl << " --- Now best score stl ---" << endl;
+	cout << best->name_ << " : " << best->score_->value_ << endl;
+	cout << endl;
 }

@@ -20,12 +20,18 @@ class sub_space
 {
 public:
 	sub_space(stl_config config);
+	sub_space(const sub_space& from);
 	~sub_space();
 	void set_element(shared_ptr<element> elem);
+	void split_random();
 	void split();
 	vector<shared_ptr<element>> segments_;
 	string name_;
+	vector<double> segment_lengths_;
+	vector<int> segment_impedances_;
+	double maximum_length_;
 private:
+	stl_config config_;
 	void set_config_parameters(stl_config config);
 	int sub_offset_;
 	int minimum_impedance_;

@@ -17,7 +17,7 @@ public:
 	~stl_circuit();
 	void exchange_subspace(shared_ptr<sub_space> &subspace);
 	virtual string to_str();
-	void copy_stl_circuit_contents();
+	void copy_default_contents();
 private:
 	void exchange_element(list<shared_ptr<element>>::iterator &element_itr, list<string>::iterator &comment_itr,
 		shared_ptr<sub_space> &subspace);

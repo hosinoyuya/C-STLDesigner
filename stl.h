@@ -18,11 +18,12 @@ public:
 	static shared_ptr<single_score> comparison_score_;
 	void init_subspace();
 	void random_gene_assignment();
+	void gene_assignment(vector<shared_ptr<sub_space>> gene);
 	void write_file();
 	void evaluate();
+	vector<shared_ptr<sub_space>> sub_spaces_;
 private:
 	int index_;
 	bool best_flag_;
-	vector<shared_ptr<sub_space>> sub_spaces_;
 };
 

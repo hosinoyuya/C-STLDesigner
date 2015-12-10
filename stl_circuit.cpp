@@ -72,7 +72,7 @@ string stl_circuit::to_str()
 
 
 // 書き換え用リストにコンテンツをコピー
-void stl_circuit::copy_stl_circuit_contents()
+void stl_circuit::copy_default_contents()
 {
 	exchanged_comments_.resize(comments_.size());
 	exchanged_elements_.resize(elements_.size());

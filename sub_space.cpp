@@ -4,7 +4,15 @@ const regex REG_D(R"(.*(\d))");
 
 sub_space::sub_space(stl_config config)
 {
+	config_ = config;
 	set_config_parameters(config);
+}
+
+
+sub_space::sub_space(const sub_space& from)
+{
+	set_config_parameters(from.config_);
+	set_element(from.element_);
 }
 
 
@@ -29,6 +37,7 @@ void sub_space::set_element(shared_ptr<element> elem)
 	element_ = elem;
 	nodes_ = elem->nodes_;
 	name_ = element_->name_;
+	maximum_length_ = element_->length_->value_;
 
 	if (elem->length_ == NULL || elem->length_->key_ == "" || stl_line::length_zero(elem->length_->value_)) {
 		cerr << "set length from element failed." << endl;
@@ -58,15 +67,25 @@ void sub_space::parse_name()
 }
 
 
-void sub_space::split()
+void sub_space::split_random()
 {
-	double maximum_length = element_->length_->value_;
-	vector<double> segment_lengths = get_random_segment_length(minimum_length_, maximum_length, segment_num_);
-	vector<int> segment_impedances = get_random_segment_impedance(minimum_impedance_, maximum_impedance_, impedance_step_, segment_num_);
+	segment_lengths_ = get_random_segment_length(minimum_length_, maximum_length_, segment_num_);
+	segment_impedances_ = get_random_segment_impedance(minimum_impedance_, maximum_impedance_, impedance_step_, segment_num_);
 	int point_offset = index_ * sub_offset_;
 	for (int i = 0; i < segment_num_; i++) {
 		vector<string> points = get_segment_node(i, point_offset);
-		shared_ptr<element> segment = get_segment_element(i + 1, points, segment_lengths[i], segment_impedances[i]);
+		shared_ptr<element> segment = get_segment_element(i + 1, points, segment_lengths_[i], segment_impedances_[i]);
+		segments_.push_back(segment);
+	}
+}
+
+
+void sub_space::split()
+{
+	int point_offset = index_ * sub_offset_;
+	for (int i = 0; i < segment_lengths_.size(); i++) {
+		vector<string> points = get_segment_node(i, point_offset);
+		shared_ptr<element> segment = get_segment_element(i + 1, points, segment_lengths_[i], segment_impedances_[i]);
 		segments_.push_back(segment);
 	}
 }
