@@ -39,13 +39,24 @@ void length_utils::shift_overlap_reverse(vector<double>& rand_array, double item
 }
 
 
-vector<double> length_utils::get_segment_length_array(vector<double> rand_array, double item_sum)
+vector<double> length_utils::get_segment_length_array(vector<double> split_array, double item_sum)
 {
-	vector<double> return_val;
-	rand_array.push_back(item_sum);
-	return_val.push_back(rand_array[0]);
-	for (size_t i = 0; i < rand_array.size()-1; i++) {
-		return_val.push_back(rand_array[i + 1] - rand_array[i]);
+	vector<double> segment_length_array;
+	split_array.push_back(item_sum);
+	segment_length_array.push_back(split_array[0]);
+	for (size_t i = 0; i < split_array.size()-1; i++) {
+		segment_length_array.push_back(split_array[i + 1] - split_array[i]);
 	}
-	return return_val;
+	return segment_length_array;
+}
+
+
+vector<double> length_utils::get_split_array(vector<double> segment_length_array) {
+	vector<double> split_array;
+	double split_position = 0.0;
+	for (size_t i = 0; i < segment_length_array.size() - 1; i++) {
+		split_position += segment_length_array[i];
+		split_array.push_back(split_position);
+	}
+	return split_array;
 }

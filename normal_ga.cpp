@@ -4,7 +4,8 @@
 
 normal_ga::normal_ga(stl_config config)
 {
-	crossover_ = make_shared<uniform_crossover>(config);
+	// crossover_ = make_shared<uniform_crossover>(config);
+	crossover_ = make_shared<blx_crossover>(config);
 }
 
 
@@ -21,16 +22,17 @@ void normal_ga::clear()
 
 void normal_ga::change(int generation, vector<shared_ptr<stl>>& population)
 {
-	cout << "generation : " << generation << endl;
-
 	vector<shared_ptr<stl>> next_population;
 	vector<shared_ptr<stl>> offsprings;
 	shared_ptr<stl> parent1, parent2;
 
 	// 出来る限りペアを作って交叉する
-	for (size_t i = 0; i < population.size() / 2; i++) {
+	for (size_t i = 0; next_population.size() < population.size(); i++) {
 		parent1 = get_roulet_member(population);
 		parent2 = get_roulet_member(population, parent1);
+
+		cout << "get_score : " << parent1->score_->value_ << endl;
+		cout << "get_score : " << parent2->score_->value_ << endl;
 
 		offsprings = crossover_->crossover(generation, i, parent1, parent2);
 
@@ -44,13 +46,16 @@ shared_ptr<stl> normal_ga::get_roulet_member(vector<shared_ptr<stl>> population,
 {
 	vector<double> roulet_scores;
 	double roulet_sum = 0.0;
+	shared_ptr<stl> max = *max_element(population.begin(), population.end(),
+		[](const shared_ptr<stl>& left, const shared_ptr<stl>& right) {return left->score_->value_ < right->score_->value_; });
+	double max_score = max->score_->value_;
 	// 誤差面積が少ない方が優秀なので誤差面積の逆数をスコアにする
 	for (size_t i = 0; i < population.size(); i++) {
 		if (population[i] == eliminate_member) {
 			roulet_scores.push_back(0.0);
 			continue;
 		}
-		double score = 1.0 / population[i]->score_->value_;
+		double score = max_score - population[i]->score_->value_;
 		roulet_scores.push_back(score);
 		roulet_sum += score;
 	}

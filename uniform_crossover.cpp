@@ -2,9 +2,8 @@
 
 
 
-uniform_crossover::uniform_crossover(stl_config config)
+uniform_crossover::uniform_crossover(stl_config config) : crossover_base(config)
 {
-	config_ = config;
 }
 
 
@@ -38,7 +37,15 @@ vector<shared_ptr<stl>> uniform_crossover::crossover(int generation, int offspri
 		new_subspaces2.push_back(new_subspace2);
 	}
 
-	offsprings[0]->gene_assignment(new_subspaces1);
+	// “Ë‘R•ÏˆÙ
+	if (stl_random::random_int(0, 99) < 10) {
+		offsprings[0]->init_subspace();
+		offsprings[0]->random_gene_assignment();
+		cout << "mutation!" << endl;
+	}
+	else {
+		offsprings[0]->gene_assignment(new_subspaces1);
+	}
 	offsprings[0]->write_file();
 	offsprings[1]->gene_assignment(new_subspaces2);
 	offsprings[1]->write_file();
@@ -96,16 +103,3 @@ void uniform_crossover::crossover_subspace(shared_ptr<sub_space> parent1, shared
 	new_space2->split();
 }
 
-
-vector<double> uniform_crossover::ajust_length(vector<double> lengths, double ajust_length)
-{
-	double length = accumulate(lengths.begin(), lengths.end(), 0.0);
-	double magnification = ajust_length / length;
-
-	vector<double> new_lengths(lengths.size());
-	for (size_t i = 0; i < lengths.size(); i++) {
-		new_lengths[i] = lengths[i] * magnification;
-	}
-
-	return new_lengths;
-}

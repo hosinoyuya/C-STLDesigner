@@ -62,6 +62,14 @@ void ga_opt::loop_ga()
 
 		shared_ptr<stl> best = select_best();
 		best->file_copy_to(config_.best_directory_);
+
+		/*
+		for (size_t i = 0; i < population_.size(); i++) {
+			cout << "score" << i << ":" << population_[i]->score_->value_ << endl;
+		}
+		*/
+
+		cout << "best score : " << best->score_->value_ << endl;
 	}
 }
 

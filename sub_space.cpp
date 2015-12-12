@@ -83,7 +83,7 @@ void sub_space::split_random()
 void sub_space::split()
 {
 	int point_offset = index_ * sub_offset_;
-	for (int i = 0; i < segment_lengths_.size(); i++) {
+	for (size_t i = 0; i < segment_lengths_.size(); i++) {
 		vector<string> points = get_segment_node(i, point_offset);
 		shared_ptr<element> segment = get_segment_element(i + 1, points, segment_lengths_[i], segment_impedances_[i]);
 		segments_.push_back(segment);
@@ -111,9 +111,6 @@ vector<double> sub_space::get_random_segment_length(double min, double max, int 
 	if (segment_length_array.size() != segment_num
 		|| *min_element(segment_length_array.begin(), segment_length_array.end()) < min
 		|| fabs(accumulate(segment_length_array.begin(), segment_length_array.end(), 0.0) - max) > stl_line::EPSILON) {
-		for (size_t i = 0; i < segment_length_array.size(); i++) {
-			cout << segment_length_array[i] << endl;
-		}
 		cerr << "random segment length initialization error.\n" << endl;
 		exit(0);
 	}

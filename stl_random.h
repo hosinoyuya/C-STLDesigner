@@ -10,8 +10,8 @@ public:
 	stl_random();
 	~stl_random();
 	static void srand(unsigned int seed);
-	static int random_int(int max, int min);
-	static double random_double(double max, double min);
+	static int random_int(int min, int max);
+	static double random_double(double min, double max);
 	static int frand_between(int min, int max, int step);
 private:
 	static mt19937 mt;

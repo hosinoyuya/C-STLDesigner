@@ -40,7 +40,6 @@ void stl_main::run()
 
 void stl_main::directory_init(stl_config config)
 {
-	file_utils::rm_r(config.population_directory_);
 	file_utils::rm_r(config.best_directory_);
 	file_utils::rm_r(config.log_directory_);
 	file_utils::mkdir(config.population_directory_);
