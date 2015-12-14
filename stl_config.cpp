@@ -56,7 +56,7 @@ void stl_config::set_default()
 	ideal_point_["optpt1"] = "vspt1";
 	ideal_point_["optpt2"] = "vspt2";
 	line_offset_ = 100;
-	sub_offset_ = 1000;
+	sub_offset_ = 2000;
 	debug_log_ = true;
 	lotation_step_ = 10;
 	netlist_extension_ = ".sp";

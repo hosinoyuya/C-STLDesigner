@@ -48,14 +48,14 @@ shared_ptr<stl> normal_ga::get_roulet_member(vector<shared_ptr<stl>> population,
 	double roulet_sum = 0.0;
 	shared_ptr<stl> max = *max_element(population.begin(), population.end(),
 		[](const shared_ptr<stl>& left, const shared_ptr<stl>& right) {return left->score_->value_ < right->score_->value_; });
-	double max_score = max->score_->value_;
+	// double max_score = max->score_->value_;
 	// Œë·–ÊÏ‚ª­‚È‚¢•û‚ª—DG‚È‚Ì‚ÅŒë·–ÊÏ‚Ì‹t”‚ğƒXƒRƒA‚É‚·‚é
 	for (size_t i = 0; i < population.size(); i++) {
 		if (population[i] == eliminate_member) {
 			roulet_scores.push_back(0.0);
 			continue;
 		}
-		double score = max_score - population[i]->score_->value_;
+		double score = /* max_score */ 1.0 / population[i]->score_->value_;
 		roulet_scores.push_back(score);
 		roulet_sum += score;
 	}

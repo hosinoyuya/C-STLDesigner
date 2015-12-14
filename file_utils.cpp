@@ -12,9 +12,15 @@ file_utils::~file_utils()
 }
 
 
-bool file_utils::rm_r(string path)
+bool file_utils::rm(string file_name)
 {
-	boost::filesystem::path directory(path);
+	return boost::filesystem::remove(file_name);
+}
+
+
+bool file_utils::rm_r(string directory_name)
+{
+	boost::filesystem::path directory(directory_name);
 	boost::filesystem::directory_iterator end;
 	if (boost::filesystem::exists(directory)) {
 		try {
@@ -29,7 +35,7 @@ bool file_utils::rm_r(string path)
 					boost::filesystem::remove(fullpath);
 				}
 			}
-			boost::filesystem::remove(path);
+			boost::filesystem::remove(directory_name);
 		}
 		catch (const boost::filesystem::filesystem_error& e) {
 			cerr << e.what() << endl;

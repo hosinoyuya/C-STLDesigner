@@ -16,6 +16,10 @@ conventional::conventional(string file_name, stl_config config, shared_ptr<singl
 
 conventional::~conventional()
 {
+	for (size_t i = 0; i < config_.spice_extensions_.size(); i++) {
+		string delete_file_path = boost::algorithm::replace_all_copy(file_path_, config_.netlist_extension_, config_.spice_extensions_[i]);
+		file_utils::rm(delete_file_path);
+	}
 }
 
 
