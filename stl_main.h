@@ -1,9 +1,7 @@
 #pragma once
 #include "stl_config.h"
 #include "file_utils.h"
-#include "debug_log.h"
 #include "population_log.h"
-#include "family_log.h"
 #include "best_log.h"
 #include "opt_runner.h"
 #include <string>

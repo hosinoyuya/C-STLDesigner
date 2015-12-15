@@ -2,6 +2,7 @@
 
 // STLオブジェクトに番号を振るためのバッファ
 static int num = 0;
+vector<shared_ptr<thread>> stl::threads_;
 
 stl::stl(string file_name, stl_config config, shared_ptr<single_score> score) : conventional(file_name, config, score)
 {
@@ -74,4 +75,18 @@ void stl::evaluate()
 	set_waves();
 	set_scores(comparison_score_);
 	netlist_->write_score(score_);
+}
+
+
+void stl::async_evaluate() {
+	shared_ptr<thread> evaluate_thread = make_shared<thread>(&stl::evaluate, this);
+	threads_.push_back(evaluate_thread);
+}
+
+
+void stl::join_evaluate() {
+	for (size_t i = 0; i < threads_.size(); i++) {
+		threads_[i]->join();
+	}
+	threads_.clear();
 }

@@ -38,13 +38,16 @@ void ga_opt::generate_random_stl()
 		stl_random->random_gene_assignment();
 		stl_random->write_file();
 		stl_random->evaluate();
+		// stl_random->async_evaluate();
 		population_.push_back(stl_random);
 	}
+
+	// stl::join_evaluate();
 
 	shared_ptr<stl> best = select_best();
 	best->file_copy_to(config_.best_directory_);
 
-	log_generation(best);
+	log_generation(0, best);
 }
 
 
@@ -67,13 +70,7 @@ void ga_opt::loop_ga()
 			best->file_copy_to(config_.best_directory_);
 		}
 
-		/*
-		for (size_t i = 0; i < population_.size(); i++) {
-			cout << "score" << i << ":" << population_[i]->score_->value_ << endl;
-		}
-		*/
-
-		cout << "best score : " << best->score_->value_ << endl;
+		log_generation(generation, best);
 	}
 }
 
@@ -89,9 +86,16 @@ shared_ptr<stl> ga_opt::select_best()
 	return population_[0];
 }
 
-void ga_opt::log_generation(shared_ptr<stl> best)
+void ga_opt::log_generation(int generation, shared_ptr<stl> best)
 {
 	cout << endl << " --- Now best score stl ---" << endl;
 	cout << best->name_ << " : " << best->score_->value_ << endl;
 	cout << endl;
+
+	vector<shared_ptr<stl>> vector_best;
+	vector_best.push_back(best);
+	best_log::puts_stl(generation, vector_best);
+	population_log::puts_stl(generation, population_);
+
+	population_log::lotation(generation, config_.lotation_step_);
 }

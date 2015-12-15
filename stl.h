@@ -6,6 +6,7 @@
 #include <memory>
 #include <list>
 #include <vector>
+#include <thread>
 
 using namespace std;
 
@@ -21,9 +22,12 @@ public:
 	void gene_assignment(vector<shared_ptr<sub_space>> gene);
 	void write_file();
 	void evaluate();
+	void async_evaluate();
+	static void join_evaluate();
 	vector<shared_ptr<sub_space>> sub_spaces_;
-private:
 	int index_;
+private:
 	bool best_flag_;
+	static vector<shared_ptr<thread>> threads_;
 };
 

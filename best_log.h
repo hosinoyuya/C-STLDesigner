@@ -10,5 +10,8 @@ public:
 	best_log();
 	~best_log();
 	void static init(string file_name);
+	void static puts_stl(int generation, vector<shared_ptr<stl>> stls);
+protected:
+	static string log_file_name_;
 };
 

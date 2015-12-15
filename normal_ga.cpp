@@ -4,7 +4,7 @@
 
 normal_ga::normal_ga(stl_config config)
 {
-	// crossover_ = make_shared<uniform_crossover>(config);
+	//crossover_ = make_shared<uniform_crossover>(config);
 	crossover_ = make_shared<blx_crossover>(config);
 }
 
@@ -31,8 +31,8 @@ void normal_ga::change(int generation, vector<shared_ptr<stl>>& population)
 		parent1 = get_roulet_member(population);
 		parent2 = get_roulet_member(population, parent1);
 
-		cout << "get_score : " << parent1->score_->value_ << endl;
-		cout << "get_score : " << parent2->score_->value_ << endl;
+		cout << "parent score1 : " << parent1->score_->value_ << endl;
+		cout << "parent score2 : " << parent2->score_->value_ << endl;
 
 		offsprings = crossover_->crossover(generation, i, parent1, parent2);
 

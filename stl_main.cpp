@@ -50,10 +50,8 @@ void stl_main::directory_init(stl_config config)
 
 void stl_main::log_init(stl_config config)
 {
-	debug_log::init(config.log_directory_ + "/stldesigner3.log", config.debug_log_);
-	population_log::init(config.log_directory_ + "population.csv");
-	family_log::init(config.log_directory_ + "family.csv");
-	best_log::init(config.log_directory_ + "best_stls.csv");
+	population_log::init(config.log_directory_ + "/population.csv");
+	best_log::init(config.log_directory_ + "/best_stls.csv");
 }
 
 
