@@ -14,7 +14,6 @@ stl_circuit::~stl_circuit()
 
 void stl_circuit::exchange_subspace(shared_ptr<sub_space> &subspace)
 {
-	int element_count = 0;
 	list<string>::iterator comment_itr = exchanged_comments_.begin();
 	list<shared_ptr<element>>::iterator element_itr = exchanged_elements_.begin();
 	while (comment_itr != exchanged_comments_.end() && element_itr != exchanged_elements_.end()) {
