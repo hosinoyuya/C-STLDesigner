@@ -53,8 +53,6 @@ void ga_opt::generate_random_stl()
 
 void ga_opt::loop_ga()
 {
-	size_t population_size = population_.size();
-
 	normal_ga nga(config_);
 
 	double now_best = 100;

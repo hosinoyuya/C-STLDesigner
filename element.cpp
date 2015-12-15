@@ -71,7 +71,6 @@ shared_ptr<element> element::generate(string name)
 void element::set_node(vector<string> &items)
 {
 	string point;
-	int test = node_num();
 	for (int i = 0; i < node_num(); i++) {
 		if (items.size() > 0) {
 			point = items[0];
