@@ -6,7 +6,9 @@
 #include <fstream>
 #include <iostream>
 #include <yaml-cpp/yaml.h>
+#define BOOST_NO_CXX11_SCOPED_ENUMS
 #include <boost/filesystem.hpp>
+#undef BOOST_NO_CXX11_SCOPED_ENUMS
 #include <boost/algorithm/string.hpp>
 
 using namespace std;

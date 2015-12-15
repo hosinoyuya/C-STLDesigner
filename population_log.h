@@ -1,8 +1,10 @@
 #pragma once
 #include "stl_ga_log.h"
 #include <string>
+#define BOOST_NO_CXX11_SCOPED_ENUMS
 #include <boost/filesystem/path.hpp>
 #include <boost/algorithm/string.hpp>
+#undef BOOST_NO_CXX11_SCOPED_ENUMS
 #include <regex>
 
 using namespace std;
