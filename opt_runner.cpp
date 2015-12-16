@@ -93,7 +93,7 @@ shared_ptr<netlist_base> opt_runner::netlist_generate(string spice, string exten
 shared_ptr<conventional> opt_runner::get_conventional()
 {
 	boost::filesystem::path path(config_.template_file_);
-	return make_shared<conventional>(path.filename().c_str(), config_, make_shared<single_score>());
+	return make_shared<conventional>(path.filename().string(), config_, make_shared<single_score>());
 }
 
 

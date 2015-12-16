@@ -9,9 +9,7 @@
 #include "stl_random.h"
 #include <iostream>
 #include <memory>
-#define BOOST_NO_CXX11_SCOPED_ENUMS
 #include <boost/filesystem/path.hpp>
-#undef BOOST_NO_CXX11_SCOPED_ENUMS
 
 using namespace std;
 
