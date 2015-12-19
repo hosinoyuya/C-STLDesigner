@@ -11,7 +11,7 @@ template: ./template/basic/template_W.sp
 pop_size: 20
 
 ### 遺伝的アルゴリズムの繰り返し世代数 ###
-generation: 200
+generation: 100
 
 ### 一回の交叉で生成する子供の数（兄弟の数） ###
 # brother_num: 8
@@ -31,8 +31,8 @@ weight:
 #  optpt2: 1.0
 
 ### 観測波形に対応する理想波形の観測点 ###
-versus:                 
-  optpt1: vspt1
+versus:
+    optpt1: vspt1
 #  optpt2: vspt2
 
 ### スコア計算関数 ###
@@ -43,4 +43,7 @@ score_calc_methods:
 #  - integral
   - integral
 
-# blx_alpha: 0.0
+blx_alpha: 0.366
+
+# hspiceサーバーの数
+server_num: 8

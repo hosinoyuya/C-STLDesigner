@@ -7,11 +7,10 @@
 #include "netlist_base.h"
 #include "hspice_netlist.h"
 #include "stl_random.h"
+#include "stl_signal.h"
 #include <iostream>
 #include <memory>
-#define BOOST_NO_CXX11_SCOPED_ENUMS
 #include <boost/filesystem/path.hpp>
-#undef BOOST_NO_CXX11_SCOPED_ENUMS
 
 using namespace std;
 

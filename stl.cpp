@@ -2,6 +2,7 @@
 
 // STLオブジェクトに番号を振るためのバッファ
 static int num = 0;
+bool stl::simulation_failed_flag_ = false;
 vector<shared_ptr<thread>> stl::threads_;
 
 stl::stl(string file_name, stl_config config, shared_ptr<single_score> score) : conventional(file_name, config, score)
@@ -17,6 +18,10 @@ stl::stl(string file_name, stl_config config, shared_ptr<single_score> score) : 
 
 stl::~stl()
 {
+	for (size_t i = 0; i < config_.spice_extensions_.size(); i++) {
+		string delete_file_path = boost::algorithm::replace_all_copy(file_path_, config_.netlist_extension_, config_.spice_extensions_[i]);
+		file_utils::rm(delete_file_path);
+	}
 }
 
 
@@ -62,7 +67,6 @@ void stl::gene_assignment(vector<shared_ptr<sub_space>> gene)
 }
 
 
-
 void stl::write_file()
 {
 	netlist_->write(file_path_);
@@ -71,7 +75,10 @@ void stl::write_file()
 
 void stl::evaluate()
 {
-	simulate();
+	if (!simulate()) {
+        simulation_failed_flag_ = true;
+        return;
+    }
 	set_waves();
 	set_scores(comparison_score_);
 	netlist_->write_score(score_);

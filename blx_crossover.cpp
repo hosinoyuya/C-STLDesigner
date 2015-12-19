@@ -41,7 +41,7 @@ vector<shared_ptr<stl>> blx_crossover::crossover(int generation, int offspring_n
 	}
 
 	offsprings[0]->write_file();
-	offsprings[0]->evaluate();
+	offsprings[0]->async_evaluate();
 
 	return offsprings;
 }

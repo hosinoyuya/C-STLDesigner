@@ -4,6 +4,8 @@
 #include "normal_ga.h"
 #include "best_log.h"
 #include "population_log.h"
+#include "stl_signal.h"
+#include "hspice.h"
 #include <iostream>
 #include <memory>
 #include <algorithm>

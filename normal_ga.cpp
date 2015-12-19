@@ -31,13 +31,17 @@ void normal_ga::change(int generation, vector<shared_ptr<stl>>& population)
 		parent1 = get_roulet_member(population);
 		parent2 = get_roulet_member(population, parent1);
 
-		cout << "parent score1 : " << parent1->score_->value_ << endl;
-		cout << "parent score2 : " << parent2->score_->value_ << endl;
-
 		offsprings = crossover_->crossover(generation, i, parent1, parent2);
 
 		next_population.insert(next_population.end(), offsprings.begin(), offsprings.end());
 	}
+    stl::join_evaluate();
+    // 割り込みが発生した場合，または，hspiceが途中で停止した場合
+    // 非同期処理が終わった時点でサーバーを停止させexit
+    if (stl_signal::signal_flag_ || stl::simulation_failed_flag_) {
+        hspice::delete_server();
+        exit(0);
+    }
 
 	population = next_population;
 }

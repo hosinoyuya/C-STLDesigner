@@ -6,9 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <yaml-cpp/yaml.h>
-#define BOOST_NO_CXX11_SCOPED_ENUMS
 #include <boost/filesystem.hpp>
-#undef BOOST_NO_CXX11_SCOPED_ENUMS
 #include <boost/algorithm/string.hpp>
 
 using namespace std;
@@ -60,5 +58,6 @@ public:
 	map<string, string> score_calc_methods_;
 	string file_name_;
 	string file_path_;
+	int server_num_;
 	void chane_outdirectory_seed(int seed);
 };

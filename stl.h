@@ -26,6 +26,7 @@ public:
 	static void join_evaluate();
 	vector<shared_ptr<sub_space>> sub_spaces_;
 	int index_;
+	static bool simulation_failed_flag_;
 private:
 	bool best_flag_;
 	static vector<shared_ptr<thread>> threads_;
