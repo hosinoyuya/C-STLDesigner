@@ -91,14 +91,18 @@ void stl::async_evaluate() {
 		threads_.push_back(evaluate_thread);
 	}
 	else {
+		stl_timer::evaluate_start();
 		evaluate();
+		stl_timer::evaluate_stop();
 	}
 }
 
 
 void stl::join_evaluate() {
+	stl_timer::evaluate_start();
 	for (size_t i = 0; i < threads_.size(); i++) {
 		threads_[i]->join();
 	}
 	threads_.clear();
+	stl_timer::evaluate_stop();
 }

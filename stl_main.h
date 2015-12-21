@@ -4,6 +4,7 @@
 #include "population_log.h"
 #include "best_log.h"
 #include "opt_runner.h"
+#include "stl_timer.h"
 #include <string>
 #include <vector>
 

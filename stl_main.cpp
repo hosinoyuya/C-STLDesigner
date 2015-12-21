@@ -14,6 +14,8 @@ stl_main::~stl_main()
 
 void stl_main::run()
 {
+	stl_timer::init_timer();
+	stl_timer::stl_start();
 	cout << "------------------------------------------------------------------" << endl;
 	cout << "------------------------- Start STL ------------------------------" << endl;
 	cout << "------------------------------------------------------------------" << endl;
@@ -35,6 +37,8 @@ void stl_main::run()
 	cout << "----------------- STL Designer 3 has completed ! -----------------" << endl;
 	cout << "------------------------------------------------------------------" << endl;
 	cout << endl;
+	stl_timer::stl_stop();
+	stl_timer::print_time();
 }
 
 
