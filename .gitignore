@@ -6,7 +6,9 @@ src/
 output/
 template/
 obj/
-*.*
+.*
+STLDesigner3.*
+ClassDiagram.cd
 resource.h
 run
 run.d
