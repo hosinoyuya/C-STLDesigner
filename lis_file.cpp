@@ -90,7 +90,7 @@ int lis_file::get_data_num(shared_ptr<tran_command> tran)
 	double start_time = tran->start_time_;
 	double end_time = tran->end_time_;
 
-	return (int)(fabs(end_time - start_time) / resolution + 1);
+	return (int)round(fabs(end_time - start_time) / resolution + 1);
 }
 
 

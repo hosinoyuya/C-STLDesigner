@@ -23,10 +23,9 @@ element::~element()
 
 shared_ptr<element> element::parce(string line)
 {
-	string copy_line = boost::algorithm::replace_all_copy(line, "+", " ");
-	boost::algorithm::replace_all(copy_line, "$", "");
+	boost::algorithm::replace_all(line, "$", "");
 	vector<string> items;
-	boost::algorithm::split(items, copy_line, boost::algorithm::is_space(), boost::algorithm::token_compress_on);
+	boost::algorithm::split(items, line, boost::algorithm::is_space(), boost::algorithm::token_compress_on);
 
 	string name = items[0];
 	items.erase(items.begin());

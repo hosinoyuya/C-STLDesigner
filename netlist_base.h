@@ -12,6 +12,7 @@
 #include <memory>
 #include <fstream>
 #include <fstream>
+#include <boost/algorithm/string.hpp>
 
 using namespace std;
 

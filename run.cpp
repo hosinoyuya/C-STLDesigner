@@ -7,6 +7,7 @@ int main()
 {
 	stl_main main("config/basic/config_template_W.yml");
 	// stl_main main("config/default.yml");
+	// stl_main main("config/config_IBIS_10pF_clk_tr200ps_td16102ps_Tran85_Pop100_Bro10.yml");
 	main.run();
 
 	//clock_t start = clock();

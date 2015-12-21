@@ -60,6 +60,7 @@ vector<string> netlist_base::concat_continue_line(vector<string> lines)
 	for (size_t i = 0; i < lines.size(); i++) {
 		if (lines[i][0] == '+') {
 			content[content.size() - 1] = content[content.size() - 1] + lines[i];
+			boost::algorithm::replace_all(content[content.size() - 1], "+", " ");
 		}
 		else {
 			content.push_back(lines[i]);
