@@ -6,7 +6,7 @@ opt_runner::opt_runner(stl_config config, int seed)
 {
 	opt_runner::config_ = config;
 	opt_runner::seed_ = seed;
-	
+
 	if (config.optimization_ == "ga") {
 		algorithm_ = make_shared<ga_opt>(config, seed);
 	}
@@ -15,17 +15,25 @@ opt_runner::opt_runner(stl_config config, int seed)
 		cerr << "please correct the algorithm setting in your config file." << endl;
 		exit(0);
 	}
+    // 割り込みで勝手に終了しないように設定
+    stl_signal::set_signal_function();
+    // ライセンス認証用のサーバーを立てる
+    hspice::init_server(config_);
 }
 
 
 opt_runner::~opt_runner()
 {
+    // ライセンス認証用のサーバーを終了する
+    hspice::delete_server();
 }
 
 
 void opt_runner::run()
 {
 	stl_random::srand(seed_);
+
+
 	stl_initialize();
 	algorithm_->run();
 }
@@ -37,7 +45,7 @@ void opt_runner::stl_initialize()
 	set_template();
 
 	conventional_ = get_conventional();
-	
+
 	conventional_->simulate();
 	conventional_->set_waves();
 	set_conventional_score(conventional_);

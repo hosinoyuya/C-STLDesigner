@@ -4,6 +4,8 @@
 #include "stl_config.h"
 #include "stl.h"
 #include "stl_random.h"
+#include "stl_signal.h"
+#include "hspice.h"
 #include <memory>
 #include <vector>
 

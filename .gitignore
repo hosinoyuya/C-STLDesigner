@@ -5,6 +5,9 @@ Release/
 src/
 output/
 template/
-*.vcxproj*
-*.rc
+obj/
+*.*
 resource.h
+run
+run.d
+port_num.txt

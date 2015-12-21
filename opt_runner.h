@@ -7,6 +7,7 @@
 #include "netlist_base.h"
 #include "hspice_netlist.h"
 #include "stl_random.h"
+#include "stl_signal.h"
 #include <iostream>
 #include <memory>
 #include <boost/filesystem/path.hpp>

@@ -14,10 +14,11 @@ simulator::~simulator()
 }
 
 
-void simulator::run(string filepath, string command)
+int simulator::run(string command)
 {
 	int ret = system(command.c_str());
 	if (ret != 0) {
 		cerr << "simulator exception occured." << endl;
 	}
+    return ret;
 }

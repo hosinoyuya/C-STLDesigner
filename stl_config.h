@@ -58,5 +58,6 @@ public:
 	map<string, string> score_calc_methods_;
 	string file_name_;
 	string file_path_;
+	int server_num_;
 	void chane_outdirectory_seed(int seed);
 };

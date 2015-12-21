@@ -23,7 +23,6 @@ void ga_opt::run()
 	cout << "----------------------------- GA loop ----------------------------" << endl;
 
 	loop_ga();
-
 }
 
 
@@ -37,12 +36,18 @@ void ga_opt::generate_random_stl()
 		stl_random->init_subspace();
 		stl_random->random_gene_assignment();
 		stl_random->write_file();
-		stl_random->evaluate();
-		// stl_random->async_evaluate();
+		// stl_random->evaluate();
+		stl_random->async_evaluate();
 		population_.push_back(stl_random);
 	}
 
-	// stl::join_evaluate();
+	stl::join_evaluate();
+    // 割り込みが発生した場合，または，hspiceが途中で停止した場合
+    // 非同期処理が終わった時点でサーバーを停止させexit
+    if (stl_signal::signal_flag_ || stl::simulation_failed_flag_) {
+        hspice::delete_server();
+        exit(0);
+    }
 
 	shared_ptr<stl> best = select_best();
 	best->file_copy_to(config_.best_directory_);

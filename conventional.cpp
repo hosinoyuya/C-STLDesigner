@@ -16,10 +16,6 @@ conventional::conventional(string file_name, stl_config config, shared_ptr<singl
 
 conventional::~conventional()
 {
-	for (size_t i = 0; i < config_.spice_extensions_.size(); i++) {
-		string delete_file_path = boost::algorithm::replace_all_copy(file_path_, config_.netlist_extension_, config_.spice_extensions_[i]);
-		file_utils::rm(delete_file_path);
-	}
 }
 
 
@@ -35,9 +31,9 @@ void conventional::set_template(shared_ptr<netlist_base> netlist)
 }
 
 
-void conventional::simulate()
+bool conventional::simulate()
 {
-	simulator_->simulate(file_path_);
+	return simulator_->simulate(file_path_);
 }
 
 

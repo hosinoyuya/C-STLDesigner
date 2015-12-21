@@ -22,7 +22,7 @@ public:
 	~conventional();
 	static void set_simulator(shared_ptr<simulator> simulator);
 	static void set_template(shared_ptr<netlist_base> netlist);
-	void simulate();
+	bool simulate();
 	void set_waves();
 	void set_scores(shared_ptr<single_score> score_conventional = NULL);
 	shared_ptr<single_score> get_score_object();

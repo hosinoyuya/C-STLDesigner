@@ -66,6 +66,7 @@ void stl_config::set_default()
 	score_normalize_ = true;
 	score_calc_methods_["optpt1"] = "integral";
 	score_calc_methods_["optpt2"] = "integral";
+    server_num_ = 1;
 }
 
 
@@ -232,6 +233,9 @@ void stl_config::set_parameters(YAML::Node config) {
 				score_calc_methods_.insert(pair<string, string>(it2->begin()->as<string>(), (++(it2->begin()))->as<string>()));
 			}
 		}
+        else if (key == "server_num") {
+		    server_num_ = it->second.as<int>();
+        }
 	}
 }
 
