@@ -23,6 +23,8 @@ void stl_signal::set_signal_function()
         cerr << "Failed to set signal function." << endl;
         exit(0);
     }
+	/*
+	Windwos‚Å“®‚©‚È‚¢‚Ì‚Å‚Ð‚Æ‚Ü‚¸•Û—¯
     if (signal(SIGQUIT, handler)) {
         cerr << "Failed to set signal function." << endl;
         exit(0);
@@ -31,6 +33,7 @@ void stl_signal::set_signal_function()
         cerr << "Failed to set signal function." << endl;
         exit(0);
     }
+	*/
 }
 
 

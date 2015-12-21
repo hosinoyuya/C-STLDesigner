@@ -59,5 +59,6 @@ public:
 	string file_name_;
 	string file_path_;
 	int server_num_;
+	bool use_multithread_;
 	void chane_outdirectory_seed(int seed);
 };

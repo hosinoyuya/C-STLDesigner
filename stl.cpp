@@ -86,8 +86,13 @@ void stl::evaluate()
 
 
 void stl::async_evaluate() {
-	shared_ptr<thread> evaluate_thread = make_shared<thread>(&stl::evaluate, this);
-	threads_.push_back(evaluate_thread);
+	if (config_.use_multithread_) {
+		shared_ptr<thread> evaluate_thread = make_shared<thread>(&stl::evaluate, this);
+		threads_.push_back(evaluate_thread);
+	}
+	else {
+		evaluate();
+	}
 }
 
 

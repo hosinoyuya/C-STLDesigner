@@ -47,3 +47,6 @@ blx_alpha: 0.366
 
 # hspiceサーバーの数
 server_num: 8
+
+# multithreadの使用
+use_multithread: false

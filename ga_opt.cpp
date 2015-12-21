@@ -36,14 +36,13 @@ void ga_opt::generate_random_stl()
 		stl_random->init_subspace();
 		stl_random->random_gene_assignment();
 		stl_random->write_file();
-		// stl_random->evaluate();
 		stl_random->async_evaluate();
 		population_.push_back(stl_random);
 	}
 
 	stl::join_evaluate();
-    // $B3d$j9~$_$,H/@8$7$?>l9g!$$^$?$O!$(Bhspice$B$,ESCf$GDd;_$7$?>l9g(B
-    // $BHsF14|=hM}$,=*$o$C$?;~E@$G%5!<%P!<$rDd;_$5$;(Bexit
+    // Š„‚èž‚Ý‚ª”­¶‚µ‚½ê‡C‚Ü‚½‚ÍChspice‚ª“r’†‚Å’âŽ~‚µ‚½ê‡
+	// ”ñ“¯Šúˆ—‚ªI‚í‚Á‚½Žž“_‚ÅƒT[ƒo[‚ð’âŽ~‚³‚¹exit
     if (stl_signal::signal_flag_ || stl::simulation_failed_flag_) {
         hspice::delete_server();
         exit(0);

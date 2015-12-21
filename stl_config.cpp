@@ -67,6 +67,7 @@ void stl_config::set_default()
 	score_calc_methods_["optpt1"] = "integral";
 	score_calc_methods_["optpt2"] = "integral";
     server_num_ = 1;
+	use_multithread_ = false;
 }
 
 
@@ -236,6 +237,14 @@ void stl_config::set_parameters(YAML::Node config) {
         else if (key == "server_num") {
 		    server_num_ = it->second.as<int>();
         }
+		else if (key == "use_multithread") {
+			if (it->second.as<string>() == "true") {
+				use_multithread_ = true;
+			}
+			else {
+				use_multithread_ = false;
+			}
+		}
 	}
 }
 
