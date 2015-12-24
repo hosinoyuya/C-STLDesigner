@@ -8,7 +8,7 @@
 template: ./template/basic/template_W.sp
 
 ### 母集合の個体数 ###
-pop_size: 20
+pop_size: 40
 
 ### 遺伝的アルゴリズムの繰り返し世代数 ###
 generation: 100
@@ -49,4 +49,4 @@ blx_alpha: 0.366
 server_num: 8
 
 # multithreadの使用
-use_multithread: false
+use_multithread: true

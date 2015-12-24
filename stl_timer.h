@@ -16,9 +16,11 @@ public:
 	static void evaluate_stop();
 	static void print_time();
 private:
-	static clock_t stl_time_;
-	static clock_t stl_start_;
-	static clock_t evaluate_time_;
+	static time_t stl_start_;
+	static time_t stl_end_;
 	static clock_t evaluate_start_;
+	static clock_t evaluate_end_;
+	static clock_t evaluate_clock_;
+	static time_t evaluate_time_;
 };
 

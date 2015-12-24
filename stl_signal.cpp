@@ -17,11 +17,9 @@ void stl_signal::set_signal_function()
     signal_flag_ = false;
     if (signal(SIGINT, handler)) {
         cerr << "Failed to set signal function." << endl;
-        exit(0);
     }
     if (signal(SIGTERM, handler)) {
         cerr << "Failed to set signal function." << endl;
-        exit(0);
     }
 	/*
 	Windwos‚Å“®‚©‚È‚¢‚Ì‚Å‚Ð‚Æ‚Ü‚¸•Û—¯

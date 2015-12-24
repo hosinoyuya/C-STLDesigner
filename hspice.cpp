@@ -54,6 +54,7 @@ void hspice::delete_server()
     for (size_t i = 0; i < get_ports_.size(); i++) {
         run("hspice -CC -K -port " + to_string(get_ports_[i]));
     }
+    get_ports_.clear();
 }
 
 

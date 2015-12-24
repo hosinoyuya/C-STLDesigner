@@ -16,7 +16,7 @@ opt_runner::opt_runner(stl_config config, int seed)
 		exit(0);
 	}
     // 割り込みで勝手に終了しないように設定
-    stl_signal::set_signal_function();
+    //stl_signal::set_signal_function();
     // ライセンス認証用のサーバーを立てる
     hspice::init_server(config_);
 }
