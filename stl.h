@@ -4,6 +4,7 @@
 #include "sub_space.h"
 #include "stl_line.h"
 #include "stl_timer.h"
+#include "hspice.h"
 #include <memory>
 #include <list>
 #include <vector>

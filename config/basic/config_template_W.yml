@@ -8,7 +8,7 @@
 template: ./template/basic/template_W.sp
 
 ### 母集合の個体数 ###
-pop_size: 40
+pop_size: 16
 
 ### 遺伝的アルゴリズムの繰り返し世代数 ###
 generation: 100

@@ -1,6 +1,7 @@
 #pragma once
 #include "uniform_crossover.h"
 #include "blx_crossover.h"
+#include "one_point_crossover.h"
 #include "stl_config.h"
 #include "stl.h"
 #include "stl_random.h"

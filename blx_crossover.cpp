@@ -94,7 +94,7 @@ vector<double> blx_crossover::length_blx(vector<double> parent1, vector<double> 
 
     if (last_length > config_.minimum_length_) {
         new_segment_lengths[new_segment_lengths.size() - 1] = last_length;
-	    return ajust_length(new_segment_lengths, total_length);
+	    return ajust_small_segment(new_segment_lengths, total_length);
     } else {
 	    return length_blx(parent1, parent2, total_length);
     }

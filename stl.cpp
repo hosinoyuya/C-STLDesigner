@@ -86,7 +86,7 @@ void stl::evaluate()
 
 
 void stl::async_evaluate() {
-	if (config_.use_multithread_) {
+	if (config_.use_multithread_ && hspice::use_multiserver_) {
 		shared_ptr<thread> evaluate_thread = make_shared<thread>(&stl::evaluate, this);
 		threads_.push_back(evaluate_thread);
 	}

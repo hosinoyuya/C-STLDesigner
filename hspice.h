@@ -19,10 +19,10 @@ public:
 	virtual bool simulate(string file_path);
     static void init_server(stl_config config);
     static void delete_server();
+	static bool use_multiserver_;
 private:
     static int get_port_num(string port_num_file);
     static vector<int> get_ports_;
     static int use_port_index_;
-	static bool use_multiserver_;
 };
 
