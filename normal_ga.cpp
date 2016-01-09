@@ -59,7 +59,7 @@ shared_ptr<stl> normal_ga::get_roulet_member(vector<shared_ptr<stl>> population,
 			roulet_scores.push_back(0.0);
 			continue;
 		}
-		double score = /* max_score */ 1.0 / population[i]->score_->value_;
+		double score = pow(1.0 / population[i]->score_->value_, 2);
 		roulet_scores.push_back(score);
 		roulet_sum += score;
 	}

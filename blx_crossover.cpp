@@ -31,7 +31,7 @@ vector<shared_ptr<stl>> blx_crossover::crossover(int generation, int offspring_n
 	}
 
 	// “Ë‘R•ÏˆÙ
-	if (stl_random::random_double(0, 100) < 10) {
+	if (stl_random::random_double(0, 100) < 5) {
 		offsprings[0]->init_subspace();
 		offsprings[0]->random_gene_assignment();
 		cout << "mutation!" << endl;
@@ -89,9 +89,15 @@ vector<double> blx_crossover::length_blx(vector<double> parent1, vector<double> 
 		new_segment_lengths.push_back(stl_random::random_double(range_min, range_max));
 	}
 
-	ajust_length(new_segment_lengths, total_length);
+	double length_before_last = accumulate(new_segment_lengths.begin(), new_segment_lengths.end() - 1, 0.0);
+	double last_length = total_length - length_before_last;
 
-	return new_segment_lengths;
+    if (last_length > config_.minimum_length_) {
+        new_segment_lengths[new_segment_lengths.size() - 1] = last_length;
+	    return ajust_length(new_segment_lengths, total_length);
+    } else {
+	    return length_blx(parent1, parent2, total_length);
+    }
 }
 
 

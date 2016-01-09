@@ -5,9 +5,12 @@
 
 int main()
 {
-	stl_main main("config/basic/config_template_W_pop32_mu0.yml");
-	main.run();
-
+	stl_main main0("config/basic/config_template_W_pop12_mu5.yml");
+	main0.run();
+	stl_main main1("config/basic/config_template_W_pop20_mu5.yml");
+	main1.run();
+	//stl_main main4("config/basic/config_template_W_pop40_mu5.yml");
+	//main4.run();
 	//clock_t start = clock();
 	//for (int i = 0; i < 100; i++) {
 	//	list_file::load_tran_core();

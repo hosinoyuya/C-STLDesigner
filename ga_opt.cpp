@@ -71,6 +71,11 @@ void ga_opt::loop_ga()
 			now_best = best->score_->value_;
 			best->file_copy_to(config_.best_directory_);
 		}
+        // if (generation == 100) {
+        //     for (size_t i = 0; i < population_.size(); i++) {
+        //         population_[i]->file_copy_to(config_.best_directory_);
+        //     }
+        // }
 
 		log_generation(generation, best);
 	}
