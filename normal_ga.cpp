@@ -5,8 +5,8 @@
 normal_ga::normal_ga(stl_config config)
 {
 	//crossover_ = make_shared<uniform_crossover>(config);
-	//crossover_ = make_shared<blx_crossover>(config);
-	crossover_ = make_shared<one_point_crossover>(config);
+	crossover_ = make_shared<blx_crossover>(config);
+	//crossover_ = make_shared<one_point_crossover>(config);
 }
 
 

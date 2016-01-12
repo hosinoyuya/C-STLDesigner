@@ -39,7 +39,7 @@ vector<shared_ptr<stl>> one_point_crossover::crossover(int generation, int offsp
 	}
 
 	// “Ë‘R•ÏˆÙ
-	if (stl_random::random_int(0, 99) < 5) {
+	if (stl_random::random_int(0, 99) < 10) {
 		offsprings[0]->init_subspace();
 		offsprings[0]->random_gene_assignment();
 		cout << "mutation!" << endl;
@@ -51,8 +51,8 @@ vector<shared_ptr<stl>> one_point_crossover::crossover(int generation, int offsp
 	offsprings[1]->gene_assignment(new_subspaces2);
 	offsprings[1]->write_file();
 
-	offsprings[0]->evaluate();
-	offsprings[1]->evaluate();
+	offsprings[0]->async_evaluate();
+	offsprings[1]->async_evaluate();
 
 	return offsprings;
 }
