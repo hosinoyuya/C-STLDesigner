@@ -74,7 +74,7 @@ shared_ptr<stl> normal_ga::get_roulet_member(vector<shared_ptr<stl>> population,
     // 線形スケーリング
     // cout << min << " " << max << endl;
     double score_size = roulet_scores.size();
-    double b = (max - min * score_size ) / score_size - 1;
+    double b = (max - min * score_size ) / (score_size - 1);
 	// 誤差面積が少ない方が優秀なので誤差面積の逆数をスコアにする
 	for (size_t i = 0; i < roulet_scores.size(); i++) {
 		if(roulet_scores[i] != 0.0) roulet_scores[i] += b;
