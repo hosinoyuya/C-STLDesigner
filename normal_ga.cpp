@@ -51,18 +51,36 @@ shared_ptr<stl> normal_ga::get_roulet_member(vector<shared_ptr<stl>> population,
 {
 	vector<double> roulet_scores;
 	double roulet_sum = 0.0;
-	shared_ptr<stl> max = *max_element(population.begin(), population.end(),
-		[](const shared_ptr<stl>& left, const shared_ptr<stl>& right) {return left->score_->value_ < right->score_->value_; });
-	// double max_score = max->score_->value_;
-	// 誤差面積が少ない方が優秀なので誤差面積の逆数をスコアにする
+
 	for (size_t i = 0; i < population.size(); i++) {
 		if (population[i] == eliminate_member) {
 			roulet_scores.push_back(0.0);
 			continue;
 		}
-		double score = pow(1.0 / population[i]->score_->value_, 2);
+        // 逆数の2乗
+		// double score = pow(1.0 / population[i]->score_->value_, 2);
+		double score = 1.0 / population[i]->score_->value_;
 		roulet_scores.push_back(score);
-		roulet_sum += score;
+    }
+	double max = *max_element(roulet_scores.begin(), roulet_scores.end());
+	double min = *min_element(roulet_scores.begin(), roulet_scores.end(),
+		[](const double& left, const double& right)
+        {
+            // 0.0が最小値にならないようにする
+            double left_buf = left == 0.0 ? DBL_MAX : left;
+            double right_buf = right == 0.0 ? DBL_MAX : right;
+            return left_buf < right_buf;
+        });
+    // 線形スケーリング
+    // cout << min << " " << max << endl;
+    double score_size = roulet_scores.size();
+    double b = (max - min * score_size ) / score_size - 1;
+	// 誤差面積が少ない方が優秀なので誤差面積の逆数をスコアにする
+	for (size_t i = 0; i < roulet_scores.size(); i++) {
+		if(roulet_scores[i] != 0.0) roulet_scores[i] += b;
+        //cout << "b = " << b << endl;
+        cout << "score = " << roulet_scores[i] << endl;
+		roulet_sum += roulet_scores[i];
 	}
 
 	double random_position = stl_random::random_double(0.0, roulet_sum);

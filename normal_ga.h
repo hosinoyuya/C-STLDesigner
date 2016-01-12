@@ -9,6 +9,7 @@
 #include "hspice.h"
 #include <memory>
 #include <vector>
+#include <float.h>
 
 using namespace std;
 
