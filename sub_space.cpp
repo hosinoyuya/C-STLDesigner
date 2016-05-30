@@ -206,7 +206,7 @@ shared_ptr<element> sub_space::get_segment_element(int index, vector<string> poi
 
 	copy_element->name_ = segment_name;
 	copy_element->set_impedance(segment_impedance);
-	copy_element->set_lenght(segment_length);
+	copy_element->set_length(segment_length);
 	copy_element->set_nodes(point);
 	return copy_element;
 }

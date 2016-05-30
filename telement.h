@@ -11,11 +11,11 @@ public:
 	telement(string name);
 	~telement();
 	virtual string get_param_str();
+	virtual void set_length(double length);
 private:
 	double time_delay_;
 	virtual int node_num();
 	virtual void set_spetialized_parameters(string key, string val);
 	string param_str_;
-	bool first_param_;
 };
 

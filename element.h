@@ -25,7 +25,7 @@ public:
 	virtual int node_num();
 	virtual void set_nodes(vector<string> nodes);
 	virtual void set_impedance(int impedance);
-	virtual void set_lenght(double length);
+	virtual void set_length(double length);
 	vector<shared_ptr<node_point>> nodes_;
 	shared_ptr<line_length> length_;
 	ELEMENT_TYPE type_;

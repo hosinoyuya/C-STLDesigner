@@ -1,18 +1,13 @@
-#include <iostream>
+﻿#include <iostream>
 #include "stl_main.h"
 #include "list_file.h"
 #include <time.h>
 
 int main()
 {
-	stl_main main("config/basic/config_template_W_pop16_mu5_linear.yml");
+	// 設定ファイルを指定し、プログラムを実行
+	stl_main main("config/basic/config_template_T.yml");
 	main.run();
-	//clock_t start = clock();
-	//for (int i = 0; i < 100; i++) {
-	//	list_file::load_tran_core();
-	//}
-	//clock_t end = clock();
-	//std::cout << "duration = " << (double)(end - start) / CLOCKS_PER_SEC * 1000 << "msec.\n";
 
 	return 0;
 }

@@ -136,11 +136,10 @@ void element::set_impedance(int impedance)
 {
 	impedance_ = make_shared<char_impedance>(*impedance_);
 	impedance_->value_ = impedance;
-
 }
 
 
-void element::set_lenght(double length)
+void element::set_length(double length)
 {
 	length_ = make_shared<line_length>(*length_);
 	length_->value_ = length;
