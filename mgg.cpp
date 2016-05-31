@@ -24,8 +24,8 @@ void mgg::change(int generation, vector<shared_ptr<stl>>& population)
 
 	offsprings = crossover_->crossover(generation, 1, parent1, parent2);
 
-	population.push_back(extract_elete(population));
-	population.push_back(extract_random(population));
+	population.push_back(extract_elete(offsprings));
+	population.push_back(extract_random(offsprings));
 }
 
 
@@ -39,11 +39,15 @@ shared_ptr<stl> mgg::extract_elete(vector<shared_ptr<stl>>& population)
 			return_position = i;
 		}
 	}
-	return *population.erase(population.begin() + return_position);
+	shared_ptr<stl> return_member = population[return_position];
+	population.erase(population.begin() + return_position);
+	return return_member;
 }
 
 shared_ptr<stl> mgg::extract_random(vector<shared_ptr<stl>>& population)
 {
 	int random_position = stl_random::random_int(0, population.size()-1);
-	return *population.erase(population.begin() + random_position);
+	shared_ptr<stl> return_member = population[random_position];
+	population.erase(population.begin() + random_position);
+	return return_member;
 }

@@ -34,7 +34,7 @@ vector<shared_ptr<stl>> blx_crossover::crossover(int generation, int offspring_n
 		}
 
 		// 突然変異
-		if (stl_random::random_double(0, 100) < 5.0) {
+		if (stl_random::random_double(0, 100) < config_.mutation_ * 100) {
 			offsprings[i]->init_subspace();
 			offsprings[i]->random_gene_assignment();
 			cout << "mutation!" << endl;

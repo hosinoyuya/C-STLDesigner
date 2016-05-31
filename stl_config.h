@@ -62,4 +62,5 @@ public:
 	bool use_multithread_;
 	void chane_outdirectory_seed(int seed);
 	string ga_algorithm_;
+	double mutation_;
 };

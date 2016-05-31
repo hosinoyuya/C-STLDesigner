@@ -69,6 +69,7 @@ void stl_config::set_default()
     server_num_ = 1;
 	use_multithread_ = false;
 	ga_algorithm_ = "normal_ga";
+	mutation_ = 0.05;
 }
 
 
@@ -246,6 +247,9 @@ void stl_config::set_parameters(YAML::Node config) {
 		}
 		else if (key == "ga_algorithm") {
 			ga_algorithm_ = it->second.as<string>();
+		}
+		else if (key == "mutation") {
+			mutation_ = it->second.as<double>();
 		}
 	}
 }

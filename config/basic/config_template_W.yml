@@ -13,7 +13,7 @@ pop_size: 16
 ### 遺伝的アルゴリズムの繰り返し世代数 ###
 generation: 100
 
-### 一回の交叉で生成する子供の数（兄弟の数） ###
+### 一回の交叉で生成する子供の数（兄弟の数、blx_alphaの場合使用） ###
 brother_num: 8
 
 ### 乱数シード ###
@@ -41,8 +41,8 @@ score_calc_methods:
   - integral
 #- - optpt2
 #  - integral
-  - integral
 
+# blxのalphaの値
 blx_alpha: 0.366
 
 # hspiceサーバーの数
@@ -50,3 +50,9 @@ server_num: 8
 
 # multithreadの使用
 use_multithread: true
+
+# GAのアルゴリズム
+ga_algorithm: mgg
+
+# 突然変異の確率
+mutation: 0.05

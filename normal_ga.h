@@ -18,8 +18,8 @@ class normal_ga
 public:
 	normal_ga(stl_config config);
 	~normal_ga();
-	void clear();
-	void change(int generation, vector<shared_ptr<stl>>& population);
+	virtual void clear();
+	virtual void change(int generation, vector<shared_ptr<stl>>& population);
 protected:
 	shared_ptr<crossover_base> crossover_;
 	shared_ptr<stl> get_roulet_member(vector<shared_ptr<stl>> population,
