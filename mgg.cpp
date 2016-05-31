@@ -15,7 +15,7 @@ mgg::~mgg()
 void mgg::change(int generation, vector<shared_ptr<stl>>& population)
 {
 	vector<shared_ptr<stl>> next_population;
-	vector<shared_ptr<stl>> offsprings;
+	vector<shared_ptr<stl>> offsprings, family;
 	shared_ptr<stl> parent1, parent2;
 
 	// 親を２つ選ぶ
@@ -23,9 +23,12 @@ void mgg::change(int generation, vector<shared_ptr<stl>>& population)
 	parent2 = extract_random(population);
 
 	offsprings = crossover_->crossover(generation, 1, parent1, parent2);
+	family.insert(family.end(), offsprings.begin(), offsprings.end());
+	family.push_back(parent1);
+	family.push_back(parent2);
 
-	population.push_back(extract_elete(offsprings));
-	population.push_back(extract_random(offsprings));
+	population.push_back(extract_elete(family));
+	population.push_back(extract_random(family));
 }
 
 
