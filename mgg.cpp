@@ -23,6 +23,15 @@ void mgg::change(int generation, vector<shared_ptr<stl>>& population)
 	parent2 = extract_random(population);
 
 	offsprings = crossover_->crossover(generation, 1, parent1, parent2);
+
+	stl::join_evaluate();
+	// 割り込みが発生した場合，または，hspiceが途中で停止した場合
+	// 非同期処理が終わった時点でサーバーを停止させexit
+	if (stl_signal::signal_flag_ || stl::simulation_failed_flag_) {
+		hspice::delete_server();
+		exit(0);
+	}
+
 	family.insert(family.end(), offsprings.begin(), offsprings.end());
 	family.push_back(parent1);
 	family.push_back(parent2);
