@@ -2,6 +2,7 @@
 #include "stl_config.h"
 #include "stl.h"
 #include "normal_ga.h"
+#include "mgg.h"
 #include "best_log.h"
 #include "population_log.h"
 #include "stl_signal.h"

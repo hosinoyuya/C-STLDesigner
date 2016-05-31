@@ -14,7 +14,7 @@ pop_size: 16
 generation: 100
 
 ### 一回の交叉で生成する子供の数（兄弟の数） ###
-# brother_num: 8
+brother_num: 8
 
 ### 乱数シード ###
 seeds:

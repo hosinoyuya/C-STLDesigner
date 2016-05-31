@@ -6,7 +6,7 @@
 int main()
 {
 	// 設定ファイルを指定し、プログラムを実行
-	stl_main main("config/basic/config_template_T.yml");
+	stl_main main("config/basic/config_template_W.yml");
 	main.run();
 
 	return 0;

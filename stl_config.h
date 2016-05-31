@@ -30,7 +30,7 @@ public:
 	string template_file_;
 	int population_size_;
 	int generation_num_;
-	// int brother_num_;
+	int brother_num_;
 	double blx_alpha_;
 	map<string, string> crossover_;
 	int minimum_inpedance_;
@@ -61,4 +61,5 @@ public:
 	int server_num_;
 	bool use_multithread_;
 	void chane_outdirectory_seed(int seed);
+	string ga_algorithm_;
 };

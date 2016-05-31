@@ -21,7 +21,7 @@ void stl_config::set_default()
 	template_file_ = "./template/default.sp";
 	population_size_ = 2;
 	generation_num_ = 2;
-	// brother_num_ = 2;
+	brother_num_ = 2;
 	blx_alpha_ = 0.366;
 	crossover_["length"] = "dependent_sum_blx";
 	crossover_["impedance"] = "independent_blx";
@@ -68,6 +68,7 @@ void stl_config::set_default()
 	score_calc_methods_["optpt2"] = "integral";
     server_num_ = 1;
 	use_multithread_ = false;
+	ga_algorithm_ = "normal_ga";
 }
 
 
@@ -116,11 +117,9 @@ void stl_config::set_parameters(YAML::Node config) {
 		else if (key == "generation") {
 			generation_num_ = it->second.as<int>();
 		}
-		/*
 		else if (key == "brother_num") {
 			brother_num_ = it->second.as<int>();
 		}
-		*/
 		else if (key == "blx_alpha") {
 			blx_alpha_ = unit_change::unit_decode(it->second.as<string>());
 		}
@@ -244,6 +243,9 @@ void stl_config::set_parameters(YAML::Node config) {
 			else {
 				use_multithread_ = false;
 			}
+		}
+		else if (key == "ga_algorithm") {
+			ga_algorithm_ = it->second.as<string>();
 		}
 	}
 }

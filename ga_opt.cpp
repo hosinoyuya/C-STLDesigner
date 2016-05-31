@@ -1,4 +1,4 @@
-#include "ga_opt.h"
+ï»¿#include "ga_opt.h"
 
 
 
@@ -41,8 +41,8 @@ void ga_opt::generate_random_stl()
 	}
 
 	stl::join_evaluate();
-    // Š„‚è‚İ‚ª”­¶‚µ‚½ê‡C‚Ü‚½‚ÍChspice‚ª“r’†‚Å’â~‚µ‚½ê‡
-	// ”ñ“¯Šúˆ—‚ªI‚í‚Á‚½“_‚ÅƒT[ƒo[‚ğ’â~‚³‚¹exit
+    // å‰²ã‚Šè¾¼ã¿ãŒç™ºç”Ÿã—ãŸå ´åˆï¼Œã¾ãŸã¯ï¼ŒhspiceãŒé€”ä¸­ã§åœæ­¢ã—ãŸå ´åˆ
+	// éåŒæœŸå‡¦ç†ãŒçµ‚ã‚ã£ãŸæ™‚ç‚¹ã§ã‚µãƒ¼ãƒãƒ¼ã‚’åœæ­¢ã•ã›exit
     if (stl_signal::signal_flag_ || stl::simulation_failed_flag_) {
         hspice::delete_server();
         exit(0);
@@ -57,25 +57,26 @@ void ga_opt::generate_random_stl()
 
 void ga_opt::loop_ga()
 {
-	normal_ga nga(config_);
+	shared_ptr<normal_ga> ga_algorithm;
+	if (config_.ga_algorithm_ == "mgg") {
+		ga_algorithm = make_shared<mgg>(config_);
+	}
+	else {
+		ga_algorithm = make_shared<normal_ga>(config_);
+	}
 
 	double now_best = 100;
 	for (int generation = 1; generation < config_.generation_num_; generation++) {
 		cout << "######### generation " << generation << " #########" << endl;
 
-		nga.clear();
-		nga.change(generation, population_);
+		ga_algorithm->clear();
+		ga_algorithm->change(generation, population_);
 
 		shared_ptr<stl> best = select_best();
 		if (now_best > best->score_->value_) {
 			now_best = best->score_->value_;
 			best->file_copy_to(config_.best_directory_);
 		}
-        // if (generation == 100) {
-        //     for (size_t i = 0; i < population_.size(); i++) {
-        //         population_[i]->file_copy_to(config_.best_directory_);
-        //     }
-        // }
 
 		log_generation(generation, best);
 	}

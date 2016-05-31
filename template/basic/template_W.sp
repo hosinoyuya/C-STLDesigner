@@ -12,11 +12,11 @@ Vs1             101     0       PULSE( 0 2 1n 200p 200p 1.8n 4n )
 Rin1            101     102     50
 
 *** Subspaces ***
-W1_STL_3        102     0       optpt1  0       RLGCMODEL=Z50   N=1     L=100m
+W1_STL_5        102     0       optpt1  0       RLGCMODEL=Z50   N=1     L=100m
 C1              optpt1  0       10p
-W2_STL_8        optpt1  0       optpt2  0       RLGCMODEL=Z50   N=1     L=100m
+W2_STL_5        optpt1  0       optpt2  0       RLGCMODEL=Z50   N=1     L=100m
 C2              optpt2  0       10p
-W3_STL_3        optpt2  0       optpt3  0       RLGCMODEL=Z50   N=1     L=100m
+W3_STL_5        optpt2  0       optpt3  0       RLGCMODEL=Z50   N=1     L=100m
 *****************
 
 RT1             optpt3  0       50
@@ -30,7 +30,7 @@ Vsvs1          1001    0       PULSE( 0 2 1n 200p 200p 1.8n 4n )
 Rinvs1         1001    1002    50
 Tvs1           1002    0       vspt1   0       z0=50   TD=630.8p
 Tvs2           vspt1   0       vspt2   0       z0=50   TD=630.8p
-Tvs3           vspt2   0       vspt3   0       z0=50   TD=630.8p
+Tvs3           vspt2   0       vspt3   0       z0=50   TD=1230.8p
 RTvs1          vspt3   0       50
 
 *--------------------------------------------------------------------*

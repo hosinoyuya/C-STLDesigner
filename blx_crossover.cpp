@@ -14,34 +14,38 @@ blx_crossover::~blx_crossover()
 
 vector<shared_ptr<stl>> blx_crossover::crossover(int generation, int offspring_num, shared_ptr<stl> parent1, shared_ptr<stl> parent2)
 {
-	vector<shared_ptr<stl>> offsprings(1);
+	vector<shared_ptr<stl>> offsprings;
 
-	string name1 = "STL_gen" + to_string(generation) + "_offspring" + to_string(offspring_num) + config_.netlist_extension_;
-	offsprings[0] = make_shared<stl>(name1, config_);
+	for (int i = 0; i < config_.brother_num_; i++) {
+		string name = "STL_gen" + to_string(generation) + "_offspring" + to_string(offspring_num)
+			+ "_" + to_string(i) + config_.netlist_extension_;
+		offsprings.push_back(make_shared<stl>(name, config_));
+	}
 
 	vector<shared_ptr<sub_space>> subspaces1 = parent1->sub_spaces_;
 	vector<shared_ptr<sub_space>> subspaces2 = parent2->sub_spaces_;
 
-	vector<shared_ptr<sub_space>> new_subspaces;
+	for (int i = 0; i < config_.brother_num_; i++) {
+		vector<shared_ptr<sub_space>> new_subspaces;
+		for (size_t j = 0; j < subspaces1.size(); j++) {
+			shared_ptr<sub_space> new_subspace = make_shared<sub_space>(*subspaces1[j]);
+			crossover_subspace(subspaces1[j], subspaces2[j], new_subspace);
+			new_subspaces.push_back(new_subspace);
+		}
 
-	for (size_t i = 0; i < subspaces1.size(); i++) {
-		shared_ptr<sub_space> new_subspace = make_shared<sub_space>(*subspaces1[i]);
-		crossover_subspace(subspaces1[i], subspaces2[i], new_subspace);
-		new_subspaces.push_back(new_subspace);
-	}
+		// 突然変異
+		if (stl_random::random_double(0, 100) < 5.0) {
+			offsprings[i]->init_subspace();
+			offsprings[i]->random_gene_assignment();
+			cout << "mutation!" << endl;
+		}
+		else {
+			offsprings[i]->gene_assignment(new_subspaces);
+		}
 
-	// �ˑR�ψ�
-	if (stl_random::random_double(0, 100) < 5) {
-		offsprings[0]->init_subspace();
-		offsprings[0]->random_gene_assignment();
-		cout << "mutation!" << endl;
+		offsprings[i]->write_file();
+		offsprings[i]->async_evaluate();
 	}
-	else {
-		offsprings[0]->gene_assignment(new_subspaces);
-	}
-
-	offsprings[0]->write_file();
-	offsprings[0]->async_evaluate();
 
 	return offsprings;
 }

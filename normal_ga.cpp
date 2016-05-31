@@ -1,4 +1,4 @@
-#include "normal_ga.h"
+ï»¿#include "normal_ga.h"
 
 
 
@@ -27,7 +27,7 @@ void normal_ga::change(int generation, vector<shared_ptr<stl>>& population)
 	vector<shared_ptr<stl>> offsprings;
 	shared_ptr<stl> parent1, parent2;
 
-	// o—ˆ‚éŒÀ‚èƒyƒA‚ğì‚Á‚ÄŒğ³‚·‚é
+	// å‡ºæ¥ã‚‹é™ã‚Šãƒšã‚¢ã‚’ä½œã£ã¦äº¤å‰ã™ã‚‹
 	for (size_t i = 0; next_population.size() < population.size(); i++) {
 		parent1 = get_roulet_member(population);
 		parent2 = get_roulet_member(population, parent1);
@@ -37,8 +37,8 @@ void normal_ga::change(int generation, vector<shared_ptr<stl>>& population)
 		next_population.insert(next_population.end(), offsprings.begin(), offsprings.end());
 	}
     stl::join_evaluate();
-    // Š„‚è‚İ‚ª”­¶‚µ‚½ê‡C‚Ü‚½‚ÍChspice‚ª“r’†‚Å’â~‚µ‚½ê‡
-    // ”ñ“¯Šúˆ—‚ªI‚í‚Á‚½“_‚ÅƒT[ƒo[‚ğ’â~‚³‚¹exit
+    // å‰²ã‚Šè¾¼ã¿ãŒç™ºç”Ÿã—ãŸå ´åˆï¼Œã¾ãŸã¯ï¼ŒhspiceãŒé€”ä¸­ã§åœæ­¢ã—ãŸå ´åˆ
+    // éåŒæœŸå‡¦ç†ãŒçµ‚ã‚ã£ãŸæ™‚ç‚¹ã§ã‚µãƒ¼ãƒãƒ¼ã‚’åœæ­¢ã•ã›exit
     if (stl_signal::signal_flag_ || stl::simulation_failed_flag_) {
         hspice::delete_server();
         exit(0);
@@ -57,29 +57,23 @@ shared_ptr<stl> normal_ga::get_roulet_member(vector<shared_ptr<stl>> population,
 			roulet_scores.push_back(0.0);
 			continue;
 		}
-        // ‹t”‚Ì2æ
-		// double score = pow(1.0 / population[i]->score_->value_, 2);
-		double score = 1.0 / population[i]->score_->value_;
+		double score = value_to_score(population[i]->score_->value_);
 		roulet_scores.push_back(score);
     }
 	double max = *max_element(roulet_scores.begin(), roulet_scores.end());
 	double min = *min_element(roulet_scores.begin(), roulet_scores.end(),
 		[](const double& left, const double& right)
         {
-            // 0.0‚ªÅ¬’l‚É‚È‚ç‚È‚¢‚æ‚¤‚É‚·‚é
+            // 0.0ãŒæœ€å°å€¤ã«ãªã‚‰ãªã„ã‚ˆã†ã«ã™ã‚‹
             double left_buf = left == 0.0 ? DBL_MAX : left;
             double right_buf = right == 0.0 ? DBL_MAX : right;
             return left_buf < right_buf;
         });
-    // üŒ`ƒXƒP[ƒŠƒ“ƒO
-    // cout << min << " " << max << endl;
+    // ç·šå½¢ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°
     double score_size = roulet_scores.size();
     double b = (max - min * score_size ) / (score_size - 1);
-	// Œë·–ÊÏ‚ª­‚È‚¢•û‚ª—DG‚È‚Ì‚ÅŒë·–ÊÏ‚Ì‹t”‚ğƒXƒRƒA‚É‚·‚é
 	for (size_t i = 0; i < roulet_scores.size(); i++) {
 		if(roulet_scores[i] != 0.0) roulet_scores[i] += b;
-        //cout << "b = " << b << endl;
-        cout << "score = " << roulet_scores[i] << endl;
 		roulet_sum += roulet_scores[i];
 	}
 
@@ -95,4 +89,10 @@ shared_ptr<stl> normal_ga::get_roulet_member(vector<shared_ptr<stl>> population,
 	}
 
 	return population[0];
+}
+
+
+double normal_ga::value_to_score(double value)
+{
+	return 1.0 / value;
 }

@@ -20,8 +20,10 @@ public:
 	~normal_ga();
 	void clear();
 	void change(int generation, vector<shared_ptr<stl>>& population);
-private:
-	shared_ptr<stl> get_roulet_member(vector<shared_ptr<stl>> population, shared_ptr<stl> eliminate_member = NULL);
+protected:
 	shared_ptr<crossover_base> crossover_;
+	shared_ptr<stl> get_roulet_member(vector<shared_ptr<stl>> population,
+		shared_ptr<stl> eliminate_member = NULL);
+	double value_to_score(double value);
 };
 
