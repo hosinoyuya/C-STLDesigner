@@ -70,6 +70,7 @@ void stl_config::set_default()
 	use_multithread_ = false;
 	ga_algorithm_ = "normal_ga";
 	mutation_ = 0.05;
+	mutation_type_ = "all";
 }
 
 
@@ -250,6 +251,9 @@ void stl_config::set_parameters(YAML::Node config) {
 		}
 		else if (key == "mutation") {
 			mutation_ = it->second.as<double>();
+		}
+		else if (key == "mutation_type") {
+			mutation_type_ = it->second.as<string>();
 		}
 	}
 }

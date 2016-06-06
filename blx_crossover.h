@@ -23,5 +23,6 @@ private:
 		shared_ptr<sub_space> new_space);
 	vector<double> length_blx(vector<double> parent1, vector<double> parent2, double total_length);
 	vector<int> impedance_blx(vector<int> parent1, vector<int> parent2);
+	void mutation(shared_ptr<stl> &offspring, vector<shared_ptr<sub_space>> &new_subspaces);
 };
 

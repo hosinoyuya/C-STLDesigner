@@ -51,8 +51,11 @@ server_num: 8
 # multithreadの使用
 use_multithread: true
 
-# GAのアルゴリズム
+# GAのアルゴリズム(mgg | normal_ga)
 ga_algorithm: mgg
 
 # 突然変異の確率
 mutation: 0.05
+
+# 突然変異の種類(all | one_point)
+mutation_type: one_point

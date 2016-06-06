@@ -63,4 +63,5 @@ public:
 	void chane_outdirectory_seed(int seed);
 	string ga_algorithm_;
 	double mutation_;
+	string mutation_type_;
 };

@@ -61,6 +61,9 @@ void ga_opt::loop_ga()
 	if (config_.ga_algorithm_ == "mgg") {
 		ga_algorithm = make_shared<mgg>(config_);
 	}
+	else if (config_.ga_algorithm_ == "normal_ga") {
+		ga_algorithm = make_shared<normal_ga>(config_);
+	}
 	else {
 		ga_algorithm = make_shared<normal_ga>(config_);
 	}

@@ -56,6 +56,7 @@ shared_ptr<stl> mgg::extract_elete(vector<shared_ptr<stl>>& population)
 	return return_member;
 }
 
+
 shared_ptr<stl> mgg::extract_random(vector<shared_ptr<stl>>& population)
 {
 	int random_position = stl_random::random_int(0, population.size()-1);

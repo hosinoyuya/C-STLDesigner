@@ -33,15 +33,7 @@ vector<shared_ptr<stl>> blx_crossover::crossover(int generation, int offspring_n
 			new_subspaces.push_back(new_subspace);
 		}
 
-		// 突然変異
-		if (stl_random::random_double(0, 100) < config_.mutation_ * 100) {
-			offsprings[i]->init_subspace();
-			offsprings[i]->random_gene_assignment();
-			cout << "mutation!" << endl;
-		}
-		else {
-			offsprings[i]->gene_assignment(new_subspaces);
-		}
+		mutation(offsprings[i], new_subspaces);
 
 		offsprings[i]->write_file();
 		offsprings[i]->async_evaluate();
@@ -131,4 +123,34 @@ vector<int> blx_crossover::impedance_blx(vector<int> parent1, vector<int> parent
 	}
 
 	return new_segment_impedances;
+}
+
+void blx_crossover::mutation(shared_ptr<stl> &offspring, vector<shared_ptr<sub_space>> &new_subspaces)
+{
+	// 突然変異
+	if (stl_random::random_double(0, 100) < config_.mutation_ * 100) {
+		if (config_.mutation_type_ == "all") {
+			offspring->init_subspace();
+			offspring->random_gene_assignment();
+		}
+		else if (config_.mutation_type_ == "one_point") {
+			int change_space = stl_random::random_int(0, new_subspaces.size() - 1);
+			int change_pos = stl_random::random_int(0, new_subspaces[change_space]->segment_impedances_.size() - 1);
+			new_subspaces[change_space]->segment_impedances_[change_pos] =
+				stl_random::frand_between(config_.minimum_inpedance_, config_.maximum_inpedance_, config_.impedance_step_);
+			new_subspaces[change_space]->segment_lengths_[change_pos] =
+				stl_random::random_double(config_.minimum_length_, new_subspaces[change_space]->maximum_length_ - config_.minimum_length_);
+			new_subspaces[change_space]->segment_lengths_ =
+				ajust_small_segment(new_subspaces[change_space]->segment_lengths_, new_subspaces[change_space]->maximum_length_);
+			offspring->gene_assignment(new_subspaces);
+		}
+		else {
+			offspring->init_subspace();
+			offspring->random_gene_assignment();
+		}
+		cout << "mutation!" << endl;
+	}
+	else {
+		offspring->gene_assignment(new_subspaces);
+	}
 }
