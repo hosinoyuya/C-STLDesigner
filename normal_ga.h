@@ -10,6 +10,7 @@
 #include <memory>
 #include <vector>
 #include <float.h>
+#include <math.h>
 
 using namespace std;
 

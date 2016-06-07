@@ -94,5 +94,5 @@ shared_ptr<stl> normal_ga::get_roulet_member(vector<shared_ptr<stl>> population,
 
 double normal_ga::value_to_score(double value)
 {
-	return 1.0 / value;
+	return pow(1.0 / value, 2);
 }
