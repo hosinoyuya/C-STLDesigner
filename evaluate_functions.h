@@ -3,6 +3,7 @@
 #include <string>
 #include <math.h>
 #include <memory>
+#include <limits>
 #include "point_score.h"
 
 using namespace std;
