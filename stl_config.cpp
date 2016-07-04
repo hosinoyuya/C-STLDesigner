@@ -71,6 +71,7 @@ void stl_config::set_default()
 	ga_algorithm_ = "normal_ga";
 	mutation_ = 0.05;
 	mutation_type_ = "all";
+	shift_ratio_ = 0.25;
 }
 
 
@@ -234,6 +235,9 @@ void stl_config::set_parameters(YAML::Node config) {
 			for (YAML::const_iterator it2 = it->second.begin(); it2 != it->second.end(); it2++) {
 				score_calc_methods_.insert(pair<string, string>(it2->begin()->as<string>(), (++(it2->begin()))->as<string>()));
 			}
+		}
+		else if (key == "shift_ratio") {
+			shift_ratio_ = it->second.as<double>();
 		}
         else if (key == "server_num") {
 		    server_num_ = it->second.as<int>();

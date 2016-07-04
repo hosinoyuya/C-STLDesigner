@@ -16,8 +16,8 @@ public:
 	void calc_ratio(shared_ptr<single_score> divisor);
 	vector<shared_ptr<point_score>> point_scores_;
 	double value_;
+	double max_shift_;
 private:
 	string to_spice_comment();
 	shared_ptr<point_score> get_divisor(string point, vector<shared_ptr<point_score>> divisors);
 };
-

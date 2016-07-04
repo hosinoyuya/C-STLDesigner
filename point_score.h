@@ -12,7 +12,7 @@ public:
 	point_score(string point, string method);
 	~point_score();
 	string to_spice_comment();
-		void calc_ratio(shared_ptr<point_score> divisor);
+	void calc_ratio(shared_ptr<point_score> divisor);
 	string point_;
 	string method_;
 private:

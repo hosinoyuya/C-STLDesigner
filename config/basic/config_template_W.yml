@@ -8,10 +8,10 @@
 template: ./template/basic/template_W.sp
 
 ### 母集合の個体数 ###
-pop_size: 16
+pop_size: 100
 
 ### 遺伝的アルゴリズムの繰り返し世代数 ###
-generation: 100
+generation: 2000
 
 ### 一回の交叉で生成する子供の数（兄弟の数、blx_alphaの場合使用） ###
 brother_num: 8
@@ -22,25 +22,24 @@ seeds:
 
 # テンプレートの観測点のうち，波形整形したい観測点を指定してください．
 optpts:
-- optpt1
-#- optpt2
+- optpt3
 
 ### 観測点毎の重み ###
 weight:
-  optpt1: 1.0
-#  optpt2: 1.0
+  optpt3: 1.0
 
 ### 観測波形に対応する理想波形の観測点 ###
 versus:
-    optpt1: vspt1
-#  optpt2: vspt2
+    optpt3: vspt3
 
 ### スコア計算関数 ###
 score_calc_methods:
-- - optpt1
-  - integral
-#- - optpt2
-#  - integral
+- - optpt3
+  - fitting_integral
+
+# fitting_integralを使用しているときのみ有効
+# TRANで設定した計測幅のうちの何%のズレを許容するか
+shift_ratio: 0.25
 
 # blxのalphaの値
 blx_alpha: 0.366
@@ -55,7 +54,7 @@ use_multithread: true
 ga_algorithm: mgg
 
 # 突然変異の確率
-mutation: 0.05
+mutation: 0.00
 
 # 突然変異の種類(all | one_point)
 mutation_type: one_point

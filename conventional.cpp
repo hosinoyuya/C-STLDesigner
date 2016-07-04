@@ -58,7 +58,7 @@ void conventional::set_translate_waves()
 
 void conventional::set_ac_waves()
 {
-	// –¢ŽÀ‘•
+	// æœªå®Ÿè£…
 }
 
 
@@ -113,10 +113,10 @@ vector<shared_ptr<point_score>> conventional::evaluate_waves()
 		shared_ptr<point_score> score;
 
 		if (method == "multi") {
-			// –¢ŽÀ‘•
+			// æœªå®Ÿè£…
 		} 
 		else if (method == "eye") {
-			// –¢ŽÀ‘•
+			// æœªå®Ÿè£…
 		}
 		else {
 			score = evaluate_point_score(point, weight, method, wave_ideal, wave_opt);
@@ -130,21 +130,24 @@ vector<shared_ptr<point_score>> conventional::evaluate_waves()
 shared_ptr<point_score>  conventional::evaluate_point_score(string point, double weight, string method,
 	shared_ptr<transient_wave> wave_ideal, shared_ptr<transient_wave> wave_opt)
 {
-	double score;
 	if (wave_ideal->size() != wave_opt->size()) {
 		cerr << "Wave Size not equal.  wave_ideal = " << wave_ideal->size()
 			<< ", wave_opt = " << wave_opt->size() << endl;
 	}
 
+	shared_ptr<point_score> p_score = make_shared<point_score>(point, method);
 	if (method == "integral") {
-		score = evaluate_functions::calc_integral(wave_ideal->time_interval_, wave_ideal->voltage_, wave_opt->voltage_);
+		evaluate_functions::calc_integral(wave_ideal->time_interval_, wave_ideal->voltage_, wave_opt->voltage_,
+			p_score);
+	}
+	else if (method == "fitting_integral") {
+		evaluate_functions::calc_fitting_integral(wave_ideal->time_interval_, config_.shift_ratio_,
+			wave_ideal->voltage_, wave_opt->voltage_, p_score);
 	}
 	else {
 		cerr << "Evaluate error. undefined method = " << method << endl;
 	}
-
-	shared_ptr<point_score> p_score = make_shared<point_score>(point, method);
-	p_score->set(score, weight);
+	p_score->set_weight(weight);
 
 	return p_score;
 }

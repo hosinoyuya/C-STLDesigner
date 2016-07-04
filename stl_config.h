@@ -64,4 +64,5 @@ public:
 	string ga_algorithm_;
 	double mutation_;
 	string mutation_type_;
+	double shift_ratio_;
 };
