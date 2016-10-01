@@ -1,0 +1,32 @@
+*** Created by ADS, Agilent EEsof ***
+*** HSPICE netlist file for static W-element data ***
+
+.subckt ckt_Z120 in1 in2 inref out1 out2 outref Length=1
+W1 in1 in2 inref out1 out2 outref N=2 L=Length RLGCMODEL=Z120
+.model Z120 w modeltype=RLGC, n=2
++ Lo =
++ 7.1434977277e-07  
++ 6.58357767062e-08  7.1434977277e-07  
++ Co =
++ 4.65306444141e-11  
++ -1.77024742189e-12  4.65306444141e-11  
++ Ro =
++ 4.47828034035
++ 0  4.47828034035
++ Go =
++ 0  
++ 0  0  
++ Rs =
++ 0.00129248936476  
++ 2.68130709937e-05  0.00129248936476  
++ Gd =
++ 4.80876935693e-12  
++ -8.41573562188e-14  4.80876935693e-12  
+.ends
+
+
+* Example Usage
+* X1 in1 in2 inref out1 out2 outref ckt_Z120 Length=0.5
+
+
+* End of File

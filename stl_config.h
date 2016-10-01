@@ -65,4 +65,6 @@ public:
 	double mutation_;
 	string mutation_type_;
 	double shift_ratio_;
+	double eye_time_;
+	double eye_width_margin_;
 };

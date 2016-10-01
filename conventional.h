@@ -9,6 +9,7 @@
 #include "point_score.h"
 #include "evaluate_functions.h"
 #include "file_utils.h"
+#include "eye_log.h"
 #include <memory>
 #include <string>
 #include <boost/algorithm/string.hpp>
@@ -27,6 +28,7 @@ public:
 	void set_scores(shared_ptr<single_score> score_conventional = NULL);
 	shared_ptr<single_score> get_score_object();
 	void file_copy_to(string file_path);
+	void out_eye_diagram();
 	shared_ptr<single_score> score_;
 	string name_;
 protected:

@@ -58,7 +58,7 @@ void conventional::set_translate_waves()
 
 void conventional::set_ac_waves()
 {
-	// 未実装
+	// 未実裁E
 }
 
 
@@ -112,17 +112,11 @@ vector<shared_ptr<point_score>> conventional::evaluate_waves()
 		double weight = config_.score_weight_[point];
 		shared_ptr<point_score> score;
 
-		if (method == "multi") {
-			// 未実装
-		} 
-		else if (method == "eye") {
-			// 未実装
-		}
-		else {
-			score = evaluate_point_score(point, weight, method, wave_ideal, wave_opt);
-		}
+		score = evaluate_point_score(point, weight, method, wave_ideal, wave_opt);
+
 		point_scores.push_back(score);
 	}
+
 	return point_scores;
 }
 
@@ -142,6 +136,10 @@ shared_ptr<point_score>  conventional::evaluate_point_score(string point, double
 	}
 	else if (method == "fitting_integral") {
 		evaluate_functions::calc_fitting_integral(wave_ideal->time_interval_, config_.shift_ratio_,
+			wave_ideal->voltage_, wave_opt->voltage_, p_score);
+	}
+	else if (method == "eye_size") {
+		evaluate_functions::caluc_eye_size(wave_ideal->time_interval_, config_.eye_time_, config_.eye_width_margin_,
 			wave_ideal->voltage_, wave_opt->voltage_, p_score);
 	}
 	else {
@@ -168,5 +166,18 @@ void conventional::file_copy_to(string file_path)
 		from = file_path_;
 		from.replace(from.find(from_ext), from_ext.size(), to_ext);
 		file_utils::cp(from, file_path);
+	}
+}
+
+
+void conventional::out_eye_diagram()
+{
+	for (int i = 0; i < score_->point_scores_.size(); i++) {
+		shared_ptr<point_score> point_score = score_->point_scores_[i];
+		eye_log::init(config_.best_directory_ + "/" + name_.substr(0, name_.size() - config_.netlist_extension_.size())
+			+ "_" + to_string(i) + ".csv");
+		if (point_score->eye_diagram_.size() > 0) {
+			eye_log::write_eye_diagram(point_score->eye_diagram_);
+		}
 	}
 }

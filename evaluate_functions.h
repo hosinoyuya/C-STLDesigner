@@ -16,5 +16,7 @@ public:
 		shared_ptr<point_score> &p_score);
 	static void calc_fitting_integral(double time_interval, double shift_ratio,
 		vector<double> &voltage1, vector<double> &voltage2, shared_ptr<point_score> &p_score);
+	static void caluc_eye_size(double time_interval, double eye_time, double width_margin,
+		vector<double> &voltage1, vector<double> &voltage2, shared_ptr<point_score> &p_score);
 };
 

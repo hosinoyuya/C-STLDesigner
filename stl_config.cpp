@@ -72,6 +72,8 @@ void stl_config::set_default()
 	mutation_ = 0.05;
 	mutation_type_ = "all";
 	shift_ratio_ = 0.25;
+	eye_time_ = 2e-9;
+	eye_width_margin_ = 0.2;
 }
 
 
@@ -86,7 +88,17 @@ void stl_config::load(string file_path)
 	}
 
 	file_path_ = file_path;
-	YAML::Node config = YAML::LoadFile(file_path);
+	YAML::Node config;
+	try
+	{
+		config = YAML::LoadFile(file_path);
+	}
+	catch (const exception& e)
+	{
+		cerr << "File name : " << file_path_ << endl;
+		cerr << e.what() << endl;
+		exit(1);
+	}
 	set_parameters(config);
 
 	config_control();
@@ -258,6 +270,12 @@ void stl_config::set_parameters(YAML::Node config) {
 		}
 		else if (key == "mutation_type") {
 			mutation_type_ = it->second.as<string>();
+		}
+		else if (key == "eye_time") {
+			eye_time_ = it->second.as<double>();
+		}
+		else if (key == "eye_time") {
+			eye_width_margin_ = it->second.as<double>();
 		}
 	}
 }

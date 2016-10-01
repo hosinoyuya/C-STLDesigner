@@ -79,6 +79,7 @@ void ga_opt::loop_ga()
 		if (now_best > best->score_->value_) {
 			now_best = best->score_->value_;
 			best->file_copy_to(config_.best_directory_);
+			best->out_eye_diagram();
 		}
 
 		log_generation(generation, best);
