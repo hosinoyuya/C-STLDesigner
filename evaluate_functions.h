@@ -4,6 +4,7 @@
 #include <math.h>
 #include <memory>
 #include <limits>
+#include <algorithm>
 #include "point_score.h"
 
 using namespace std;
