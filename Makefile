@@ -1,4 +1,4 @@
-COMPILER  = g++49
+COMPILER  = g++
 CFLAGS    = -Wall -std=c++11
 ifeq "$(shell getconf LONG_BIT)" "64"
 	  LDFLAGS = -L /opt/boost/default/lib -lboost_system -lboost_filesystem -lyaml-cpp
