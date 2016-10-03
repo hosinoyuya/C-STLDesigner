@@ -129,6 +129,7 @@ void netlist_base::write(string file_path)
 
 	ofstream ofs(file_path);
 	ofs << to_str();
+	ofs.flush();
 	ofs.close();
 }
 
