@@ -50,6 +50,7 @@ void ga_opt::generate_random_stl()
 
 	shared_ptr<stl> best = select_best();
 	best->file_copy_to(config_.best_directory_);
+	best->out_eye_diagram();
 
 	log_generation(0, best);
 }

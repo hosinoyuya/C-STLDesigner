@@ -50,6 +50,7 @@ void opt_runner::stl_initialize()
 	conventional_->set_waves();
 	set_conventional_score(conventional_);
 	conventional_->file_copy_to(config_.population_directory_ + "/..");
+	conventional_->out_eye_diagram();
 }
 
 
