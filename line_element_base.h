@@ -1,6 +1,7 @@
 #pragma once
 #include "element.h"
 #include "line_length.h"
+#include "capacitance.h"
 #include <string>
 #include <regex>
 

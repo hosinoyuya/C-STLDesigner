@@ -37,6 +37,9 @@ public:
 	int maximum_inpedance_;
 	int impedance_step_;
 	map<int, double> impedance_type_;
+	double minimum_capacitance_;
+	double maximum_capacitance_;
+	double capacitance_step_;
 	double minimum_length_;
 	double length_step_;
 	vector<int> seeds_;
@@ -62,6 +65,8 @@ public:
 	bool use_multithread_;
 	void chane_outdirectory_seed(int seed);
 	string ga_algorithm_;
+	int eye_hight_weight_;
+	int eye_width_weight_;
 	double mutation_;
 	string mutation_type_;
 	double shift_ratio_;

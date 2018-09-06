@@ -6,7 +6,6 @@ evaluate_functions::evaluate_functions()
 {
 }
 
-
 evaluate_functions::~evaluate_functions()
 {
 }
@@ -52,7 +51,7 @@ void evaluate_functions::calc_fitting_integral(double time_interval, double shif
 
 
 void evaluate_functions::caluc_eye_size(double time_interval, double eye_time, double width_margin,
-	vector<double> &ideal_voltage, vector<double> &opt_voltage, shared_ptr<point_score> &p_score)
+	vector<double> &ideal_voltage, vector<double> &opt_voltage, int eye_hight_weight, int eye_width_weight, shared_ptr<point_score> &p_score)
 {
 	// 1ビット分のデータ数
 	int eye_size = eye_time / time_interval;
@@ -143,7 +142,8 @@ void evaluate_functions::caluc_eye_size(double time_interval, double eye_time, d
 
 	double eye_width = (end_point - start_point) * time_interval;
 
+
 	if (eye_height < 0) eye_height = 0;
-	p_score->set(1.0 / (eye_width / eye_time + eye_height));
+	p_score->set(1.0 / ((eye_width / eye_time)*eye_width_weight + eye_height*eye_hight_weight));
 	p_score->set_eye_info(eye_diagram, eye_width, eye_height);
 }

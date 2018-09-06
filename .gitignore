@@ -1,5 +1,6 @@
 config/
 Debug/
+data/
 include/
 Release/
 src/

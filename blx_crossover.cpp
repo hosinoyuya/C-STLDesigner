@@ -21,7 +21,6 @@ vector<shared_ptr<stl>> blx_crossover::crossover(int generation, int offspring_n
 			+ "_" + to_string(i) + config_.netlist_extension_;
 		offsprings.push_back(make_shared<stl>(name, config_));
 	}
-
 	vector<shared_ptr<sub_space>> subspaces1 = parent1->sub_spaces_;
 	vector<shared_ptr<sub_space>> subspaces2 = parent2->sub_spaces_;
 
@@ -48,23 +47,32 @@ void blx_crossover::crossover_subspace(shared_ptr<sub_space> parent1, shared_ptr
 {
 	vector<double> segment_lengths1 = parent1->segment_lengths_;
 	vector<int> segment_impedances1 = parent1->segment_impedances_;
+	vector<double> segment_capacitances1 = parent1->segment_capacitances_;
 	vector<double> segment_lengths2 = parent2->segment_lengths_;
 	vector<int> segment_impedances2 = parent2->segment_impedances_;
+	vector<double> segment_capacitances2 = parent2->segment_capacitances_;
 
 	vector<double> new_segment_lengths;
 	vector<int> new_segment_impedances;
+	vector<double> new_segment_capacitances;
 
 	if (segment_lengths1.size() != segment_lengths2.size() || segment_impedances1.size() != segment_impedances2.size()
-		|| segment_lengths1.size() != segment_impedances1.size()) {
+		|| segment_lengths1.size() != segment_impedances1.size() || segment_capacitances1.size() != segment_capacitances2.size()) {
 		cerr << "segment num is not same!" << endl;
 		exit(0);
 	}
 
-	new_segment_lengths = length_blx(segment_lengths1, segment_lengths2, new_space->maximum_length_);
-	new_segment_impedances = impedance_blx(segment_impedances1, segment_impedances2);
+	if (parent1->element_type_ == C_ELEMENT && parent2->element_type_ == C_ELEMENT) {
+		new_segment_capacitances = capacitance_blx(segment_capacitances1, segment_capacitances2);
+	}
+	else {
+		new_segment_lengths = length_blx(segment_lengths1, segment_lengths2, new_space->maximum_length_);
+		new_segment_impedances = impedance_blx(segment_impedances1, segment_impedances2);
+	}
 
 	new_space->segment_lengths_ = new_segment_lengths;
 	new_space->segment_impedances_ = new_segment_impedances;
+	new_space->segment_capacitances_ = new_segment_capacitances;
 
 	new_space->split();
 }
@@ -124,6 +132,38 @@ vector<int> blx_crossover::impedance_blx(vector<int> parent1, vector<int> parent
 
 	return new_segment_impedances;
 }
+
+
+vector<double> blx_crossover::capacitance_blx(vector<double> parent1, vector<double> parent2)
+{
+	vector<double> new_segment_capacitances;
+
+	double alpha = config_.blx_alpha_;
+	int maximum_capacitance = config_.maximum_capacitance_*1e12;
+	int minimum_capacitance = config_.minimum_capacitance_*1e12;
+	int capacitance_step = config_.capacitance_step_*1e12;
+
+	for (size_t i = 0; i < parent1.size(); i++) {
+		double oya1 = parent1[i] * 1e12;
+		double oya2 = parent2[i] * 1e12;
+		double deleta = fabs(oya1 - oya2);
+		double range_max = (double)max(oya1, oya2) + deleta * alpha;
+		double range_min = (double)min(oya1, oya2) - deleta * alpha;
+		double double_random = stl_random::random_double(range_min, range_max);
+		int new_capacitance = (int)round(double_random / capacitance_step) * capacitance_step;
+		if (new_capacitance > maximum_capacitance) {
+			new_capacitance = maximum_capacitance;
+		}
+		else if (new_capacitance < minimum_capacitance) {
+			new_capacitance = minimum_capacitance;
+		}
+
+		new_segment_capacitances.push_back(new_capacitance*1e-12);
+	}
+
+	return new_segment_capacitances;
+}
+
 
 void blx_crossover::mutation(shared_ptr<stl> &offspring, vector<shared_ptr<sub_space>> &new_subspaces)
 {

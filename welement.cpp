@@ -15,6 +15,7 @@ welement::~welement()
 
 void welement::set_spetialized_parameters(string key, string val)
 {
+
 	if (regex_match(key, REG_RGCMODEL)) {
 		impedance_ = make_shared<char_impedance>(key, val);
 	}

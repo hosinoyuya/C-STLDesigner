@@ -28,6 +28,9 @@ void stl_config::set_default()
 	minimum_inpedance_ = 40;
 	maximum_inpedance_ = 120;
 	impedance_step_ = 5;
+	minimum_capacitance_ = 2e-12;
+	maximum_capacitance_ = 47e-12;
+	capacitance_step_ = 1e-12;
 	minimum_length_ = 0.001;
 	length_step_ = 0.0005;
 	impedance_type_[40] = 6407e-12;
@@ -66,6 +69,8 @@ void stl_config::set_default()
 	score_normalize_ = true;
 	score_calc_methods_["optpt1"] = "integral";
 	score_calc_methods_["optpt2"] = "integral";
+	eye_hight_weight_ = 1;
+	eye_width_weight_ = 1;
     server_num_ = 1;
 	use_multithread_ = false;
 	ga_algorithm_ = "normal_ga";
@@ -151,6 +156,15 @@ void stl_config::set_parameters(YAML::Node config) {
 			maximum_inpedance_ = it->second.as<int>();
 		}
 		else if (key == "impedance_step") {
+		}
+		else if (key == "minimum_capacitance") {
+			minimum_capacitance_ = unit_change::unit_decode(it->second.as<string>());
+		}
+		else if (key == "maximum_capacitance") {
+			maximum_capacitance_ = unit_change::unit_decode(it->second.as<string>());
+		}
+		else if (key == "capacitance_step") {
+			capacitance_step_ = unit_change::unit_decode(it->second.as<string>());
 		}
 		else if (key == "minimum_length") {
 			minimum_length_ = unit_change::unit_decode(it->second.as<string>());
@@ -247,6 +261,12 @@ void stl_config::set_parameters(YAML::Node config) {
 			for (YAML::const_iterator it2 = it->second.begin(); it2 != it->second.end(); it2++) {
 				score_calc_methods_.insert(pair<string, string>(it2->begin()->as<string>(), (++(it2->begin()))->as<string>()));
 			}
+		}
+		else if (key == "eye_hight_weight") {
+			eye_hight_weight_ = it->second.as<double>();
+		}
+		else if (key == "eye_width_weight") {
+			eye_width_weight_ = it->second.as<double>();
 		}
 		else if (key == "shift_ratio") {
 			shift_ratio_ = it->second.as<double>();

@@ -5,6 +5,7 @@
 #include "welement.h"
 #include "xelement.h"
 #include "nelement.h"
+#include "celement.h"
 
 const regex REG_NODE(R"(\w*pt\d*|\d+)");
 
@@ -60,6 +61,9 @@ shared_ptr<element> element::generate(string name)
 	}
 	else if (name[0] == 'N') {
 		return make_shared<nelement>(name);
+	}
+	else if (name[0] == 'C') {
+		return make_shared<celement>(name);
 	}
 	else {
 		return NULL;
@@ -139,6 +143,13 @@ void element::set_impedance(int impedance)
 }
 
 
+void element::set_capacitance(double capacitance_value)
+{
+	capacitance_ = make_shared<capacitance>(*capacitance_);
+	capacitance_->value_ = capacitance_value;
+}
+
+
 void element::set_length(double length)
 {
 	length_ = make_shared<line_length>(*length_);
@@ -148,6 +159,7 @@ void element::set_length(double length)
 string element::to_str()
 {
 	string return_string = name_ + "\t";
+	i++;
 	for (size_t i = 0; i < nodes_.size(); i++) {
 		return_string += nodes_[i]->to_str() + "\t";
 	}

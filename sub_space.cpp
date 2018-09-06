@@ -27,6 +27,9 @@ void sub_space::set_config_parameters(stl_config config)
 	minimum_impedance_ = config.minimum_inpedance_;
 	maximum_impedance_ = config.maximum_inpedance_;
 	impedance_step_ = config.impedance_step_;
+	minimum_capacitance_ = config.minimum_capacitance_;
+	maximum_capacitance_ = config.maximum_capacitance_;
+	capacitance_step_ = config.capacitance_step_;
 	minimum_length_ = config.minimum_length_;
 	length_step_ = config.length_step_;
 }
@@ -37,13 +40,14 @@ void sub_space::set_element(shared_ptr<element> elem)
 	element_ = elem;
 	nodes_ = elem->nodes_;
 	name_ = element_->name_;
-	maximum_length_ = element_->length_->value_;
-
-	if (elem->length_ == NULL || elem->length_->key_ == "" || stl_line::length_zero(elem->length_->value_)) {
+	element_type_ = element_->type_;
+	if (element_type_ != C_ELEMENT) {
+		maximum_length_ = element_->length_->value_;
+	}
+	if (element_type_ != C_ELEMENT && (elem->length_ == NULL || elem->length_->key_ == "" || stl_line::length_zero(elem->length_->value_))) {
 		cerr << "set length from element failed." << endl;
 		exit(0);
 	}
-
 	parse_name();
 }
 
@@ -69,13 +73,24 @@ void sub_space::parse_name()
 
 void sub_space::split_random()
 {
-	segment_lengths_ = get_random_segment_length(minimum_length_, maximum_length_, segment_num_);
-	segment_impedances_ = get_random_segment_impedance(minimum_impedance_, maximum_impedance_, impedance_step_, segment_num_);
+	if (element_type_ == C_ELEMENT) {
+		segment_capacitances_ = get_random_capacitance(minimum_capacitance_, maximum_capacitance_, capacitance_step_, segment_num_);
+	}
+	else {
+		segment_lengths_ = get_random_segment_length(minimum_length_, maximum_length_, segment_num_);
+		segment_impedances_ = get_random_segment_impedance(minimum_impedance_, maximum_impedance_, impedance_step_, segment_num_);
+	}
 	int point_offset = index_ * sub_offset_;
 	for (int i = 0; i < segment_num_; i++) {
 		vector<string> points = get_segment_node(i, point_offset);
-		shared_ptr<element> segment = get_segment_element(i + 1, points, segment_lengths_[i], segment_impedances_[i]);
-		segments_.push_back(segment);
+		if (element_type_ == C_ELEMENT) {
+			shared_ptr<element> segment = get_segment_element_C(i + 1, points, segment_capacitances_[i]);
+			segments_.push_back(segment);
+		}
+		else {
+			shared_ptr<element> segment = get_segment_element(i + 1, points, segment_lengths_[i], segment_impedances_[i]);
+			segments_.push_back(segment);
+		}
 	}
 }
 
@@ -83,10 +98,16 @@ void sub_space::split_random()
 void sub_space::split()
 {
 	int point_offset = index_ * sub_offset_;
-	for (size_t i = 0; i < segment_lengths_.size(); i++) {
+	for (size_t i = 0; i < 1; i++) {
 		vector<string> points = get_segment_node(i, point_offset);
-		shared_ptr<element> segment = get_segment_element(i + 1, points, segment_lengths_[i], segment_impedances_[i]);
-		segments_.push_back(segment);
+		if (element_type_ == C_ELEMENT) {
+			shared_ptr<element> segment = get_segment_element_C(i + 1, points, segment_capacitances_[i]);
+			segments_.push_back(segment);
+		}
+		else {
+			shared_ptr<element> segment = get_segment_element(i + 1, points, segment_lengths_[i], segment_impedances_[i]);
+			segments_.push_back(segment);
+		}
 	}
 }
 
@@ -127,6 +148,20 @@ vector<int> sub_space::get_random_segment_impedance(int imp_min, int imp_max, in
 	return segment_impedances;
 }
 
+vector<double> sub_space::get_random_capacitance(double cap_min, double cap_max, double cap_step, int segment_num)
+{
+	vector<double> capacitance_array;
+	int min = cap_min*1e12;
+	int max = cap_max*1e12;
+	int step = cap_step*1e12;
+
+	for (int i = 0; i < segment_num; i++) {
+		capacitance_array.push_back(stl_random::frand_between_double(min, max, step));
+	}
+
+	return capacitance_array;
+}
+
 
 vector<string> sub_space::get_segment_node(int index, int point_offset)
 {
@@ -149,6 +184,7 @@ vector<string> sub_space::get_segment_node_core(vector<shared_ptr<node_point>> n
 	vector<string> return_node;
 	vector<string> head_half;
 	vector<string> tail_half;
+	int s = nodes.size();
 	for (size_t i = 0; i < nodes.size() / 2; i++) {
 		head_half.push_back(nodes[i]->to_str());
 	}
@@ -166,6 +202,9 @@ vector<string> sub_space::get_segment_node_core(vector<shared_ptr<node_point>> n
 
 	if (output == 0) {
 		return_node.insert(return_node.end(), tail_half.begin(), tail_half.end());
+	}
+	else if(s == 2){
+		return_node.push_back(to_string(0));
 	}
 	else {
 		return_node.push_back(to_string(output));
@@ -207,6 +246,18 @@ shared_ptr<element> sub_space::get_segment_element(int index, vector<string> poi
 	copy_element->name_ = segment_name;
 	copy_element->set_impedance(segment_impedance);
 	copy_element->set_length(segment_length);
+	copy_element->set_nodes(point);
+	return copy_element;
+}
+
+shared_ptr<element> sub_space::get_segment_element_C(int index, vector<string> point, double capacitance)
+{
+	string segment_name;
+	segment_name = first_name_ + "_SEG_" + to_string(index);
+	shared_ptr<element> copy_element;
+	copy_element = make_shared<celement>(*dynamic_pointer_cast<celement>(element_));
+	copy_element->name_ = segment_name;
+	copy_element->set_capacitance(capacitance);
 	copy_element->set_nodes(point);
 	return copy_element;
 }
