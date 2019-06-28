@@ -1,0 +1,125 @@
+﻿---
+
+###############################
+### STL基本形用設定ファイル ###
+###############################
+
+# 数値の単位は以下の形式のいずれにも対応しています．
+#   1. 通常入力（例： 0.001）
+#   2. SPICE方式（例： 1m）
+#   3. 指数表記（例： 1.0e-3）
+
+### STL設計に用いるテンプレートファイルのパス ###
+# C-STLDesigner3直下からの相対パスで入力してください
+# フォルダの区切り文字は/を使ってください
+template: ./template/C_STL_template.sp
+
+### 母集合の個体数 ###
+pop_size: 100
+
+### 遺伝的アルゴリズムの繰り返し世代数 ###
+generation: 4000
+
+### 一回の交叉で生成する子供の数（兄弟の数、blx_alphaの場合使用） ###
+brother_num: 8
+
+### 乱数シード ###
+# 複数設定すると，設定された順に続けて実行されます。
+seeds:
+- 1
+- 2
+
+### セグメントの特性インピーダンスの最小値 ###
+# STLの場合は min:40 max:120
+# C-STLの場合はmin:50 max:50
+minimum_impedance: 50
+
+### セグメントの特性インピーダンスの最大値 ###
+maximum_impedance: 50
+
+### 伝送路の最小長さ ###
+minimum_length: 1m
+
+### 伝送路のの間隔 ###
+# minimum_length を割り切れる値でなければなりません．
+length_step: 0.5m
+
+### キャパシタンスの最小値 ###
+minimum_capacitance: 2p
+
+### キャパシタンスの最大値 ###
+maximum_capacitance: 47p
+
+### キャパシタンスの間隔 ###
+capacitance_step: 1p
+
+### 使用するキャパシタンス ###
+#使用するキャパシタンスを具体的に決めたい場合はここに入力してください
+# min～maxまで一定間隔のキャパシタンスを使う場合は上で設定するので
+#この部分は削除または#でコメントにしてください
+capacitance_values:
+- 0.5p
+- 1p
+- 2p
+- 3p
+- 4p
+- 5p
+- 6p
+- 7p
+- 8p
+- 9p
+- 10p
+- 12p
+- 15p
+- 18p
+- 22p
+- 27p
+- 33p
+- 39p
+- 47p
+
+
+# テンプレートの観測点のうち，波形整形したい観測点を指定してください．
+optpts:
+- optpt1
+
+### 観測点毎の重み ###
+weight:
+  optpt1: 1.0
+
+### 観測波形に対応する理想波形の観測点 ###
+#スコア計算関数でeye_sizeを使う場合は不要
+versus:
+    optpt1: vspt1
+
+### アイパターン設計の設定ファイルのパス ###
+eye_config_path: "./config/eyeconfigs/eye_config_basic.yml"
+
+
+### スコア計算関数 ###
+#以下の2つから選択してください
+#eye_size :アイパターンの高さ・幅で評価(推奨)
+#fitting_integral :孤立波の誤差面積で評価
+score_calc_methods:
+- - optpt1
+  - eye_size
+
+#eye_sizeを使用しているとき有効
+#アイパターン生成時に用いる1ビット時間
+eye_time: 2e-9
+
+#アイ開口幅を測るときに無視するジッタ部分の割合
+eye_width_margin: 0.2
+
+# blxのalphaの値
+blx_alpha: 0.366
+
+# multithreadの使用
+use_multithread: true
+
+# GAのアルゴリズム(mgg | normal_ga)
+ga_algorithm: mgg
+
+# 突然変異の確率
+mutation: 0
+
