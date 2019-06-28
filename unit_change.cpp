@@ -104,7 +104,7 @@ string unit_change::unit_encode(double num)
 	}
 	else if (num >= 0.000000000000001) {
 		num *= 1000000000000000;
-		unit = ATTO;
+		unit = FEMTO;
 	}
 	else {
 		num = 0;

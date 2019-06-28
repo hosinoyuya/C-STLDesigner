@@ -19,6 +19,19 @@ int line_element_base::node_num()
 }
 
 
+void line_element_base::set_impedance(int impedance)
+{
+	impedance_ = make_shared<char_impedance>(*impedance_);
+	impedance_->value_ = impedance;
+}
+
+
+void line_element_base::set_length(double length)
+{
+	length_ = make_shared<line_length>(*length_);
+	length_->value_ = length;
+}
+
 void line_element_base::set_parameters(string key, string val)
 {
 	set_spetialized_parameters(key, val);

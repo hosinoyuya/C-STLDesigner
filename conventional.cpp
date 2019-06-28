@@ -140,7 +140,7 @@ shared_ptr<point_score>  conventional::evaluate_point_score(string point, double
 	}
 	else if (method == "eye_size") {
 		evaluate_functions::caluc_eye_size(wave_ideal->time_interval_, config_.eye_time_, config_.eye_width_margin_,
-			wave_ideal->voltage_, wave_opt->voltage_, config_.eye_hight_weight_, config_.eye_hight_weight_, p_score);
+			wave_ideal->voltage_, wave_opt->voltage_, config_.eye_height_weight_, config_.eye_width_weight_, p_score);
 	}
 	else {
 		cerr << "Evaluate error. undefined method = " << method << endl;

@@ -4,7 +4,6 @@ const regex REG_CAPACITANCE_VALUE(R"(C|c|capacitance|CAPACITANCE)");
 
 capacitance::capacitance(string key, string val)
 {
-	key_ = "";
 	if (val != "") {
 		set_parameters(key, val);
 	}

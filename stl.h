@@ -20,6 +20,9 @@ public:
 	~stl();
 	static shared_ptr<single_score> comparison_score_;
 	void init_subspace();
+	int cap_interval_change;
+	shared_ptr<sub_space> sub;
+	vector<double> cap;
 	void random_gene_assignment();
 	void gene_assignment(vector<shared_ptr<sub_space>> gene);
 	void write_file();

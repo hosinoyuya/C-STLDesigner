@@ -4,6 +4,9 @@
 
 blx_crossover::blx_crossover(stl_config config) : crossover_base(config)
 {
+	capacitor_nums = config.capacitor_nums_;
+	cap_interval_change = config.cap_interval_change_;
+	line_lengths = config.line_lengths_;
 }
 
 
@@ -24,11 +27,45 @@ vector<shared_ptr<stl>> blx_crossover::crossover(int generation, int offspring_n
 	vector<shared_ptr<sub_space>> subspaces1 = parent1->sub_spaces_;
 	vector<shared_ptr<sub_space>> subspaces2 = parent2->sub_spaces_;
 
+	int count = 0;
+	int cap_place = 0;
+	int subspace_num = 0;
+	vector<double> length1 = {};
+	vector<double> length2 = {};
+	vector<double> cap_interval = {};
+	vector<double> cap_intervals_ = {};
+		
+	if (cap_interval_change == 1) {
+		for (int i = 0; i < subspaces1.size(); i++) {
+			if (subspaces1[i]->element_type_ != C_ELEMENT) {
+				length1.push_back(subspaces1[i]->segment_lengths_[0]);
+				length2.push_back(subspaces2[i]->segment_lengths_[0]);
+				count++;
+			}
+			if (count == capacitor_nums[cap_place] + 1) {
+				cap_interval = length_blx(length1, length2, line_lengths[subspace_num]);
+				cap_intervals_.insert(cap_intervals_.end(), cap_interval.begin(), cap_interval.end());
+				count = 0;
+				cap_place++;
+				subspace_num++;
+				length1.clear();
+				length2.clear();
+			}
+		}
+	}
+
 	for (int i = 0; i < config_.brother_num_; i++) {
 		vector<shared_ptr<sub_space>> new_subspaces;
+		int line_sub = 0;
 		for (size_t j = 0; j < subspaces1.size(); j++) {
 			shared_ptr<sub_space> new_subspace = make_shared<sub_space>(*subspaces1[j]);
-			crossover_subspace(subspaces1[j], subspaces2[j], new_subspace);
+			if (subspaces1[j]->element_type_ != C_ELEMENT && cap_interval_change == 1) {
+				crossover_subspace(subspaces1[j], subspaces2[j], cap_intervals_[line_sub], new_subspace);
+				line_sub++;
+			}
+			else {
+				crossover_subspace(subspaces1[j], subspaces2[j], 0, new_subspace);
+			}
 			new_subspaces.push_back(new_subspace);
 		}
 
@@ -42,7 +79,7 @@ vector<shared_ptr<stl>> blx_crossover::crossover(int generation, int offspring_n
 }
 
 
-void blx_crossover::crossover_subspace(shared_ptr<sub_space> parent1, shared_ptr<sub_space> parent2,
+void blx_crossover::crossover_subspace(shared_ptr<sub_space> parent1, shared_ptr<sub_space> parent2, double cap_intervals,
 	shared_ptr<sub_space> new_space)
 {
 	vector<double> segment_lengths1 = parent1->segment_lengths_;
@@ -61,7 +98,6 @@ void blx_crossover::crossover_subspace(shared_ptr<sub_space> parent1, shared_ptr
 		cerr << "segment num is not same!" << endl;
 		exit(0);
 	}
-
 	if (parent1->element_type_ == C_ELEMENT && parent2->element_type_ == C_ELEMENT) {
 		new_segment_capacitances = capacitance_blx(segment_capacitances1, segment_capacitances2);
 	}
@@ -70,7 +106,12 @@ void blx_crossover::crossover_subspace(shared_ptr<sub_space> parent1, shared_ptr
 		new_segment_impedances = impedance_blx(segment_impedances1, segment_impedances2);
 	}
 
-	new_space->segment_lengths_ = new_segment_lengths;
+	if (cap_interval_change == 1 && parent1->element_type_ != C_ELEMENT && parent2->element_type_ != C_ELEMENT) {
+		new_space->segment_lengths_.push_back(cap_intervals);
+	}
+	else {
+		new_space->segment_lengths_ = new_segment_lengths;
+	}
 	new_space->segment_impedances_ = new_segment_impedances;
 	new_space->segment_capacitances_ = new_segment_capacitances;
 
@@ -84,7 +125,6 @@ vector<double> blx_crossover::length_blx(vector<double> parent1, vector<double> 
 
 	double alpha = config_.blx_alpha_;
 	double minimum_length = config_.minimum_length_;
-
 	for (size_t i = 0; i < parent1.size(); i++) {
 		double deleta = fabs(parent1[i] - parent2[i]);
 		double range_max = max(parent1[i], parent2[i]) + deleta * alpha;
@@ -139,26 +179,28 @@ vector<double> blx_crossover::capacitance_blx(vector<double> parent1, vector<dou
 	vector<double> new_segment_capacitances;
 
 	double alpha = config_.blx_alpha_;
-	int maximum_capacitance = config_.maximum_capacitance_*1e12;
-	int minimum_capacitance = config_.minimum_capacitance_*1e12;
-	int capacitance_step = config_.capacitance_step_*1e12;
+	double maximum_capacitance = config_.maximum_capacitance_;
+	double minimum_capacitance = config_.minimum_capacitance_;
+	double capacitance_step = config_.capacitance_step_;
+	vector<double> capacitance_values = config_.capacitance_values_;
+	double new_capacitance;
+	double capacitance_tmp = maximum_capacitance;
 
 	for (size_t i = 0; i < parent1.size(); i++) {
-		double oya1 = parent1[i] * 1e12;
-		double oya2 = parent2[i] * 1e12;
-		double deleta = fabs(oya1 - oya2);
-		double range_max = (double)max(oya1, oya2) + deleta * alpha;
-		double range_min = (double)min(oya1, oya2) - deleta * alpha;
-		double double_random = stl_random::random_double(range_min, range_max);
-		int new_capacitance = (int)round(double_random / capacitance_step) * capacitance_step;
-		if (new_capacitance > maximum_capacitance) {
-			new_capacitance = maximum_capacitance;
+		double p1 = parent1[i];
+		double p2 = parent2[i];
+		double deleta = fabs(p1 - p2);
+		double range_max = max(p1, p2) + deleta * alpha;
+		double range_min = min(p1, p2) - deleta * alpha;
+		double cap_random = stl_random::random_double(range_min, range_max);
+		for (int j = 0; j < capacitance_values.size(); j++) {
+			double capacitance_diff = fabs(cap_random - capacitance_values[j]);
+			if (capacitance_diff < capacitance_tmp) {
+				capacitance_tmp = capacitance_diff;
+				new_capacitance = capacitance_values[j];
+			}
 		}
-		else if (new_capacitance < minimum_capacitance) {
-			new_capacitance = minimum_capacitance;
-		}
-
-		new_segment_capacitances.push_back(new_capacitance*1e-12);
+		new_segment_capacitances.push_back(new_capacitance);
 	}
 
 	return new_segment_capacitances;

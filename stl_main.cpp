@@ -25,7 +25,6 @@ void stl_main::run()
 	for (size_t i = 0; i < config_.seeds_.size(); i++) {
 		stl_config config_seed(config_);
 		config_seed.chane_outdirectory_seed(config_.seeds_[i]);
-
 		directory_init(config_seed);
 		log_init(config_seed);
 

@@ -44,7 +44,7 @@ void mgg::change(int generation, vector<shared_ptr<stl>>& population)
 shared_ptr<stl> mgg::extract_elete(vector<shared_ptr<stl>>& population)
 {
 	double min_value = DBL_MAX;
-	int return_position;
+	int return_position = 0;
 	for (size_t i = 0; i < population.size(); i++) {
 		if (population[i]->score_->value_ < min_value) {
 			min_value = population[i]->score_->value_;

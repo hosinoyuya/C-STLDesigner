@@ -13,6 +13,7 @@ stl::stl(string file_name, stl_config config, shared_ptr<single_score> score) : 
 	netlist_ = make_shared<netlist_base>(*template_);
 	netlist_->file_path_ = file_path_;
 	best_flag_ = false;
+	cap_interval_change = config.cap_interval_change_;
 }
 
 
@@ -28,7 +29,14 @@ stl::~stl()
 void stl::init_subspace()
 {
 	list<shared_ptr<element>> elements = netlist_->stl_circuit_->elements_;
-	shared_ptr<sub_space> sub;
+	
+	cap.clear();
+	if (cap_interval_change == 1) {
+		shared_ptr<sub_space>sub_tmp = make_shared<sub_space>(config_);
+		cap = sub_tmp->set_cap_interval();
+	}
+	
+		
 	list<shared_ptr<element>>::iterator element_itr = elements.begin();
 	while (element_itr != elements.end()) {
 		if (!(*element_itr)) {
@@ -43,7 +51,7 @@ void stl::init_subspace()
 		sub->set_element((*element_itr));
 		sub_spaces_.push_back(sub);
 		element_itr++;
-	}
+	}	
 }
 
 
@@ -51,7 +59,13 @@ void stl::random_gene_assignment()
 {
 	netlist_->stl_circuit_->copy_default_contents();
 	for (size_t i = 0; i < sub_spaces_.size(); i++) {
-		sub_spaces_[i]->split_random();
+		if (sub_spaces_[i]->element_type_ != C_ELEMENT && cap_interval_change == 1) {
+			sub_spaces_[i]->split_random(cap[0]);
+			cap.erase(cap.begin());
+		}
+		else {
+			sub_spaces_[i]->split_random(0);
+		}
 		netlist_->stl_circuit_->exchange_subspace(sub_spaces_[i]);
 	}
 }

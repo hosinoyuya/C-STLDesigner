@@ -19,4 +19,6 @@ public:
 private:
 	virtual void set_parameters(string key, string val);
 	virtual void set_spetialized_parameters(string key, string val) = 0;
+	void set_impedance(int impedance);
+	void set_length(double length);
 };

@@ -30,6 +30,7 @@ void ga_opt::generate_random_stl()
 {
 	string name;
 	shared_ptr<stl> stl_random;
+
 	for (int i = 0; i < config_.population_size_; i++) {
 		name = "STL_init_candidate" + to_string(i) + config_.netlist_extension_;
 		stl_random = make_shared<stl>(name, config_);

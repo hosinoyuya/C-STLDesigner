@@ -1,7 +1,6 @@
 #include "evaluate_functions.h"
 
 
-
 evaluate_functions::evaluate_functions()
 {
 }
@@ -31,7 +30,7 @@ void evaluate_functions::calc_fitting_integral(double time_interval, double shif
 	double diff1, diff2;
 	double score, min_score = numeric_limits<size_t>::max();
 	size_t shift_num = voltage1.size() * shift_ratio;
-	size_t shift;
+	size_t shift = 0;
 	for (size_t i = 0; i < shift_num; i++) {
 		score = 0;
 		for (size_t j = 0; j < voltage1.size() - 1; j++) {
@@ -51,7 +50,7 @@ void evaluate_functions::calc_fitting_integral(double time_interval, double shif
 
 
 void evaluate_functions::caluc_eye_size(double time_interval, double eye_time, double width_margin,
-	vector<double> &ideal_voltage, vector<double> &opt_voltage, int eye_hight_weight, int eye_width_weight, shared_ptr<point_score> &p_score)
+	vector<double> &ideal_voltage, vector<double> &opt_voltage, double eye_height_weight, double eye_width_weight, shared_ptr<point_score> &p_score)
 {
 	// 1ビット分のデータ数
 	int eye_size = eye_time / time_interval;
@@ -81,7 +80,7 @@ void evaluate_functions::caluc_eye_size(double time_interval, double eye_time, d
 	}
 
 	double max_volt = 0.0;
-	int eye_start;
+	int eye_start = 0;
 	for (int i = 0; i < eye_size; i++) {
 		eye_diagram[1][i] = eye_diagram[0][i] - max_voltage[i];
 		eye_diagram[2][i] = eye_diagram[3][i] + max_voltage[i];
@@ -125,7 +124,8 @@ void evaluate_functions::caluc_eye_size(double time_interval, double eye_time, d
 	double eye_height = eye_diagram[2][convex_point] - eye_diagram[1][convex_point];
 
 	//アイ開口幅、ジッタ、面積の読み取り
-	int start_point, end_point;
+	int start_point = 0;
+	int end_point = 0;
 	for (int i = 0; i < eye_size; i++) {
 		if (eye_diagram[1][i] < eye_diagram[2][i]) {
 			start_point = i;
@@ -142,8 +142,7 @@ void evaluate_functions::caluc_eye_size(double time_interval, double eye_time, d
 
 	double eye_width = (end_point - start_point) * time_interval;
 
-
 	if (eye_height < 0) eye_height = 0;
-	p_score->set(1.0 / ((eye_width / eye_time)*eye_width_weight + eye_height*eye_hight_weight));
-	p_score->set_eye_info(eye_diagram, eye_width, eye_height);
+	p_score->set(1.0 / ((eye_width / eye_time)*eye_width_weight + eye_height*eye_height_weight));
+	p_score->set_eye_info(eye_diagram, eye_width, eye_height);		
 }

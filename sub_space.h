@@ -25,7 +25,8 @@ public:
 	sub_space(const sub_space& from);
 	~sub_space();
 	void set_element(shared_ptr<element> elem);
-	void split_random();
+	vector<double> set_cap_interval();
+	void split_random(double interval);
 	void split();
 	vector<shared_ptr<element>> segments_;
 	string name_;
@@ -44,8 +45,13 @@ private:
 	double minimum_capacitance_;
 	double maximum_capacitance_;
 	double capacitance_step_;
+	vector<double> capacitance_values_;
 	double minimum_length_;
 	double length_step_;
+	vector<int> capacitor_nums_;
+	int cap_interval_change_;
+	vector<double> line_lengths_;
+	vector<double> cap_intervals_;
 	shared_ptr<element> element_;
 	vector<shared_ptr<node_point>> nodes_;
 	void parse_name();
@@ -54,7 +60,7 @@ private:
 	string first_name_;
 	vector<double> get_random_segment_length(double min, double max, int segment_num);
 	vector<int> get_random_segment_impedance(int imp_min, int imp_max, int imp_step, int segment_num);
-	vector<double> get_random_capacitance(double min, double max, double step, int segment_num);
+	vector<double> get_random_capacitance(double min, double max, double step, vector<double> values, int segment_num);
 	vector<string> get_segment_node(int index, int point_offset);
 	vector<string> get_segment_node_core(vector<shared_ptr<node_point>> nodes, int input, int output);
 	shared_ptr<element> get_segment_element(int index, vector<string> point, double segment_length, int segment_impedance);

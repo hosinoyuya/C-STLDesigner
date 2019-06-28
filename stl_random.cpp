@@ -40,10 +40,10 @@ int stl_random::frand_between(int min, int max, int step)
 	return min + rand * step;
 }
 
-double stl_random::frand_between_double(int min, int max, int step)
+double stl_random::frand_between_double(double min, double max, double step)
 {
-	int range = max - min;
-	int num = range / step;
-	int rand = random_int(0, num);
-	return (min + rand * step)*1e-12;
+	double range = max - min;
+	double num = range / step;
+	double rand = random_int(0, num);
+	return min + rand * step;
 }

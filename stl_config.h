@@ -40,8 +40,13 @@ public:
 	double minimum_capacitance_;
 	double maximum_capacitance_;
 	double capacitance_step_;
+	vector<double> capacitance_values_;
+	int cap_interval_change_;
+	vector<int> capacitor_nums_;
 	double minimum_length_;
 	double length_step_;
+	vector<double> line_lengths_;
+	vector<double> sub_space_lengths_;
 	vector<int> seeds_;
 	// int optimizing_seed_;
 	string optimization_;
@@ -65,8 +70,8 @@ public:
 	bool use_multithread_;
 	void chane_outdirectory_seed(int seed);
 	string ga_algorithm_;
-	int eye_hight_weight_;
-	int eye_width_weight_;
+	double eye_height_weight_;
+	double eye_width_weight_;
 	double mutation_;
 	string mutation_type_;
 	double shift_ratio_;

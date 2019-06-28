@@ -28,14 +28,50 @@ vector<shared_ptr<stl>> one_point_crossover::crossover(int generation, int offsp
 	vector<shared_ptr<sub_space>> new_subspaces1;
 	vector<shared_ptr<sub_space>> new_subspaces2;
 
-	for (size_t i = 0; i < subspaces1.size(); i++) {
-		shared_ptr<sub_space> new_subspace1 = make_shared<sub_space>(*subspaces1[i]);
-		shared_ptr<sub_space> new_subspace2 = make_shared<sub_space>(*subspaces2[i]);
+	vector<double> capacitances1;
+	vector<double> capacitances2;
+	vector<double> capacitance_tmp;
+	int subspace_size = subspaces1.size();
 
-		crossover_subspace(subspaces1[i], subspaces2[i], new_subspace1, new_subspace2);
+	cout << "one_point" << endl;
 
-		new_subspaces1.push_back(new_subspace1);
-		new_subspaces2.push_back(new_subspace2);
+	if (subspaces1[0]->element_type_ == C_ELEMENT) {
+		for (int i = 0; i < subspace_size; i++) {
+			capacitances1.push_back(subspaces1[i]->segment_capacitances_[0]);
+			capacitances2.push_back(subspaces2[i]->segment_capacitances_[0]);
+			//cout << capacitances1[i] << "," << capacitances2[i] << endl;
+		}
+
+		int cross_point1 = stl_random::random_int(0, subspace_size-2);
+		int cross_point2 = stl_random::random_int(cross_point1, subspace_size-1);
+		
+		for (int j = cross_point1; j < cross_point2; j++) {
+			capacitance_tmp.push_back(capacitances1[j]);
+			capacitances1[j] = capacitances2[j];
+			capacitances2[j] = capacitance_tmp[j-cross_point1];
+		}
+		//cout << cross_point1 << "," << cross_point2 << endl;
+		for (int k = 0; k < subspace_size; k++) {
+			subspaces1[k]->segment_capacitances_[0] = capacitances1[k];
+			subspaces2[k]->segment_capacitances_[0] = capacitances2[k];
+
+			//cout << capacitances1[k] << "," << capacitances2[k] << endl;
+
+			new_subspaces1.push_back(subspaces1[k]);
+			new_subspaces2.push_back(subspaces2[k]);
+		}
+
+	}
+	else {
+		for (size_t i = 0; i < subspaces1.size(); i++) {
+			shared_ptr<sub_space> new_subspace1 = make_shared<sub_space>(*subspaces1[i]);
+			shared_ptr<sub_space> new_subspace2 = make_shared<sub_space>(*subspaces2[i]);
+
+			crossover_subspace(subspaces1[i], subspaces2[i], new_subspace1, new_subspace2);
+
+			new_subspaces1.push_back(new_subspace1);
+			new_subspaces2.push_back(new_subspace2);
+		}
 	}
 
 	// “Ë‘R•ÏˆÙ

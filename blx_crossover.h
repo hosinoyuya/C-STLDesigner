@@ -19,8 +19,11 @@ public:
 	~blx_crossover();
 	virtual vector<shared_ptr<stl>> crossover(int generation, int offspring_num, shared_ptr<stl> parent1, shared_ptr<stl> parent2);
 private:
-	void crossover_subspace(shared_ptr<sub_space> parent1, shared_ptr<sub_space> parent2,
+	void crossover_subspace(shared_ptr<sub_space> parent1, shared_ptr<sub_space> parent2, double cap_intervals, 
 		shared_ptr<sub_space> new_space);
+	vector<int> capacitor_nums;
+	vector<double> line_lengths;
+	int cap_interval_change;
 	vector<double> length_blx(vector<double> parent1, vector<double> parent2, double total_length);
 	vector<int> impedance_blx(vector<int> parent1, vector<int> parent2);
 	vector<double> capacitance_blx(vector<double> parent1, vector<double> parent2);

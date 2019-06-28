@@ -33,6 +33,7 @@ void stl_config::set_default()
 	capacitance_step_ = 1e-12;
 	minimum_length_ = 0.001;
 	length_step_ = 0.0005;
+	line_lengths_ = { 0.1, 0.35, 0.15 };
 	impedance_type_[40] = 6407e-12;
 	impedance_type_[45] = 6355e-12;
 	impedance_type_[50] = 6308e-12;
@@ -50,6 +51,11 @@ void stl_config::set_default()
 	impedance_type_[110] = 5980e-12;
 	impedance_type_[115] = 5965e-12;
 	impedance_type_[120] = 5954e-12;
+	for (int i = 0; i <= (maximum_capacitance_ - minimum_capacitance_) / capacitance_step_; i++) {
+		capacitance_values_.push_back(minimum_capacitance_ + i * capacitance_step_);
+	}
+	cap_interval_change_ = 0;
+	capacitor_nums_ = { 1, 6, 2 };
 	seeds_ = { 1, 2 };
 	optimization_ = "ga";
 	spice_name_ = "hspice";
@@ -69,7 +75,7 @@ void stl_config::set_default()
 	score_normalize_ = true;
 	score_calc_methods_["optpt1"] = "integral";
 	score_calc_methods_["optpt2"] = "integral";
-	eye_hight_weight_ = 1;
+	eye_height_weight_ = 1;
 	eye_width_weight_ = 1;
     server_num_ = 1;
 	use_multithread_ = false;
@@ -166,11 +172,32 @@ void stl_config::set_parameters(YAML::Node config) {
 		else if (key == "capacitance_step") {
 			capacitance_step_ = unit_change::unit_decode(it->second.as<string>());
 		}
+		else if (key == "capacitance_values") {
+			capacitance_values_.clear();
+			for (YAML::const_iterator it2 = it->second.begin(); it2 != it->second.end(); it2++) {
+				capacitance_values_.push_back(unit_change::unit_decode(it2->as<string>()));
+			}
+		}
+		else if (key == "cap_interval_change") {
+			cap_interval_change_ = it->second.as<int>();
+		}
+		else if (key == "capacitor_nums") {
+			capacitor_nums_.clear();
+			for (YAML::const_iterator it2 = it->second.begin(); it2 != it->second.end(); it2++) {
+				capacitor_nums_.push_back(it2->as<int>());
+			}
+		}
 		else if (key == "minimum_length") {
 			minimum_length_ = unit_change::unit_decode(it->second.as<string>());
 		}
 		else if (key == "length_step") {
 			length_step_ = unit_change::unit_decode(it->second.as<string>());
+		}
+		else if (key == "line_length") {
+			line_lengths_.clear();
+			for (YAML::const_iterator it2 = it->second.begin(); it2 != it->second.end(); it2++) {
+				line_lengths_.push_back(it2->as<int>());
+			}
 		}
 		else if (key == "imptype") {
 			impedance_type_.clear();
@@ -262,8 +289,8 @@ void stl_config::set_parameters(YAML::Node config) {
 				score_calc_methods_.insert(pair<string, string>(it2->begin()->as<string>(), (++(it2->begin()))->as<string>()));
 			}
 		}
-		else if (key == "eye_hight_weight") {
-			eye_hight_weight_ = it->second.as<double>();
+		else if (key == "eye_height_weight") {
+			eye_height_weight_ = it->second.as<double>();
 		}
 		else if (key == "eye_width_weight") {
 			eye_width_weight_ = it->second.as<double>();

@@ -110,6 +110,7 @@ void element::separate_parameters(vector<string> items)
 			key = "";
 			val = separeted_item[0];
 		}
+		
 		set_parameters(key, val);
 	}
 }
@@ -138,8 +139,6 @@ void element::set_nodes(vector<string> nodes)
 
 void element::set_impedance(int impedance)
 {
-	impedance_ = make_shared<char_impedance>(*impedance_);
-	impedance_->value_ = impedance;
 }
 
 
@@ -152,14 +151,11 @@ void element::set_capacitance(double capacitance_value)
 
 void element::set_length(double length)
 {
-	length_ = make_shared<line_length>(*length_);
-	length_->value_ = length;
 }
 
 string element::to_str()
 {
 	string return_string = name_ + "\t";
-	i++;
 	for (size_t i = 0; i < nodes_.size(); i++) {
 		return_string += nodes_[i]->to_str() + "\t";
 	}

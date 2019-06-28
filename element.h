@@ -35,7 +35,6 @@ public:
 	shared_ptr<char_impedance> impedance_;
 	virtual string to_str();
 	virtual string get_param_str() = 0;
-	int i = 0;
 private:
 	static shared_ptr<element> generate(string name);
 	bool is_node(string node);
