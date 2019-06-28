@@ -1,7 +1,17 @@
 C-STLDesigner3について
 
+STLDesigner3.exeをコマンドプロンプトで実行して設計を行います。
+(コマンド引数は同様に.ymlファイルのパスにしてください)
+
+※.ymlの作り方についてはconfigフォルダに、SPICEファイルの作り方はtemplateフォルダに
+それぞれまとめます。
+
+設計結果のSPICESファイルについてはoutputフォルダが作成され、保存されます。
+
+
+
 現在、C-STLDesigner3はvisual studioで開発・実行をしているため、
-それに沿って使い方をまとめます。
+visual studioを使った使い方もまとめます。
 
 (事前準備)HSPICEを環境変数のPATHに追加する
 
@@ -16,12 +26,6 @@ C-STLDesigner3について
 
 実際に設計する際は、プロパティからデバック→コマンド引数を任意の.ymlファイルのパスに
 設定し、デバックなしで開始をすれば設計が開始します。
-また、visual studioのソリューション構成がReleaseになっていることを確認し、ビルドを行うと
-C-STLDesigner3のReleaseフォルダ内にSTLdesigner3.exeができます。これをコマンドプロンプトで
-実行しても設計を行えます。(コマンド引数は同様に.ymlファイルのパスにしてください)
 
-※.ymlの作り方についてはconfigフォルダに、SPICEファイルの作り方はtemplateフォルダに
-それぞれまとめます。
 
-設計結果のSPICESファイルはoutputフォルダに保存されます。
 
